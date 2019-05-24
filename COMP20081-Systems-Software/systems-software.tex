@@ -6,6 +6,7 @@
 \usepackage[export]{adjustbox}
 \usepackage[document]{ragged2e}
 \usepackage[parfill]{parskip}
+\usepackage{amsmath}
 
 \begin{document}
 
@@ -2068,5 +2069,125 @@ In the example above, the operations in the whole computation can be viewed as b
 
 However, in general, concurrent execution is non-deterministic, and therefore the same input generally means different output due to ordering. This is because there are many cases where the order of operation does matter.
 
+
+\section{Interleaving}
+
+\section*{Why is interleaving required?}
+
+Concurrent execution on a computer system with a multi-core CPU or multiple CPUs can make use of parallel processing in order to run threads asynchronously. However, this is not possible on a computer system with a single-CPU that consists of only one core.
+
+As a result, interleaving is used in order to switch execution between threads.
+
+It is important to note that the operations within each thread are strictly ordered, but the interleaving of the operations are not ordered and are interleaved in an unpredictable order.
+
+
+\section*{Calculating interleavings}
+
+\subsection*{Formula}
+
+It is possible to calculate the number of interleavings given the formula:
+\begin{equation*}
+	\text{number of interleavings} = \frac{t_{1} + t_{2} + ... + t_{n}}{t_{1}!t_{2}!...t_{n}}
+\end{equation*}
+where
+\begin{itemize}
+	\item $t_{n}$ represents the number of statements/operations in each thread.
+\end{itemize}
+
+For example, in a concurrent program that has two threads, the formula may be adjusted to:
+\begin{equation*}
+	\text{number of interleavings} = \frac{(n + m)!}{n!m!}
+\end{equation*}
+where
+\begin{itemize}
+	\item $n$ represents the number of statements/operations in the first thread ($t_{1}$); and
+	\item $m$ represents the number of statements/operations in the second thread ($t_{2}$).
+\end{itemize}
+
+
+\subsection*{Example}
+
+A high-level concurrent program may spawn new threads.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-3/concurrent-program-spawing-threads.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Concurrent program spawning threads $t_{1}$ and $t_{2}$}
+  \end{minipage}}
+\end{figure}
+
+In this example, the concurrent program spawns the threads $t_{1}$ and $t_{2}$ where:
+\begin{longtabu} to \textwidth { X[1.5,l] X[0.2,l] X[3,l]}
+	\textbullet $t_{1}$ has three statements & -- &
+	A, B and C; and
+	\\
+	\textbullet $t_{2}$ has two statements & -- &
+	S and T.
+\end{longtabu}
+
+There are two threads and therefore it is possible to use the adjusted formula to calculate the number of interleavings in this concurrent program:
+
+\begin{equation*}
+	\begin{aligned}
+		\text{number of interleavings} & = \frac{(n + m)!}{n!m!} \\
+		\text{number of interleavings} & = \frac{(3 + 2)!}{3! \times 2!} \\
+		\text{number of interleavings} & = \frac{6!}{3! \times 2!} \\
+		\text{number of interleavings} & = \frac{6\times5\times4\times3\times2\times1}{(3\times2\times1)\times(2\times1)} \\
+		\text{number of interleavings} & = \frac{120}{6\times2} \\
+		\text{number of interleavings} & = \frac{120}{12} \\
+		\text{number of interleavings} & = 10
+	\end{aligned}
+\end{equation*}
+
+There are 10 possible interleavings, thus yielding 10 possible different execution sequences.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-3/possible-execution-sequences.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Visual representation of the possible execution sequences}
+  \end{minipage}}
+\end{figure}
+
+A run of the program corresponds to an interleaving sequence. Each interleaving sequence determines a unique sequence of executing the statements. Repeated runs with the same input will likely trace different interleavings.
+
+
+\subsection*{Growth of interleavings}
+
+The number of interleavings grows extremely quickly given an increase in:
+\begin{itemize}
+	\item the number of threads in the concurrent program; or
+	\item the number of statements/operations in one or more of the concurrent program’s threads.
+\end{itemize}
+
+This can be demonstrated by increasing the number of operations in the previous example:
+\begin{longtabu} to \textwidth { X[2,l] X[0.2,l] X[3,l]}
+	\textbullet $t_{1}$ now has four statements  & -- &
+	A, B, C and D; and
+	\\
+	\textbullet $t_{2}$ now has five statements  & -- &
+	S, T, U, V and W.
+\end{longtabu}
+and therefore:
+\begin{equation*}
+	\begin{aligned}
+		\text{number of interleavings} & = \frac{(n + m)!}{n!m!} \\
+		\text{number of interleavings} & = \frac{(4 + 5)!}{4!\times5!} \\
+		\text{number of interleavings} & = \frac{9!}{4!\times5!} \\
+		\text{number of interleavings} & = \frac{9\times8\times7\times6\times5\times4\times3\times2\times1}{(4\times3\times2\times1)\times(5\times4\times3\times2\times1)} \\
+		\text{number of interleavings} & = \frac{362880}{24\times120} \\
+		\text{number of interleavings} & = \frac{362880}{2880} \\
+		\text{number of interleavings} & = 126
+	\end{aligned}
+\end{equation*}
 
 \end{document}
