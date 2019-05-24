@@ -2016,4 +2016,57 @@ Sequential execution has the following assumptions:
 However, this does not apply in many practical applications, for which a sequence of steps is not required.
 
 
+\section{Introduction to concurrent execution}
+
+\section*{Definition}
+
+\textbf{Concurrent execution} is where the execution of threads in a concurrent program is occurring asynchronously, meaning that the order in which tasks are executed is not predetermined.
+
+
+\section*{The squares example}
+
+In this hypothetical example, a person desires to have a list with the results of all of the squares (2$^{n}$) from 1 to 100000. 
+
+A group of 100000 people are spilt in to heavily uneven teams and assigned the same task to complete all of the calculations in order to achieve the desired result.
+
+It is given that each calculation takes n amount of time.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[2,l] | X[1,l] | X[2,l] |}
+    \hline
+    \multicolumn{2}{|c|}{\textbf{Team 1}}
+    & \multicolumn{2}{|c|}{\textbf{Team 2}}
+    \\ \hline
+    Number of members & 1
+    & Number of members & 99999
+    \\ \hline
+    Strategy &
+    One person should complete all of the calculations.
+    & Strategy &
+    Each member is assigned a number between 1 to 100000.
+
+	Each member should calculate the respective square for the number they are assigned.
+	\\ \hline
+    Time taken & 100000n
+    & Time taken & n
+	\\ \hline
+\end{longtabu}
+
+This shows that Team 2 was 100000x faster than Team 1. This was because it was possible to decompose the larger task in to smaller sub-tasks and assign each of those tasks to a separate resource, which in this case is one person.
+
+This example forms that basic concept of concurrent execution.
+
+
+\section*{The nature of concurrent execution}
+
+Concurrent execution dismisses many of the assumptions required for sequential execution (page 41).
+
+Calculations may be carried out without total ordering. As a result, calculations may be carried out in parallel and overlapping is therefore allowed.
+
+In the example above, each individual person in team 2 carried out their operations in sequence.
+
+In the example above, the operations in the whole computation can be viewed as being in partial order. However, the order does not matter here because there is no dependency between the calculations. This is because the output from any given calculation is not required as an input to any other given calculation.
+
+However, in general, concurrent execution is non-deterministic, and therefore the same input generally means different output due to ordering. This is because there are many cases where the order of operation does matter.
+
+
 \end{document}
