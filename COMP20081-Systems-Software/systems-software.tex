@@ -2262,4 +2262,137 @@ If one user thread is blocked, all other threads in the same process are schedul
 Can take advantage of parallel execution on computer systems with a multi-core CPU or computer systems with multiple CPUs.
 
 
+
+\section{Multi-threading models}
+
+\section*{Why is multi-threading mapping required?}
+
+The kernel is generally not aware of the user threads present in a process. Therefore, a thread library must map user threads to kernel threads.
+
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-3/multi-threading-mapping.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Multi-threading mapping}
+  \end{minipage}}
+\end{figure}
+
+The diagram shows that there must be some relationship between the user threads and the kernel threads. This relationship may defined using different mappings, including:
+\begin{itemize}
+	\item many-to-one;
+	\item one-to-one; and
+	\item many-to-many.
+\end{itemize}
+
+
+\section*{Many-to-one mapping}
+
+\subsection*{How it works}
+
+All user threads from each process map to one kernel thread.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-3/many-to-one-mapping.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Many-to-one mapping}
+  \end{minipage}}
+\end{figure}
+
+
+\subsection*{Evalution}
+
+\begin{longtabu} to \textwidth {|X[1,l]|X[1,l]|}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+    \\ \hline
+    \textbf{Portable} as there are few system dependencies.
+    &
+    \textbf{No parallel execution of threads}.
+    \\ \hline
+    &
+    \textbf{No concurrency} as all threads in a process are blocked if another thread is blocked, for example if the thread is waiting for an input/output (I/O) interrupt.
+	\\ \hline
+\end{longtabu}
+
+
+\section*{One-to-one mapping}
+
+\subsection*{How it works}
+
+Each user thread maps to a single kernel thread.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-3/one-to-one-mapping.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{One-to-one mapping}
+  \end{minipage}}
+\end{figure}
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {|X[1,l]|X[1,l]|}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+    \\ \hline
+    \textbf{Concurrency} as all threads in a process are not blocked if any given thread becomes blocked.
+    &
+    \textbf{Slow} as there is management overhead because the kernel is involved for every user thread.
+    \\ \hline
+    \textbf{Performance} as it can take advantage of multiple CPUs.
+    &
+    \textbf{Restricted} as there is typically a limit on the number of threads.
+	\\ \hline
+    &
+    \textbf{Creating user threads requires the corresponding kernel support}.
+	\\ \hline
+\end{longtabu}
+
+
+\section*{Many-to-many mapping}
+
+\subsection*{How it works}
+
+Many user threads multiplex to an equal or smaller number of kernel threads.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-3/many-to-many-mapping.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Many-to-many mapping}
+  \end{minipage}}
+\end{figure}
+
+\begin{longtabu} to \textwidth {|X[1,l]|X[1,l]|}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+    \\ \hline
+    \textbf{Performance} as it can take advantage of multiple CPUs.
+    &
+    \textbf{Complexity} and therefore implementation difficulties.
+    \\ \hline
+    \textbf{Flexible} as there is no limit on the number of threads.
+    &
+	\\ \hline
+\end{longtabu}
+
 \end{document}
