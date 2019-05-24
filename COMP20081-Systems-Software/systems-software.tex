@@ -1912,10 +1912,108 @@ The program may be run on both:
     &
     \textbf{Requires support from the operating system} as it must support multi-threading in order to allow multitasking on a single-CPU system and/or interface and manage multiple CPU units on a multi-CPU system.
     \\ \hline
-    &
     \textbf{Increased reliability in a multi-CPU system} because failure of one processor does not affect the other processors, instead the computer system may experience lower performance until fixed.
+    &
 	\\ \hline
 \end{longtabu}
+
+
+\section{Sequential execution}
+
+\section*{Definition}
+
+Sequential execution is where the execution of threads in a sequential program is executed in sequence/order with no overlapping.
+
+
+\section*{Order and precedence}
+
+\subsection*{Explanation}
+
+In sequential execution, there is only one possible sequence of execution. This is because a sequential program gives the system strict instructions on the order of executing the statements in the program.
+
+
+\subsection*{Importance}
+
+For example, a simple hypothetical program could be:
+\begin{itemize}
+	\item[] P;
+	\item[] Q;
+	\item[] R;
+\end{itemize}
+
+This tells the computer system that the statements must be executed in the order they are written, such that:
+\begin{itemize}
+	\item P must precede Q; and
+	\item Q must precede R.
+\end{itemize}
+
+
+\subsection*{High level}
+
+The importance of the order of precedence can be highlighted by demonstrating this idea in a high-level programming language.
+
+Given the following program written in a high-level language:
+\begin{itemize}
+	\item[] x = 1;
+	\item[] y = x + 1;
+	\item[] x = y + 2;
+\end{itemize}it is possible to see that the final values of x and y depend on the order of execution of the statements.
+
+
+\subsection*{System level}
+
+Given the following program written in a high-level language:
+\begin{itemize}
+	\item[] x = 1; \textbf{P}
+	\item[] y = x + 1; \textbf{Q}
+	\item[] x = y + 2; \textbf{R}
+\end{itemize}
+where each statement is assigned a letter respectively, each statement may be compiled in to several machine instructions.
+
+Statement \textbf{P} is treated as a single machine instruction:
+\begin{itemize}
+	\item \textbf{P1}: store 1 at the memory address of x.
+\end{itemize}
+
+Statement \textbf{Q} is broken in to three machine instructions:
+\begin{itemize}
+	\item \textbf{Q1}: load the value of x in to a CPU register;
+	\item \textbf{Q2}: increment the value in this register by 1; and
+	\item \textbf{Q3}: store the value in this register at the memory address of y.
+\end{itemize}
+
+Statement \textbf{R} is broken in to three machine instructions:
+\begin{itemize}
+	\item \textbf{R1}: load the value add of y in to a CPU register;
+	\item \textbf{R2}: increment the value in this register by 2; and
+	\item \textbf{R3}: store the result at the memory address of x.
+\end{itemize}
+
+
+\section*{The nature of sequential execution}
+
+The execution of statements \textbf{P}, \textbf{Q} and \textbf{R} at the program level (or high-level) as
+
+	\indent \textbf{P} $\rightarrow$ \textbf{Q} $\rightarrow$ \textbf{R}
+	
+implies that the execution at the system level is as follows
+
+	\indent \textbf{P1} $\rightarrow$ \textbf{Q1} $\rightarrow$ \textbf{Q2} $\rightarrow$ \textbf{Q3} $\rightarrow$ \textbf{R1} $\rightarrow$ \textbf{R2} $\rightarrow$ \textbf{R3},
+	
+given that \textbf{P} is compiled to a single machine instruction, whilst \textbf{Q} and \textbf{R} are compiled to three machine instructions – as seen on page 40.
+
+Sequential execution has the following assumptions:
+\begin{longtabu} to \textwidth { X[1.7,l] X[0.2,l] X[7,l]}
+	\textbullet total ordering & -- &
+	there is single-threaded computation, and therefore no overlap in the execution of the statements;
+	\\
+	\textbullet deterministic & -- &
+	the same input will always result in the same output; and
+	\\
+	\textbullet sequence & -- &
+	users will specify a strict sequence of steps required in order to achieve a desired goal.
+\end{longtabu}
+However, this does not apply in many practical applications, for which a sequence of steps is not required.
 
 
 \end{document}
