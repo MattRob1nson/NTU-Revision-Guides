@@ -2190,4 +2190,76 @@ and therefore:
 	\end{aligned}
 \end{equation*}
 
+
+\newpage
+
+\section{User and kernel threads}
+
+\section*{User threads}
+
+User threads are created and managed by a user level library, typically without the knowledge of the kernel.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-3/user-threads.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{User threads}
+  \end{minipage}}
+\end{figure}
+
+The diagram shows that:
+\begin{itemize}
+	\item all of the threads for a given process is present within the user space; and
+	\item the thread table is present within the process.
+\end{itemize}
+
+User threads are:
+\begin{itemize}
+	\item fast to create and manage; and
+	\item portable to any operating system (OS).
+\end{itemize}
+
+If one user thread is blocked, all other threads in the same process are also blocked. For example, in a word processor application, a thread that handles a printing event would block all other threads and therefore prevent the user from interacting with other aspects of the application.
+
+Multi-threaded applications cannot take advantage of parallel execution on computer systems with a multi-core CPU or computer systems with multiple CPUs.
+
+\newpage
+
+\section*{Kernel threads}
+
+Kernel threads are directly managed and supported by the operating system’s (OS’s) kernel.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-3/kernel-threads.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Kernel threads}
+  \end{minipage}}
+\end{figure}
+
+The diagram shows that:
+\begin{itemize}
+	\item all of the threads for a given process is present within the user space; and
+	\item the thread table is present within the kernel space, rather than the process itself or the user space.
+\end{itemize}
+
+Kernel threads are:
+\begin{itemize}
+	\item slower to create and manage than user threads; and
+	\item specific to the operating system (OS).
+\end{itemize}
+
+If one user thread is blocked, all other threads in the same process are scheduled and not blocked. For example, in a word processor application, a thread that handles a printing event would no longer block all other threads and therefore would allow the user to interacting with other aspects of the application whilst the printing event occurs.
+
+Can take advantage of parallel execution on computer systems with a multi-core CPU or computer systems with multiple CPUs.
+
+
 \end{document}
