@@ -2395,4 +2395,42 @@ Many user threads multiplex to an equal or smaller number of kernel threads.
 	\\ \hline
 \end{longtabu}
 
+
+\newpage
+
+\section{Evaluation of concurrent programming}
+
+\begin{longtabu} to \textwidth {|X[1,l]|X[1,l]|}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+    \\ \hline
+    \textbf{Parallelism.} It improves the efficiency of program execution in computer systems with multiple CPUs by allows tasks/operations to be split up and executed independently on each CPU.
+    &
+    \textbf{Debugging complexity} as concurrent programs are non-deterministic and therefore it can be difficult to trace a problem/bug in the code as the same input will generally not result in the same output.  
+    \\ \hline
+    \textbf{Multi-tasking.} It improves the utilisation of the CPU in a computer system that only has a single CPU. This allows multiple tasks/operations to run alongside each other and appear to be processed simultaneously.
+    &
+    \textbf{No protection between threads}.
+    \\ \hline
+    \textbf{Increases application responsiveness}, for example, in a word processor application one thread could be responsible for responding to user input/output (I/O) while other threads perform tasks in the background.
+    &
+    \textbf{Concurrent processes must interact with each other} in order to share resources or exchange data.
+    \\ \hline
+    \textbf{Suited to some applications} as there are some practical applications that are non-deterministic and concurrent as the order of program operations is determined by other external events. This is useful for applications that need to handle multiple events.
+    &
+    \textbf{Synchronisation must be promoted} in order to determine when, how and with what language abstractions computation events can be synchronised in order to eliminate unacceptable outputs.
+    \\ \hline
+    &
+    \textbf{Distribution must be taken care of} in order to consider how threads can be distributed among a number of CPUs and how one thread is able to interact with another thread on a different CPU.
+    \\ \hline
+    &
+    \textbf{Error-prone}.
+	Examples of major concurrent programming errors include:
+	\begin{itemize}
+		\item Therac-25	- A computerised radiation therapy machine whose errors contributed to accidents causing deaths and serious injuries.
+		\item Mars Rover Pathfinder	– Problems with interaction between concurrent tasks caused periodic software resets, thus reducing availability for exploration.
+	\end{itemize}
+	\\ \hline
+\end{longtabu}
+
 \end{document}
