@@ -2433,4 +2433,103 @@ Many user threads multiplex to an equal or smaller number of kernel threads.
 	\\ \hline
 \end{longtabu}
 
+
+\chapter{Memory Management}
+
+\section{Race condition}
+
+\section*{Definition}
+
+A \textbf{race condition} describes the competition for resources in a critical section caused by interleaving/thread interference.
+
+
+\section*{Why do race conditions happen?}
+
+Race conditions occur due to interleaving/thread interference.
+
+\textbf{Interleaving/thread interference} describes an undesired outcome resulting from non-deterministic, concurrent usage of shared resources.
+
+This happens because, in general, concurrent execution is non-deterministic, and therefore the same input generally means different output due to ordering. This is because there are many cases where the order of operation does matter.
+
+
+\section*{Examples}
+
+\subsection*{Racing for memory access}
+
+A race condition may occur when two threads attempt to access the same location memory, such as registers or RAM, at the same time.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/concurrent-program-spawning-threads.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Concurrent program spawning threads $t_{1}$ and $t_{2}$}
+  \end{minipage}}
+\end{figure}
+
+In this example, the two threads $t_{1}$ and $t_{2}$ manipulate the same variable where:
+\begin{itemize}
+	\item $t_{1}$ increments the variable $c$; and
+	\item $t_{2}$ decrements the variable $c$.
+\end{itemize}
+As seen before (page 40), each statement may be compiled in to several machine instructions.
+
+The increment ($c++$) instruction is broken in to three machine instructions:
+\begin{itemize}
+	\item retrieve $c$;
+	\item increment retrieved value; and
+	\item store result in $c$.
+\end{itemize}
+
+The decrement ($c--$) instruction is also broken in to three machine instructions:
+\begin{itemize}
+	\item retrieve $c$;
+	\item decrement retrieved value; and
+	\item store result in $c$.
+\end{itemize}
+
+As a result, one interleaving possibility is as follows:
+\begin{itemize}
+	\item $t_{1}$: retrieve $c$;
+	\item $t_{2}$: retrieve $c$;
+	\item $t_{1}$: increment retrieved value; (result is $1$)
+	\item $t_{2}$: decrement retrieved value; (result is $-1$)
+	\item $t_{1}$: store result in $c$; ($c$ is now 1)
+	\item $t_{2}$: store result in $c$; ($c$ is now -1)
+\end{itemize}
+
+This example shows that the race condition has caused the result from thread $t_{1}$ to be lost as it has been overwritten by the result from thread $t_{2}$.
+
+
+\subsection*{Racing for peripheral access}
+
+A race condition may also occur when two threads attempt to access the same peripheral, such as a printer spooler directory, at the same time.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/printer-spooler-directory.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Printer spooler directory}
+  \end{minipage}}
+\end{figure}
+
+In this example, the two processes $A$ and $B$ attempt to access the printer spooler directory at the same time:
+\begin{itemize}
+	\item the next available printer job slot is $7$;
+	\item process $A$ and $B$ access printer job slot $7$ simultaneously;
+	\item process $A$ reads printer job slot $7$ and a timer interrupt occurs that causes a context switch to process $B$ before process $A$ has opportunity to store any data;
+	\item process $B$ reads printer job slot $7$ and stores its job data and increments the values; and
+	\item another timer interrupt occurs that causes a context switch to process $A$ that then stores its job at printer job slot $7$.
+\end{itemize}
+
+This example shows that the race condition has caused the job data stored in the printer spooler directory by process $B$ to be lost as it has been overwritten by the job data from process $A .
+
+
 \end{document}
