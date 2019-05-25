@@ -3866,8 +3866,74 @@ When a process is loading, the \textbf{loader} is responsible for transferring t
 
 It is not possible to determine where the program is loaded in physical memory as its location depends on the current contents of memory. As a result, the program's code cannot refer to fixed memory addresses.
 
-As discovered before, machine instructions should not directly access the physical address space and therefore logical addresses are used. These must be converted to physical addresses.
+As discovered before, machine instructions should not directly access the physical address space and therefore logical addresses are used. These must be converted to physical addresses by the Memory Management Unit (MMU).
+
+
+\section{Memory Management Unit (MMU)}
+
+\section*{Definition}
 
 The \textbf{Memory Management Unit (MMU)} is responsible for the logical-physical conversion. This is achieved by using registers to record the location of the partition in order to map the logical addresses to the correct physical addresses.
+
+
+\newpage
+
+\section*{Base and limit registers}
+
+The \textbf{base register} stores the start address of the partition.
+
+The \textbf{limit register} stores the length of the partition.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/base-and-limit-registers.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Base and limit registers between CPU and RAM}
+  \end{minipage}}
+\end{figure}
+
+
+\section*{Memory protection and relocation}
+
+\subsection*{Definitions}
+
+\begin{itemize}
+	\item \textbf{Relocation} -- The base register value is added to the logical address in order to map the logical address to a physical address.
+	\item \textbf{Protection} -- Logical addresses that are greater than the limit register value should point to an invalid memory location. This check ensures that the logical address is within the range of the partition in order to ensure that a process is only accessing its own logical address space.
+\end{itemize}
+
+
+\subsection*{How it works}
+
+The address part of a given machine instruction is used as an offset from the base address.
+
+For example, a machine instruction may have
+\begin{itemize}
+	\item a base address of \texttt{101}; and
+	\item the instruction \texttt{JMP}.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/memory-protection-and-relocation.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Base and limit registers between CPU and RAM}
+  \end{minipage}}
+\end{figure}
+
+The operating system (OS) would be responsible for allowing the process to access the memory location desired by the process after the \texttt{JMP} instruction.
+
+The \texttt{JMP 5} shows a logical address of \texttt{5}, while the physical address has a base of \texttt{101} and therefore the resulting physical address is \texttt{106}.
+
+In this scenario, if the machine instruction contained \texttt{JMP 100} instead, there would be an invalid memory location error. This is because the \texttt{JMP 100} instruction would result in a physical address of \texttt{201}. This violates the logical address limit of \texttt{100} and the physical address limit of \texttt{201} and therefore this error must be thrown for protection.
+
 
 \end{document}
