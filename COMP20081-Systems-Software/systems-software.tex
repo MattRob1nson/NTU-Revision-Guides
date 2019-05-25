@@ -3735,6 +3735,46 @@ Aims of memory management include:
 \end{itemize}
 
 
+\section{Overview of memory abstraction}
 
+\section*{Definition}
+
+\textbf{Memory abstraction} provides an abstraction layer between the program execution and the memory that provides a different "view" of a memory location depending on the execution context in which the memory access is made. This is achieved by creating an “abstract memory” to allow for co-existence in physical memory.
+
+
+\section*{Computer system with no memory abstraction}
+
+Early mainframe computers had no memory abstraction and every program had access to physical memory.
+
+The memory model presented to the programmer was a set of addresses from zero (0) to max, in which each address corresponds to a cell containing some number of bits.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/no-memory-abstraction.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Organising memory with an operating system and one user process}
+  \end{minipage}}
+\end{figure}
+
+The diagram above shows three different ways of organising memory with an operating system and one user process.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[6,l] | X[6,l] | }
+    \hline
+    \textbf{Model} & \textbf{Organisation} & \textbf{Uses} 
+	\\ \hline
+	(a) & The operating system may be at the bottom of memory in RAM.
+	& This model was formerly used on mainframes and minicomputers but is rarely used any more.
+	\\ \hline
+	(b) & The operating system may be in ROM at the top of memory.
+	& This model is used on some handheld computers and embedded systems. 
+	\\ \hline
+	(c) & The device drivers may be at the top of memory in ROM and the operating system may be in RAM at the bottom of memory.
+	& This model was formerly used by early personal computers, such as those running MS-DOS, where part of the operating system (OS) was stored in BIOS.
+	\\ \hline
+\end{longtabu}
 
 \end{document}
