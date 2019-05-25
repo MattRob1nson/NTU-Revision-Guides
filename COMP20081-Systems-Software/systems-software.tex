@@ -3241,4 +3241,46 @@ A philosopher may move in to eating state only if neither neighbouring philosoph
 	\item Philosopher 2 is currently in eating state.
 \end{itemize}
 
+
+\chapter{Memory Management}
+
+\section{Memory hierarchy}
+
+\section*{Definition}
+
+The \textbf{memory hierarchy} separates computer storage into a hierarchy based on response time. A computer system is usually composed by a layered memory system
+
+
+\section*{Diagram}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/memory-hierarchy-pyramid.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Memory hierarchy pyramid}
+  \end{minipage}}
+\end{figure}
+
+Higher layers correspond to faster devices that:
+\begin{itemize}
+	\item have lower capacity;
+	\item require more power and generate more heat; and
+	\item are more expensive.
+\end{itemize}
+
+Lower layers correspond to slower devices that:
+\begin{itemize}
+	\item have higher capacity;
+	\item require less power and generate less heat; and
+	\item are cheaper.
+\end{itemize}
+
+The temporary storage areas can be described as volatile; the data does not persist after power-down.
+
+The permanent storage areas can be described as non-volatile; the data persists after power-down.
+
 \end{document}
