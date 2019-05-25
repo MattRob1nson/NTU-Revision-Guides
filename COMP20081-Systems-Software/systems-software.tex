@@ -3799,4 +3799,29 @@ An \textbf{address space} is a set of addresses that a process can use to refere
   \end{minipage}}
 \end{figure}
 
+
+\section*{Memory abstraction - Referencing physical memory}
+
+It is possible to reference memory by using the physical address locations.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/referencing-physical-memory.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Referencing physical memory}
+  \end{minipage}}
+\end{figure}
+
+However, this is not ideal as:
+\begin{itemize}
+	\item user programs can address physical memory directly and trash the OS intentionally/accidentally, i.e. models (a) and (c); and
+	\item it is difficult to have multiple programs running at once (via context switch).
+\end{itemize}
+
+For these reasons, users should not be able to reference physical memory directly.
+
 \end{document}
