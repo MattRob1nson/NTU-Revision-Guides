@@ -2470,7 +2470,7 @@ Many user threads multiplex to an equal or smaller number of kernel threads.
 \end{longtabu}
 
 
-\chapter{Memory Management}
+\chapter{Synchronisation and Mutual Exclusion}
 
 \section{Race condition}
 
@@ -2991,5 +2991,254 @@ Wait(ItemsReady)  //decrement semaphore
 \end{lstlisting}
 
 This switching would cause …
+
+
+\section{The dining philosophers problem}
+
+\section*{Problem description}
+
+The dining philosophers problem is a classical inter-process communication problem in which:
+\begin{itemize}
+	\item five philosophers are seated around a circular table eating and thinking; and
+	\item each philosopher has a plate of spaghetti that they can eat with forks.
+\end{itemize}
+
+This problem has the following requirements:
+\begin{itemize}
+	\item the life of a philosopher consists of only alternating periods of eating and thinking;
+	\item between each pair of plates is one fork;
+	\item each philosopher needs two forks to eat the spaghetti; and
+	\item no two philosophers may hold the same fork simultaneously.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/layout-of-table.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Layout of table}
+  \end{minipage}}
+\end{figure}
+
+The problem arises when attempting to devise a method that is able to:
+\begin{itemize}
+	\item allow each philosopher to have alternating periods of eating and thinking; and
+	\item not result in a deadlock.
+\end{itemize}
+
+It could be said that the problem requirement for each philosopher to need two forks to eat the spaghetti is somewhat artificial. As a result, we can substitute the spaghetti for rice and substitute chopsticks for forks.
+
+The problem now has the following updated requirements:
+\begin{itemize}
+	\item the life of a philosopher consists of only alternating periods of eating and thinking;
+	\item between each pair of plates is one chopstick;
+	\item each philosopher needs two chopsticks to eat the rice; and
+	\item no two philosophers may hold the same chopstick simultaneously.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/updated-layout-of-table.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Updated layout of table}
+  \end{minipage}}
+\end{figure}
+
+
+\section*{Problem solutions}
+
+\subsection*{Problem solution 1}
+
+This problem can be solved using semaphores, using the following assumptions:
+\begin{itemize}
+	\item each philosopher is a different thread with a unique ID;
+	\item one semaphore is implemented per chopstick; and
+	\item chopsticks are identified by using the unique ID of a philosopher.
+\end{itemize}
+
+As chopsticks are identified by using the unique ID of a philosopher, it could be that:
+\begin{itemize}
+	\item the chopstick to the left of a given philosopher is $chopstick[i]$; and
+	\item the chopstick to the right of a given philosopher is $chopstick[(i-1) + N) \% N].$
+\end{itemize}
+where $i$ is the ID of the philosopher and $N$ is the number of philosophers.
+
+The identification of the chopsticks works as demonstrated by using Philosopher 1 as an example.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/philosopher-1.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Philosopher 1}
+  \end{minipage}}
+\end{figure}
+
+The diagram shows that:
+\begin{itemize}
+	\item the chopstick to the left of Philosopher 1 is $chopstick[1]$; and
+	\item the chopstick to the right of Philosopher 1 is $chopstick[0]$.
+\end{itemize}
+
+Using this example, it is possible to validate the chopstick identification formulas discussed before.
+
+Given that $i = 1$ for Philosopher 1 and that $N = 5$ as there are five philosophers in total,
+\begin{equation*}
+	\begin{aligned}
+		\text{left} & = \text{chopstick[i]} \\
+		\text{left} & = \text{chopstick[1]} \\
+		\text{right} & = \text{chopstick[(i-1) + N) \% N]} \\
+		\text{right} & = \text{chopstick[(1-1) + 5) \% 5]} \\
+		\text{right} & = \text{chopstick[(0 + 5) \% 5]} \\
+		\text{right} & = \text{chopstick[5 \% 5]} \\
+		\text{right} & = \text{chopstick[0]} \\
+	\end{aligned}
+\end{equation*}
+This shows that the chopstick identification formulas work for Philosopher 1.
+
+\begin{lstlisting}[title={Producer class}]
+LOOP
+{
+	think();
+	wait(chopstick[left]);     // take left chopstick
+	wait(chopstick[right]);    // take right chopstick
+	eat();
+	signal(chopstick[left]);   // release left chopstick
+	signal(chopstick[right]);  // release right chopstick
+}
+\end{lstlisting}
+
+However, this solution has the possibility to cause a race condition.
+
+This can be demonstrated in the situation where all five philosophers wish to eat at the same time and therefore all take their left chopsticks:
+\begin{itemize}
+	\item Philosopher 0 takes $chopstick[left]$;
+	\item Philosopher 1 takes $chopstick[left]$;
+	\item Philosopher 2 takes $chopstick[left]$;
+	\item Philosopher 3 takes $chopstick[left]$; and
+	\item Philosopher 4 takes $chopstick[left]$.
+\end{itemize}
+
+This causes a race condition as:
+\begin{itemize}
+	\item each philosopher will now be waiting to take $chopstick[right]$;
+	\item no philosopher can take $chopstick[right]$ as this chopstick is the subsequent philosopher’s $chopstick[left]$ and this has already been taken; and
+	\item no philosopher can perform their $eat$ function and therefore no chopsticks will be released as the $signal$ functions are only performed after the $eat$ function has completed.
+\end{itemize}
+
+This shows that, if the threads in the solution are interleaved, a race condition may occur. In this case, a circular wait is caused and therefore there is a deadlock.
+
+
+\subsection*{Possible solution 2}
+
+As shown in the multiple producer-consumer problem, a mutex (or binary semaphore) can be introduced to prevent this deadlock.
+
+\begin{lstlisting}[title={Producer class}]
+LOOP
+{
+	think();
+	wait(busy);                // mutex
+	wait(chopstick[left]);     // take left chopstick
+	wait(chopstick[right]);    // take right chopstick
+	eat();
+	signal(chopstick[left]);   // release left chopstick
+	signal(chopstick[right]);  // release right chopstick
+	signal(busy);              // release mutex
+}
+\end{lstlisting}
+
+This solves the deadlock as the mutex (or binary semaphore) signals the critical section/region and prevents other philosophers from attempting to take a chopstick that is currently in use by another philosopher.
+
+Although this solution is deadlock-free, it has a performance bug. The mutex means that only one philosopher can be eating at any instant and, with five chopsticks available, it should be possible to allow two philosophers to eat at the same time. As a result, there are more efficient solutions to this problem that achieve maximum parallelism.
+
+\subsection*{Final revision solution}
+
+This solution is deadlock-free and allows the maximum parallelism for an arbitrary number of philosophers.
+
+\begin{lstlisting}[title={Producer class}]
+#define N         5                // number of philosophers
+#define LEFT      (i + N - 1) % N  // ID of i's left neighbour
+#define RIGHT     (i + 1) % N      // ID of i's right neighbour
+#define THINKING  0                // philosopher is thinking
+#define HUNGRY    1                // philosopher is trying to acquire
+                                   // chopsticks
+#define EATING    2                // philosopher is eating
+
+typedef int semaphore              // semaphores are a special kind of
+                                   // integer
+int state[N];                      // array to keep track of philosopher's
+                                   // state             
+semaphore mutex = 1;               // mutual exclusion for critical regions
+semaphore s[N];                    // one semaphore per philosopher
+
+// i: philosopher unique ID, from 0 to N-1
+void philosopher (int i)
+{
+	while (TRUE)                   // repeat indefinitely
+	{
+		think();                   // philosopher is thinking
+		take_chopsticks(i);        // acquire two chopsticks or be blocked
+		eat();                     // philosopher is eating
+		put_chopsticks(i);         // place both chopsticks back on the table
+	}
+}
+
+// i: philosopher unique ID, from 0 to N-1
+void take_chopsticks(int i)
+{
+	wait(&mutex);                  // enter critical section/region
+	state[i] = HUNGRY;             // record fact that philosopher i is hungry
+	test(i);                       // attempt to acquire two chopsticks
+	signal(&mutex);                // exit critical section/region
+	wait(&s[i]);                   // block if chopsticks were not acquired
+}
+
+// i: philosopher unique ID, from 0 to N-1
+void put_chopsticks(int i)
+{
+	wait(&mutex);                  // enter critical section/region
+	state[i] = THINKING;           // record fact that philosopher i is
+	                               // thinking
+	test(LEFT);                    // check if left neighbour can now eat
+	test(RIGHT);                   // check if right neighbour can now eat
+	signal(&mutex);                // exit critical section/region
+}
+
+// i: philosopher unique ID, from 0 to N-1
+void test(int i)
+{
+	if (state[i] == HUNGRY && state[LEFT] != EATING
+		&& state[RIGHT] != EATING)
+	{
+		state[i] = EATING;         // record fact that philosopher i is hungry
+		signal(&s[i]);             // exit critical section/region
+	}
+}
+\end{lstlisting}
+
+This solution uses the array state to keep track of whether a philosopher is:
+\begin{itemize}
+	\item eating;
+	\item thinking; or
+	\item hungry (trying to acquire chopsticks).
+\end{itemize}
+
+This represents an array of semaphores and each philosopher has its own $state$ array. This enables hungry philosophers to be blocked if the required chopsticks are currently busy.
+
+A philosopher may move in to eating state only if neither neighbouring philosopher is eating. For example, Philosopher 1 cannot enter eating state if:
+\begin{itemize}
+	\item Philosopher 0 is currently in eating state; or
+	\item Philosopher 2 is currently in eating state.
+\end{itemize}
 
 \end{document}
