@@ -4054,6 +4054,43 @@ However, it is possible that some processes may try to grow their memory allocat
 
 As shown in the diagram above, if a hole is adjacent to the process, it can be allocated to the process to allow the process to grow in to that hole.
 
-Otherwise, it is necessary to allocate more memory in a different physical location. If memory is full, swapping may occur.
+Otherwise, it is necessary to allocate more memory in a different physical location. If memory is full, swapping may occur or the process needs to be suspended.
+
+
+\section{Swapping}
+
+\section*{Definition}
+
+\textbf{Swapping} is a memory reclamation method wherein memory contents not currently in use are swapped to a disk to make the memory available for other applications or processes.
+
+
+\section*{Why is swapping required?}
+
+Memory is not an infinite resource, as shown in the memory hierarchy (page n). In practice, the total amount of RAM required by all running processes is often larger than the amount available in the computer system.
+
+Idle processes are typically stored on secondary memory as to provide access to more primary memory for processes that are currently in use.
+
+Memory allocations change as processes are loaded and unloaded from memory.
+
+
+\section*{How it works}
+
+Swapping shows a simple strategy of loading each process in to memory in its entirety, executing the process for an amount of time and then returning it to secondary memory. This is a similar concept to context switching.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/swapping.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Swapping}
+  \end{minipage}}
+\end{figure}
+
+When memory is assigned dynamically via swapping, the operating system (OS) must keep track of free memory space.
+
+
 
 \end{document}
