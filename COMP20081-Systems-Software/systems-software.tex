@@ -3698,4 +3698,43 @@ A \textbf{peripheral} is a piece of hardware outside a computer system that is n
 \end{figure}
 
 
+\section{Memory management – overview}
+
+\section*{Concept}
+
+Processes share physical memory, as well as the CPU. Main memory (RAM) is one of the most important resources in a computer system as:
+\begin{itemize}
+	\item data and instructions are fetched from RAM in to the CPU for execution; and
+	\item memory can store several running processes at once.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/main-memory-and-non-volatile-memory.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Main memory and non-volatile memory}
+  \end{minipage}}
+\end{figure}
+
+As seen in the diagram above, RAM can contain the data and instructions for multiple processes. These are loaded in to RAM from non-volatile memory, such as a hard-disk drive (HDD).
+
+
+\section*{Aim}
+
+Aims of memory management include:
+\begin{itemize}
+	\item providing the memory space for concurrent processes;
+	\item taking advantage of the locality of reference, which is the tendency of a CPU to access the same set of memory locations repetitively over a short period of time, by estimating the data and/or instructions to be used next and transfer them to the most effective place in the memory hierarchy pyramid;
+	\item protect processes from one another;
+	\item relocated memory to new processes; and
+	\item make the addressing of memory space transparent by providing memory abstraction.
+\end{itemize}
+
+
+
+
 \end{document}
