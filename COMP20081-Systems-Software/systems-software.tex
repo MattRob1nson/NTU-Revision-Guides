@@ -3283,4 +3283,127 @@ The temporary storage areas can be described as volatile; the data does not pers
 
 The permanent storage areas can be described as non-volatile; the data persists after power-down.
 
+
+\section{Primary memory}
+
+\section*{Definition}
+
+\textbf{Primary memory} is volatile, meaning that the data contained within does not persist after power-down, and stores data and instructions for use by the CPU in currently running processes.
+
+
+\section*{Registers}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
+    \hline
+    \textbf{Size} & Very small.
+	\\ \hline
+	\textbf{Speed} & Extremely fast.
+	\\ \hline
+	\textbf{Purpose} & Individual containers for single values.
+	
+	Almost all computers load data from a memory lower in the hierarchy into registers, where it is used for arithmetic operations and is manipulated or tested by machine instructions.
+	\\ \hline
+	\textbf{Location} & Inside the CPU.
+	\\ \hline
+\end{longtabu}
+
+Registers are typically referred to by “name” (i.e. individual identifying code), not by address, as happens with other types of memory.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/registers.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Registers}
+  \end{minipage}}
+\end{figure}
+
+There are two main types of registers:
+\begin{itemize}
+	\item generic registers -- allow the CPU to temporarily store data on which it will perform operations, and consequently data that results from those operations; and
+	\item specialised registers -- manipulated in mostly the same fashion as generic registers but are used for specialised purposes.
+\end{itemize}
+
+Specialised registers include:
+\begin{itemize}
+	\item Instruction Register (IR) -- holds the instruction currently being executed;
+	\item Memory Data Register (MDR) -- holds the piece of data that has been fetched from memory;
+	\item Memory Address Register (MAR) -- holds the address of the next piece of memory to be fetched;
+	\item Program Counter (PC) -- holds the location of the next instruction to be fetched from memory and is automatically incremented between supplying the address of the next instruction and the instruction being executed; and
+	\item Accumulator (ACCU) -- used as the default location to store any calculations performed by the arithmetic and logic unit.
+\end{itemize}
+
+Generic registers are available to store any transient data required by the program.
+
+For example, when a program is interrupted its state, the values stored in the specialised registers may be saved into the generic registers, ready for recall when the program is ready to start again.
+
+In general, the more registers a CPU has available, the faster it can work.
+
+
+\section*{Cache memory}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
+    \hline
+    \textbf{Size} & Small (KB/MB).
+	\\ \hline
+	\textbf{Speed} & Fast.
+	\\ \hline
+	\textbf{Purpose} & Serves as an intermediary between main memory and the registers.
+	
+	When data or instructions are fetched from main memory, they are copied to the cache for further use, and therefore, reduce the average cost (time or energy) to access data from the main memory.
+	\\ \hline
+	\textbf{Location} & Inside the CPU.
+	\\ \hline
+\end{longtabu}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/cache-memory.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Cache memory}
+  \end{minipage}}
+\end{figure}
+
+Modern computers typically have a sub-hierarchy of cache memories (L1, L2, L3, L4, etc.), for example:
+\begin{itemize}
+	\item level 1 cache (L1)	 -- very fast and small size (2KB - 64KB); and
+	\item level 2 cache (L2)	 -- fast and medium size (256KB – 2MB).
+\end{itemize}
+
+
+\section*{Main memory}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
+    \hline
+    \textbf{Size} & Medium (MB/GB).
+	\\ \hline
+	\textbf{Speed} & Fast.
+	\\ \hline
+	\textbf{Purpose} & Stores data and machine code currently being used.
+	\\ \hline
+	\textbf{Location} & Motherboard, connected to the CPU by a bus.
+	\\ \hline
+\end{longtabu}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/main-memory.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Main memory}
+  \end{minipage}}
+\end{figure}
+
+Main memory is typically a random-access memory (RAM) device. These devices allow data items to be read from or written to in almost the same amount of time, irrespective of the physical location of the data.
+
 \end{document}
