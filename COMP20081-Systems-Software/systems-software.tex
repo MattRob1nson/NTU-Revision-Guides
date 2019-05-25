@@ -8,6 +8,36 @@
 \usepackage[parfill]{parskip}
 \usepackage{amsmath}
 \usepackage{graphicx,wrapfig,lipsum}
+\usepackage{listings}
+
+\colorlet{mygray}{black!30}
+\colorlet{mygreen}{green!60!blue}
+\colorlet{mymauve}{red!60!blue}
+
+\lstset{
+  backgroundcolor=\color{gray!10},  
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  breakatwhitespace=false,      
+  breaklines=true,                
+  captionpos=b,                    
+  commentstyle=\color{mygreen}, 
+  extendedchars=true,              
+  frame=single,                   
+  keepspaces=true,             
+  keywordstyle=\color{blue},      
+  language=c++,                 
+  numbers=none,                
+  numbersep=5pt,                   
+  numberstyle=\tiny\color{blue}, 
+  rulecolor=\color{mygray},        
+  showspaces=false,               
+  showtabs=false,                 
+  stepnumber=5,                  
+  stringstyle=\color{mymauve},    
+  tabsize=3,                      
+  title=\lstname                
+}
 
 \begin{document}
 
@@ -2662,5 +2692,304 @@ As mentioned before, a semaphore, denoted by $S$, is an integer that takes only 
 \end{longtabu*}
 
 This is a good solution as there is no possibility for a race condition as these statements will always be enforced due to the face that they are atomic (indivisible) statements and cannot be interrupted.
+
+
+\section{The producer-consumer problem}
+
+\section*{Problem description}
+
+The producer-consumer problem is a classical inter-process communication problem in which:
+\begin{itemize}
+	\item a producer repeatedly produces items and places them in to a buffer; and
+	\item a consumer consumes the items one-by-one by taking them from the buffer.
+\end{itemize}
+
+This problem has the following requirements:
+\begin{itemize}
+	\item the buffer must be assumed to be first in, first out (FIFO);
+	\item the producer may produce a new item only at a time when the buffer is not full;
+	\item the consumer may consume an item only at a time when the buffer is not empty; and
+	\item the process terminates when all items produced are eventually consumed.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/producer-consumer-problem.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{The producer-consumer problem}
+  \end{minipage}}
+\end{figure}
+
+The problem arises when attempting to devise a method that is able to:
+\begin{itemize}
+	\item put the producer to “sleep” when the buffer is full to prevent further items being produced when there is no space in the buffer; and
+	\item “wake” the consumer when the buffer is not empty as there is possibility to consumer when the buffer is not empty.
+\end{itemize}
+
+
+\section*{Possible solution}
+
+This problem could be solved by keeping track of the number of items in the buffer.
+
+This could be achieved by implementing loops in the producer class and consumer class.
+
+\newpage
+
+\begin{lstlisting}[title={Producer class}]
+LOOP
+{
+	Produce item i         //produce item
+	if ( itemCount == N )  //end of buffer
+	{
+		sleep(producer);
+	}
+
+	Put item i;            // place item in to buffer
+	itemCount++;           // increment buffer count
+	if ( itemCount == 1)   // buffer nearly empty
+	{
+		wakeup(consumer);
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[title={Consumer class}]
+LOOP
+{
+	if ( itemCount == 0 )    // buffer empty
+	{
+		sleep(consumer);
+	}
+
+	Remove item j;           // remove item from buffer
+	itemCount--;             // decrement buffer count
+	if ( itemCount == N-1 )  // buffer has space
+	{
+		wakeup(producer);
+	}
+	Consume item j;          // consume item
+}
+\end{lstlisting}
+
+The loop in the producer class would be running as one thread and the loop in the consumer thread would be running as another thread. These two threads would be running in parallel. As a result, if the threads in the solution are interleaved, a race condition may occur, which in turn, may cause a deadlock.
+
+
+\subsection*{Deadlocks}
+
+A \textbf{deadlock} occurs when two or more threads wait for each other to finish.
+
+Four conditions must be hold simultaneously in order for a deadlock to occur:
+\begin{itemize}
+	\item mutual exclusion -- a resource can be assigned to, at most, one process at a time;
+	\item hold and wait -- processes holding resources are permitted to request and wait for additional resources;
+	\item no pre-emption	 -- resources previously locked cannot be forcefully unlocked by another process, instead they must be released by the holding process; and
+	\item circular wait -- there must be a chain of processes, such that each member of the chain is waiting for a resource held by the next member of the chain, as shown in the diagram below.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/circular-wait.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Circular wait}
+  \end{minipage}}
+\end{figure}
+
+A deadlock may occur in the possible solution described previously.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    Consumer reads $itemCount = 0$ and it evaluates to $True$, and therefore $sleep(consumer)$ needs to be called.
+    
+	$\downarrow$
+	
+	Just before $sleep(consumer)$ is called, the consumer is interrupted by a timer interrupt and the producer is resumed.
+	
+	$\downarrow$
+	
+	The producer places an item in to the buffer, such that $itemCount = 1$.
+	
+	$\downarrow$
+	
+	The producer tries to perform $wakeup(consumer)$ however, the consumer is already in “wakeup” mode. As a result, the call to $wakeup(consumer)$ is missed.
+	
+	$\downarrow$
+	
+	When the consumer resumes, it will call $sleep(consumer)$ and get trapped in “sleep” mode.
+	
+	$\downarrow$
+	
+	The producer will continue placing items in the buffer and call $sleep(producer)$ when the buffer is full.
+	
+	$\downarrow$
+	
+	There is now a deadlock as both threads are waiting for a $wakeup$ call from each other.
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Possible deadlock}
+  \end{minipage}}
+\end{figure}
+
+This possible deadlock shows that another solution is required to effectively solve the producer-consumer problem.
+
+
+\section*{Solving the problem using semaphores}
+
+It is assumed that
+\begin{lstlisting}
+ItemsReady = 0
+SpacesLeft = N  //size of buffer
+\end{lstlisting}
+
+\begin{lstlisting}[title={Producer class}]
+LOOP
+{
+	Produce item i      // produce item
+	Wait(SpacesLeft)    // decrement semaphore
+
+	Put item i;         // place item in to buffer
+	Signal(ItemsReady)  // increment
+}
+\end{lstlisting}
+
+\begin{lstlisting}[title={Consumer class}]
+LOOP
+{
+	Wait(ItemsReady)    // decrement semaphore
+
+	Get item j;         // remove item from buffer
+	Signal(SpacesLeft)  // increment semaphore
+	Consume item i;     // consume item
+}
+\end{lstlisting}
+
+If this solution uses semaphores correctly, then
+\begin{equation*}
+	\begin{aligned}
+		\text{N = SpacesLeft + ItemsReady}
+	\end{aligned}
+\end{equation*}
+
+as the producer will always be placing items in to the buffer when there are spaces available in the buffer.
+
+However, this solution does not consider situations in which there are multiple producers and/or multiple consumers.
+
+
+\newpage
+
+\section*{The multiple producer-consumer problem}
+
+\subsection*{Problem description}
+
+The multiple producer-consumer problem is a classical inter-process communication problem in which:
+\begin{itemize}
+	\item multiple producer repeatedly produces items and places them in to a buffer; and
+	\item multiple consumer consumes the items one-by-one by taking them from the buffer.
+\end{itemize}
+
+As with the previous producer-consumer problem, this problem has the following requirements:
+\begin{itemize}
+	\item the buffer must be assumed to be first in, first out (FIFO);
+	\item the producers may produce a new item only at a time when the buffer is not full;
+	\item the consumers may consume an item only at a time when the buffer is not empty; and
+	\item the process terminates when all items produced are eventually consumed.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/multiple-producer-consumer-problem.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{The multiple producer-consumer problem}
+  \end{minipage}}
+\end{figure}
+
+The problem arises when attempting to devise a method that is able to manage:
+\begin{itemize}
+	\item two producers placing items in to the same slot in the buffer; and
+	\item two consumers removing items from the same slot in the buffer.
+\end{itemize}
+This is similar to the problem discussed in the printer spooler example (page n).
+
+A race condition may also occur when producers attempt to access a variable at the same time.
+
+To demonstrate the race condition, it is necessary to consider the following possible interleaving of the threads/processes:
+\begin{itemize}
+	\item two producers access the $SpacesLeft$ variable at the same time, which corresponds to decrementing the semaphore;
+	\item both producers get the same next empty slot in the buffer at the same time; and
+	\item both producers write in to the same slot.
+\end{itemize}
+
+This example shows that the race condition has caused the data stored in the buffer slot by the first producer to be lost as it has been overwritten by the data stored in the buffer slot by the second producer.
+
+In order to ensure mutual exclusion when multiple users are involved, an additional semaphore must be introduced.
+
+
+\subsection*{Mutex}
+
+A \textbf{mutex} (or \textbf{binary semaphore}) is a semaphore with ownership that can only be released by its owner and is initially set to $1$.
+
+
+\subsection*{Problem solution}
+
+It is now possible to construct a solution, using a mutex (or binary semaphore), that will ensure mutual exclusion even when there are multiple producers and/or multiple consumers.
+
+It is assumed that
+\begin{lstlisting}
+ItemsReady = 0
+SpacesLeft = N  //size of buffer
+\end{lstlisting}
+
+\begin{lstlisting}[title={Producer class}]
+LOOP
+{
+	Produce item i      // produce item
+	Wait(SpacesLeft)    // decrement semaphore
+	Wait(BusyBuffer)    // mutex
+
+	Put item i;         // place item in to buffer
+	Signal(BusyBuffer)  // release mutex
+	Signal(ItemsReady)  // increment
+}
+\end{lstlisting}
+
+\begin{lstlisting}[title={Consumer class}]
+LOOP
+{
+	Wait(ItemsReady)    // decrement semaphore
+    Wait(BusyBuffer)    // mutex
+
+    Get item j;         // remove item from buffer
+    Signal(SpacesLeft)  // increment semaphore
+    Signal(BusyBuffer)  // release mutex
+    Consume item i;     // consume item
+}
+\end{lstlisting}
+
+The mutex $BusyBuffer$ has ownership and therefore can only be incremented/decremented by the same thread/process.
+
+The order in which semaphores are incremented and decremented is essential. This can be demonstrated by inspecting the effect of switching around two statements in the Consumer class:
+\begin{lstlisting}
+Wait(ItemsReady)  //decrement semaphore
+Wait(BusyBuffer)  //mutex
+...
+Wait(BusyBuffer)  //mutex
+Wait(ItemsReady)  //decrement semaphore
+\end{lstlisting}
+
+This switching would cause …
 
 \end{document}
