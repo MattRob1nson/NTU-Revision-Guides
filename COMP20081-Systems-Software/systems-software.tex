@@ -3936,4 +3936,124 @@ The \texttt{JMP 5} shows a logical address of \texttt{5}, while the physical add
 In this scenario, if the machine instruction contained \texttt{JMP 100} instead, there would be an invalid memory location error. This is because the \texttt{JMP 100} instruction would result in a physical address of \texttt{201}. This violates the logical address limit of \texttt{100} and the physical address limit of \texttt{201} and therefore this error must be thrown for protection.
 
 
+
+\section{Memory partitioning}
+
+\section*{Definition}
+
+\textbf{Memory partitioning} is the system by which the memory of a computer system is divided into sections for use by the resident programs.
+
+This may be achieved by fixed partitioned memory or variable partitioned memory.
+
+
+\section*{Fixed partitioned memory}
+
+\subsection*{How it works}
+
+Memory is divided in to several partitions of fixed sizes. The partitions may be different sizes from one another, but remain at the same size once created.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{6cm}]{images/chapter-5/fixed-partitioned-memory.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Variable partitioned memory}
+  \end{minipage}}
+\end{figure}
+
+As shown above, each process (\texttt{A}, \texttt{B} and \texttt{C}) has its own partition.
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Multiprogramming}, as it is compatible with process co-existence in memory. &
+	\textbf{Restricted} as there is a fixed number of possible simultaneous processes.
+	\\ \hline
+	\textbf{Easy to implement}. &
+	\textbf{Internal fragmentation}, as each partition has unused space.
+	\\ \hline
+	\textbf{Allows for fast context switching}. & \textbf{Inefficient space usage} due to internal fragmentation.
+	\\ \hline
+	& \textbf{Issues may occur} if a process is too large for any partition.
+	\\ \hline
+\end{longtabu}
+
+
+
+\section*{Variable partitioned memory}
+
+\subsection*{How it works}
+
+Each process is allocated an exact size of memory space. Processes are loaded in to contiguous memory slots until memory is full.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{6cm}]{images/chapter-5/variable-partitioned-memory.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Variable partitioned memory}
+  \end{minipage}}
+\end{figure}
+
+As shown above, when processes \texttt{A} and \texttt{B} terminate, their memory space is deallocated.
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{No internal fragmentation}. & \textbf{Assumes that the memory manager knows how much memory a process requires}.
+	\\ \hline
+	\textbf{Efficient space usage} as when a process terminates, the space it once occupied in memory is freed up. & \textbf{External fragmentation may occur}, where "holes" outside partitions are introduced.
+	\\ \hline
+	\textbf{Adjacent fragmentation can be merged}. &
+	\\ \hline
+	\textbf{The number of parallel processes is not fixed}. &
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{Compaction}
+
+Reducing external fragmentation is achieved by compaction.
+
+This is a process whereby processes are physically moved to close the "holes" created by the deallocation of memory that once belonged to processes.
+
+However, this process has a heavy overhead causing slowdowns and therefore, is not commonly performed.
+
+
+\subsection*{Dealing with processes of varying size}
+
+So far, it is been assumed that processes have a fixed size and that the operating system (OS) allocates that memory.
+
+However, it is possible that some processes may try to grow their memory allocation, such as increasing the size of an array.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/varying-process-sizes.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Varying process sizes}
+  \end{minipage}}
+\end{figure}
+
+As shown in the diagram above, if a hole is adjacent to the process, it can be allocated to the process to allow the process to grow in to that hole.
+
+Otherwise, it is necessary to allocate more memory in a different physical location. If memory is full, swapping may occur.
+
 \end{document}
