@@ -2538,4 +2538,129 @@ In this example, the two processes $A$ and $B$ attempt to access the printer spo
 This example shows that the race condition has caused the job data stored in the printer spooler directory by process $B$ to be lost as it has been overwritten by the job data from process $A$.
 
 
+\section{Inter-process synchronisation}
+
+\section*{Definition}
+
+\textbf{Inter-process synchronisation} involves techniques that are designed to prevent race conditions and allows threads/processes to share resources.
+
+
+\section*{Behaviour of threads}
+
+Threads in a computer system may behave in two possible ways:
+\begin{itemize}
+	\item competing -- two or more processes compete for the same computing resource, for example access to a particular memory cell; or
+	\item cooperating -- two or more processes may need to communicate with one another, thus causing information to be passed from one to the other.
+\end{itemize}
+
+Inter-process synchronisation is required to manage both threads that are competing and threads that are cooperating.
+
+An operating system (OS) itself contains both threads that are competing and threads that are cooperating.
+
+
+\section*{How mutual exclusion works}
+
+The solution to preventing race conditions is by implementing mutual exclusion on any given critical section/region.
+
+The \textbf{critical section/region} is code in a process that involves sensitive operations on a shared resource.
+
+\textbf{Mutual exclusion} is the requirement that one thread of execution never enters its critical section/region at the same time that another concurrent thread of execution enters its own critical section/region.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/mutual-exclusion.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Mutual exclusion on critical section/region}
+  \end{minipage}}
+\end{figure}
+
+When a thread/process enters its critical section/region, no other thread/process may also enter its critical section/region. 
+
+This is demonstrated in the diagram above:
+\begin{itemize}
+	\item at time interval $T_{1}$, process $A$ enters its critical section/region;
+	\item at time interval $T_{2}$, process $B$ attempts to enter its critical section/region;
+	\item process $B$ is blocked from entering its critical section/region until process $A$ leaves its critical section/region;
+	\item at time interval $T_{3}$, process $A$ leaves its critical section/region and therefore process $B$ is allowed to enter its critical section/region; and
+	\item at time interval $T_{4}$, process $B$ leaves its critical section/region.
+\end{itemize}
+
+This shown that mutual exclusion is enforced as no two threads/processes are simultaneously inside their critical sections/regions.
+
+For mutual exclusion to be effective:
+\begin{itemize}
+	\item no assumptions may be made about the speeds or the number of threads/processes;
+	\item no threads/processes running outside its critical section/region may block other threads/processes, such that a thread/process that is not in its critical section/region cannot prevent other threads from entering their critical section/region; and
+	\item no thread/process should have to wait forever to enter its critical section/region.
+\end{itemize}
+
+Mutual exclusion is a major design issue in operating systems (OSs) as consideration must be taken in order to prevent race conditions while maintaining parallelism and efficiency.
+
+
+\section*{How mutual exclusion is implemented}
+
+Mutual exclusion is implemented using semaphores.
+
+A \textbf{semaphore} is a system tool used for the design of correct synchronisation protocols. This was introduced by Edsger Dijkstra in the 1962/1963. Semaphores are implemented using a variable or abstract data type and are used to control thread/process access to a resource. They are typically integer values that accept only non-negative values.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-4/semaphore-interaction.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Semaphore interaction on critical section/region}
+  \end{minipage}}
+\end{figure}
+
+The diagram shows that semaphores allow the CPU to context switch between threads/processes when one becomes blocked.
+
+It is convenient to write entry and exit protocols using a single atomic statement. This statement is atomic and therefore is indivisible, meaning that the statement cannot be interrupted.
+
+As mentioned before, a semaphore, denoted by $S$, is an integer that takes only non-negative values. Only two atomic (indivisible) statements are permitted, as shown below.
+
+\begin{longtabu*} to \textwidth {|X[0.5,l]|X[1,l]|X[1,l]|}
+    \hline
+	\textbf{Statement} & \textbf{Statement Implementation}
+	& \textbf{Usage}
+	\\ \hline
+	$wait(s)$
+	&
+	\begin{verbatim}
+	wait(s)
+	{
+	    if ( S > 0 )
+	    {
+	        S--;
+	    }
+	}
+	\end{verbatim}
+	&
+	If a thread/process is in its non-critical section/region and wishes to enter its critical section/region, this statement will be performed.
+
+	This means that the thread/process will be blocked until $S = 0$	evaluates to $True$.
+	\\ \hline
+	$signal(s)$
+	&
+	\begin{verbatim}
+	signal(s)
+	{
+	    S++;
+	}
+	\end{verbatim}
+	&
+	If a thread/process is in its critical section/region, this statement will be performed.
+
+	This helps to achieve mutual exclusion as it prevents $S = 0$ from evaluating to $True$ until the thread/process has left its critical section/region.
+	\\ \hline
+\end{longtabu*}
+
+This is a good solution as there is no possibility for a race condition as these statements will always be enforced due to the face that they are atomic (indivisible) statements and cannot be interrupted.
+
 \end{document}
