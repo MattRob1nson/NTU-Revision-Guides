@@ -4089,8 +4089,309 @@ Swapping shows a simple strategy of loading each process in to memory in its ent
   \end{minipage}}
 \end{figure}
 
-When memory is assigned dynamically via swapping, the operating system (OS) must keep track of free memory space.
+However, swapping adds a layer of complexity as the operating system must now manage free space.
 
 
+\section{Managing free space}
+
+When memory is assigned dynamically via swapping, the operating system must manage it. In general terms, there are two ways to keep track of memory usage: bitmaps and free lists.
+
+
+\section*{Bitmaps}
+
+\subsection*{How it works}
+
+Memory is divided into allocation units as small as a few words and as large as several kilobytes.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/bitmaps.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Using bitmaps to manage free space}
+  \end{minipage}}
+\end{figure}
+
+As shown above, corresponding to each allocation unit is a bit in the bitmap, which is:
+\begin{itemize}
+	\item zero (\texttt{0}) if the unit is free; and
+	\item one (\texttt{1}) if the unit is occupied.
+\end{itemize}
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Fast} as the bitmap array can be accessed directly and the status of the allocation unit can be determined. & \textbf{Maintenance overhead} as the status of each allocation unit must be maintained in the bitmap. 
+	\\ \hline
+\end{longtabu}
+
+
+\newpage
+
+\section*{Free lists}
+
+\subsection*{How it works}
+
+A list of processes, denoted as \texttt{P}, and holes, denoted as \texttt {H}, are kept in a list.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/free-lists.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Using free lists to manage free space}
+  \end{minipage}}
+\end{figure}
+
+In the free list example shown above, there is the following sequence of processes \texttt{P} and holes \texttt{H} in memory:
+\begin{itemize}
+	\item a process (\texttt{P}) starting at \texttt{0} and occupying \texttt{5} spaces;
+	\item a hole (\texttt{H}) starting at \texttt{5} and occupying \texttt{3} spaces;
+	\item a process (\texttt{P}) starting at \texttt{8} and occupying \texttt{6} spaces;
+	\item a process (\texttt{P}) starting at \texttt{14} and occupying \texttt{4} spaces;
+	\item a hole (\texttt{H}) starting at \texttt{18} and occupying \texttt{2} spaces;
+	\item a process (\texttt{P}) starting at \texttt{20} and occupying \texttt{6} spaces;
+	\item a process (\texttt{P}) starting at \texttt{26} and occupying \texttt{3} spaces; and
+	\item a hole (\texttt{H}) starting at \texttt{29} and occupying \texttt{3} spaces.
+\end{itemize}
+
+Several algorithms, known as placement policies, can be used to allocate memory for new processes.
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{More compact} than using a bitmap as, for example, a sequence of occupied units can be expressed as [P, 0, 5] rather than 11111. & \textbf{More complex} as it is more difficult to manage and placement policies are required.
+	\\ \hline
+\end{longtabu}
+
+
+\section*{Placement policies}
+
+\subsection*{First fit}
+
+In first fit, the memory manager scans along the list of segments until it finds a hole that is large enough.
+
+The hole is then broken up into two pieces, one for the process and one for the unused memory, except in the statistically unlikely case of an exact fit.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-first-fit-2.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using first fit with size \texttt{2KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-first-fit-4.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using first fit with size \texttt{4KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-first-fit-1.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using first fit with size \texttt{1KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Fast} because it searches as little as possible. &
+	\textbf{May generate more holes}
+	\\ \hline
+\end{longtabu}
+
+
+\newpage
+
+\subsection*{Next fit}
+
+Next fit is a variation of the first fit policy. It works the same way as first fit, except that it keeps track of where it is whenever it finds a suitable hole.
+
+The next time it is called to find a hole, it starts searching the list from the place where it left off last time, rather than the beginning of the list.
+
+This policy was designed to speed up searching by skipping potential tiny holes that cannot fit a process. However, simulations show that next fit gives slightly worse performance than first fit.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-next-fit-2.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using next fit with size \texttt{2KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-next-fit-4.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using next fit with size \texttt{4KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-next-fit-1.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using next fit with size \texttt{1KB}.}
+  \end{minipage}}
+\end{figure}
+
+
+\newpage
+
+\subsection*{Best fit}
+
+In best fit, the memory manager searches the entire list, from beginning to end, and finds the hole that is closest to the actual size required rather than breaking up a larger hole that may be required later.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-best-fit-2.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using best fit with size \texttt{2KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-best-fit-4.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using best fit with size \texttt{4KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-best-fit-1.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using best fit with size \texttt{1KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{May reduce memory wastage} by using better suited holes for processes. &
+	\textbf{May increase memory wastage} as it may generate many tiny holes that are too small to be used by any process. This could be worse than first fit and next fit as they generate larger holes on average that could be used by other processes.
+	\\ \hline
+	& \textbf{Slower than first fit and next fit} as it requires a search to be completed on the entire list.
+	\\ \hline
+\end{longtabu}
+
+
+\newpage
+
+\subsection*{Worst fit}
+
+Worst fit is the opposite of the best fit policy. It always finds the largest available hole, so that the new hole will be big enough to be useful.
+
+This policy was designed to reduce the number of tiny and unusable holes generated by the best fit policy. However, simulations show that it is not very successful.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-worst-fit-2.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using worst fit with size \texttt{2KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-worst-fit-4.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using worst fit with size \texttt{4KB}.}
+  \end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/placement-policies-memory-worst-fit-1.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading a process using worst fit with size \texttt{1KB}.}
+  \end{minipage}}
+\end{figure}
+
+
+\subsection*{Quick fit}
+
+In quick fit, the memory manager maintains a table of separate lists for some of the more common sizes requested.
+
+For example, there may be a list for large holes and a list for small holes.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Extremely fast} as the lists can be used to quickly find appropriate holes. &
+	\textbf{Overhead} as the lists must be maintained.
+	\\ \hline
+\end{longtabu}
 
 \end{document}
