@@ -7,6 +7,7 @@
 \usepackage[document]{ragged2e}
 \usepackage[parfill]{parskip}
 \usepackage{amsmath}
+\usepackage{graphicx,wrapfig,lipsum}
 
 \begin{document}
 
@@ -2399,15 +2400,20 @@ Many user threads multiplex to an equal or smaller number of kernel threads.
 \newpage
 
 \section{Evaluation of concurrent programming}
-
 \begin{longtabu} to \textwidth {|X[1,l]|X[1,l]|}
     \hline
     \textbf{Advantages} & \textbf{Disadvantages}
     \\ \hline
+    \begin{wrapfigure}{l}{4cm}
+		\includegraphics[width=4cm]{images/chapter-3/parallelism.png}
+	\end{wrapfigure} 
     \textbf{Parallelism.} It improves the efficiency of program execution in computer systems with multiple CPUs by allows tasks/operations to be split up and executed independently on each CPU.
     &
     \textbf{Debugging complexity} as concurrent programs are non-deterministic and therefore it can be difficult to trace a problem/bug in the code as the same input will generally not result in the same output.  
     \\ \hline
+    \begin{wrapfigure}{l}{0.8cm}
+		\includegraphics[width=0.8cm]{images/chapter-3/multi-tasking.png}
+	\end{wrapfigure}
     \textbf{Multi-tasking.} It improves the utilisation of the CPU in a computer system that only has a single CPU. This allows multiple tasks/operations to run alongside each other and appear to be processed simultaneously.
     &
     \textbf{No protection between threads}.
@@ -2529,7 +2535,7 @@ In this example, the two processes $A$ and $B$ attempt to access the printer spo
 	\item another timer interrupt occurs that causes a context switch to process $A$ that then stores its job at printer job slot $7$.
 \end{itemize}
 
-This example shows that the race condition has caused the job data stored in the printer spooler directory by process $B$ to be lost as it has been overwritten by the job data from process $A .
+This example shows that the race condition has caused the job data stored in the printer spooler directory by process $B$ to be lost as it has been overwritten by the job data from process $A$.
 
 
 \end{document}
