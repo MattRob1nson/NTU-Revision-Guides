@@ -3631,4 +3631,71 @@ A \textbf{Blu-Ray} disk has a higher capacity than a CD-ROM because the laser us
 	\\ \hline
 \end{longtabu}
 
+
+\newpage
+
+\section{Read-only memory}
+
+\section*{Properties}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
+    \hline
+    \textbf{Size} & Medium (MB/GB).
+	\\ \hline
+	\textbf{Speed} & Fast.
+	\\ \hline
+	\textbf{Purpose} & Used in the system boot process and, in some cases, stores the operating system in computer systems where the software is not updated.
+	\\ \hline
+	\textbf{Reliability} & Motherboard.
+	\\ \hline
+\end{longtabu}
+
+
+\section*{Use in the system boot process}
+
+A \textbf{Basic Input/Output System (BIOS)} is a set of instructions which control the boot process of a computer system and the communication between the operating system and peripherals.
+
+A \textbf{peripheral} is a piece of hardware outside a computer system that is not required for the computer system to operate.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{0.3935\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+  	\centering
+  	\includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/system-boot-process.png}
+  \end{minipage}
+  \begin{minipage}{0.6\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+  	\centering
+  	The motherboard BIOS initialises registers and power management.
+    
+	$\downarrow$
+	
+	The motherboard BIOS performs a self-diagnostic test, known as a Power-On Safe Test (POST).
+	
+	$\downarrow$
+	
+	The motherboard BIOS boots the BIOS for all subsidiary boards and begins communications with basic peripherals.
+	
+	$\downarrow$
+	
+	The motherboard BIOS determines which non-volatile storage device contains the operating system (OS).
+	
+	$\downarrow$
+	
+	The motherboard BIOS initiates the bootstrapping sequence where the secondary bootloader, such as GRUB, LILO or NTLDR etc., is copied to RAM.
+	
+	$\downarrow$
+	
+	The secondary bootloader waits for a few seconds to allow the user to make a choice on the operating system (OS) to be launched.
+	
+	$\downarrow$
+	
+	The secondary bootloader loads the chosen operating system (OS) to RAM and relinquishes control.
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{System boot process}
+  \end{minipage}}
+\end{figure}
+
+
 \end{document}
