@@ -4419,4 +4419,46 @@ While swapping allows multiple processes to run whose total size is larger than 
 
 Virtual memory is implemented using paging and segmentation.
 
+
+\section{Paging}
+
+\section*{Definition}
+
+\textbf{Paging} is a memory management mechanism that allows the physical address space of a process to be non-contiguous.
+
+
+\section*{How it works}
+
+Physical memory is divided in to blocks of equal sizes called \textbf{frames}.
+
+In a similar fashion, a process is divided in to blocks of the same size, called \textbf{pages}.
+
+The pages from the processes are loaded in to the available frames in physical memory.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-6/paging.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Loading process pages in to physical memory frames.}
+  \end{minipage}}
+\end{figure}
+
+In the diagram above, there are four processes:
+\begin{itemize}
+	\item process \texttt{A} which has four pages;
+	\item process \texttt{B} which has two pages;
+	\item process \texttt{C} which has three pages; and
+	\item process \texttt{D} which has four pages.
+\end{itemize}
+
+In the first instance, memory is allocated to processes \texttt{A}-\texttt{C}. Subsequently, process \texttt{B} terminates and its pages are released from the frames.
+
+Later, process \texttt{D} starts. This process has four pages and is therefore split across the two frames available between processes \texttt{A} and \texttt{C}, and after process \texttt{C}.
+
+This is a good solution to address external fragmentation.
+
 \end{document}
