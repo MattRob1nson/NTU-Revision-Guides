@@ -4427,7 +4427,7 @@ Virtual memory is implemented using paging and segmentation.
 \textbf{Paging} is a memory management mechanism that allows the physical address space of a process to be non-contiguous.
 
 
-\section*{How it works}
+\section*{Frames and pages}
 
 Physical memory is divided in to blocks of equal sizes called \textbf{frames}.
 
@@ -4460,5 +4460,453 @@ In the first instance, memory is allocated to processes \texttt{A}-\texttt{C}. S
 Later, process \texttt{D} starts. This process has four pages and is therefore split across the two frames available between processes \texttt{A} and \texttt{C}, and after process \texttt{C}.
 
 This is a good solution to address external fragmentation.
+
+
+\section*{Page table}
+
+\subsection*{Definition}
+
+A \textbf{page table} is responsible for mapping virtual pages in to page frames.
+
+
+\subsection*{Fields}
+
+The layout of a page table is highly machine dependent. However, important common fields of a page table entry include:
+\begin{itemize}
+	\item page frame -- the most important field that outputs the number of the frame;
+	\item present -- records whether the page is present in main memory or secondary memory;
+	\item modified (or dirty bit) -- records whether the page has been modified since its last loading, if true then it must be copied back to the disk to be saved;
+	\item protection -- includes what kind of access is permitted, read/write/execute; and
+	\item referenced -- set by the operating system (OS) when the page is used.
+\end{itemize}
+
+
+\subsection*{Mapping logical program addresses to physical memory addresses}
+
+Each logical address is formed as \texttt{(p,d)} where
+\begin{itemize}
+	\item \texttt{p} is the process page number; and
+	\item \texttt{d} is the displacement within that page (offset).
+\end{itemize}
+\texttt{p} occupies 4 bits and while \texttt{d} occupies 12 bits.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/logical-program-address.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Logical program address.}
+  \end{minipage}}
+\end{figure}
+
+In addition, each process has a page table, which records the memory page frame number for each process page.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/logical-program-address-and-page-table.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Logical program address and respective page table.}
+  \end{minipage}}
+\end{figure}
+
+The implementation is performed by the hardware, as such the Memory Management Unit (MMU) is responsible for mapping the logical addresses to physical addresses.
+
+Given a 16-bit program address \texttt{0100 0000 0110 0100}, it can be deduced that:
+\begin{equation*}
+	\begin{aligned}
+		\text{p} & = & 0100_{2} & = & 4_{10} \\
+		\text{d} & = & 0000\;0110\;0100_{2} & = & 100_{10}
+	\end{aligned}
+\end{equation*}
+
+The process page number (\texttt{p}) provides an index to a location in the page table.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/using-p-as-index-to-page-table.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Using \texttt{p} as an index to the page table.}
+  \end{minipage}}
+\end{figure}
+
+The value at index \texttt{4} in the page table can then be used as the base (\texttt{b}) for the physical memory address.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/page-table-value-to-base-value.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Using the value at \texttt{4} as the base (\texttt{b}).}
+  \end{minipage}}
+\end{figure}
+
+The displacement (\texttt{d}) from the logical program address can then be used to complete the physical memory address.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/using-displacement-value.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Using the displacement value to complete the physical memory address.}
+  \end{minipage}}
+\end{figure}
+
+This can also be shown by performing the following operations:
+\begin{equation*}
+	\begin{aligned}
+		\text{physical memory address} & = \text{page table value at index p} + \text{displacement value} \\
+		\text{physical memory address} & = 1100\;0000\;0000\;0000 + 0000\;0110\;0100 \\
+		\text{physical memory address} & = 1100\;0000\;0110\;0100_{2} = 104_{10}
+	\end{aligned}
+\end{equation*}
+
+
+\section*{Page faults}
+
+\subsection*{Definition}
+
+A \textbf{page fault} is a type of exception raised by computer hardware when a running program accesses a memory page that is not currently mapped by the memory management unit (MMU) into the virtual address space of a process.
+
+This means that a specific part of an executing process is not in main memory at the moment it is required and therefore the CPU is not able to access this part of the process.
+
+
+\subsection*{Page fault handling}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    When a specific part of an executing process is not in main memory when required, a page fault occurs.
+    
+	$\downarrow$
+	
+	The OS reads out hardware registers to determine which virtual address caused the fault.
+	
+	$\downarrow$
+	
+	The OS computes which page is needed and locates that page on disk.
+	
+	$\downarrow$
+	
+	The OS selects an existing available page frame.
+	
+	$\downarrow$
+	
+	The OS checks if that page frame is modified by inspecting the modified field.
+	
+	$\downarrow$
+	
+	If the page frame has been modified, the OS writes the contents of the page frame back to the disk.
+	
+	$\downarrow$
+	
+	The OS fetches a new page from the disk and replaces the old page in the page frame. This is known as page replacement.
+	
+	$\downarrow$
+	
+	The OS updates the mappings and restarts the trapped instruction by:
+	\begin{itemize}
+		\item marking the virtual page as unmapped by changing the present bit in the page table; and
+		\item updating the virtual page address with new translation to physical memory.
+	\end{itemize}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Page fault handling process}
+  \end{minipage}}
+\end{figure}
+
+
+When a process exits, the operating system must release its page table, its pages, and the disk space that the pages occupy when they are on disk. If some of the pages are shared with other processes, the pages in memory and on disk can be released only when the last process using them has terminated.
+
+
+\section*{Page replacement}
+
+\subsection*{Definition}
+
+\textbf{Page replacement} is required during page fault handling when the OS fetches a new page from the disk and replaces the old page in the page frame.
+
+\textbf{Page replacement algorithms} decide which pages to page out, sometimes called swap out, or write to disk, when a page of memory needs to be allocated.
+
+
+\subsection*{Objective}
+
+Page replacement algorithms aim to decided which pages are to be removed from RAM and placed in mass storage such that there are minimal overheads.
+
+This allows thrashing to be avoided, where the CPU is spending more time swapping pages than actually executing a process.
+
+As such, it must be considered that:
+\begin{itemize}
+	\item modified pages must first be saved whereas unmodified pages are just overwritten; and
+	\item it is preferable to not replace an often used page in and out of main memory.
+\end{itemize}
+
+These algorithms use information (bits) from the page table.
+
+
+\subsection*{Optimal page replacement}
+
+The \textbf{optimal page replacement algorithm} replaces the page that will not be needed for the longest time in the future.
+
+This is not feasible because:
+\begin{itemize}
+	\item it is impossible to know the future of a program; and
+	\item it is impossible to know when a given page will be needed next.
+\end{itemize}
+
+However, this is useful for benchmarking page replacement algorithms a posteriori (i.e. "what if").
+
+
+\subsection*{Not recently used page replacement}
+
+The \textbf{not recently used page replace algorithm} uses the reference and modified bits from the page table to collect useful page usage statistics.
+
+Pages are classified based on the contents of their reference and modified bits in the page table.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \begin{longtabu} to \textwidth {|X[0.5,l]|X[0.75,l]|X[0.75,l]|X[2,l]|}
+	    \hline
+	    \textbf{Class} & \textbf{Reference bit}
+	    & \textbf{Modified bit} & \textbf{Meaning}
+	    \\ \hline
+		\texttt{Class 0} & 0 & 1 & Not referenced and not modified.
+		\\ \hline
+		\texttt{Class 1} & 0 & 1 & Not referenced and modified.
+		\\ \hline
+		\texttt{Class 2} & 1 & 0 & Referenced and not modified.
+		\\ \hline
+		\texttt{Class 3} & 1 & 1 & Referenced and modified.
+		\\ \hline
+	\end{longtabu}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Page classification}
+  \end{minipage}}
+\end{figure}
+
+Based on the page classifications, the algorithm removes a page from the lowest numbered non-empty class. For example, should pages exist in \texttt{Class 1}, \texttt{Class 2} and \texttt{Class 3} but not \texttt{Class 0}, then a page would be removed from \texttt{Class 1}.
+
+A timer interrupt clears the reference bit to distinguish between those pages that have been recently referenced and those which have not been referenced for a given amount of time.
+
+\newpage
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Very low overhead}. & \textbf{Not optimal} when compared to the optimal page replacement algorithm.
+	\\ \hline
+	\textbf{Easy to implement}. &
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{FIFO page replacement}
+
+In the \textbf{First In, First Out (FIFO) page replacement algorithm}, main memory maintains a list of all pages currently stored in main memory. In which,
+\begin{itemize}
+	\item the most recently arrived page is located at the tail; and
+	\item the least recently arrived page is located at the head.
+\end{itemize}
+
+When page replacement occurs, the page at the head is removed and the new page is added to the tail of the list such that the oldest page is removed.
+
+However, this algorithm is rarely used as the oldest page may still be useful.
+
+
+\subsection*{Second chance page replacement}
+
+The \textbf{second chance page replacement algorithm} is a variation of the FIFO page replacement algorithm. It attempts to avoid the problem of replacing a heavily used page.
+
+The algorithm checks the reference bit of the oldest page first and performs actions based on the page's state deduced from the reference bit.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \begin{longtabu} to \textwidth {|X[0.6,l]|X[0.75,l]|X[2,l]|}
+	    \hline
+	    \textbf{Reference bit} & \textbf{Page's state}
+	    & \textbf{Actions taken}
+	    \\ \hline
+		0 & Old and unused. &
+		The page is replaced in the list, in the same manner as the FIFO page replacement algorithm.
+		\\ \hline
+		1 & Old but used. &
+		The page is placed at the end of the list of pages, the load time resets as though it has just arrived in memory and the search continues to the next page.
+		\\ \hline
+	\end{longtabu}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Page classification for the second chance page replacement algorithm.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the second change page replacement algorithm factors in the use of a page as well as its age.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/second-change-page-replacement-a.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Pages shorted in FIFO order.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows the pages sorted in FIFO order, with the most recently arrived page at the head of the list of pages and the least recently arrived page at the tail of the list of pages.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/second-change-page-replacement-b.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{"Second chance" for page \texttt{A}.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows a "second chance" for page \texttt{A}. If a page fault was to occur at time \texttt{20} and page \texttt{A} has a reference bit of 1, the loads times are updated such that it appears that page \texttt{A} has just arrived in memory.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Improvement over the FIFO page replacement algorithm} as avoids removing old but useful pages. & \textbf{Not optimal} when compared to the optimal page replacement algorithm as unnecessarily moves pages around the list.
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{Clock page replacement}
+
+The \textbf{clock page replacement algorithm} is also a variation fo the FIFO page replacement algorithm and is similar to the second chance page replacement algorithm but maintains the pages on a circular list.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/clock-page-replacement.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Clock page replacement algorithm.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the pages are kept in a circular list in memory, where the hand points to the oldest page.
+
+When a page fault occurs, the page being pointed to by the hand and performs actions based on the page's state deduced from the reference bit.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \begin{longtabu} to \textwidth {|X[0.6,l]|X[0.75,l]|X[2,l]|}
+	    \hline
+	    \textbf{Reference bit} & \textbf{Page state}
+	    & \textbf{Actions taken}
+	    \\ \hline
+		0 & Old and unused. &
+		The page is replaced in the clock in the same manner as the FIFO page replacement algorithm, and the hand is advanced to the next page.
+		\\ \hline
+		1 & Old but used. &
+		The reference bit for the page is cleared and the hand is advanced to the next page. This is repeated until a page is found with a reference bit of 0.
+		\\ \hline
+	\end{longtabu}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Page classification for the clock page replacement algorithm.}
+  \end{minipage}}
+\end{figure}
+
+This algorithm is realistic as it avoids the unnecessary movement of pages as seen in the second chance page replacement algorithm.
+
+
+\subsection*{Least recently used page replacement}
+
+The \textbf{least recently use page replacement algorithm} is based on the ideas that:
+\begin{itemize}
+	\item pages that have been heavily used in the last few instructions will probably be heavily used again soon; and
+	\item pages that have not been used for ages will probably remain unused for a long time.
+\end{itemize}
+
+It is necessary for a linked list of all pages to be maintained in memory with:
+\begin{itemize}
+	\item the most recently used page at the front; and
+	\item the least recently used page at the back.
+\end{itemize}
+
+As such, the algorithm swaps out pages that have been unused for the longest time.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	& \textbf{Requires time-consuming maintenance of the linked list} as the list must be updated on every memory reference such that referenced pages are moved to the front.
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{Not frequently used page replacement}
+
+The \textbf{not frequently used page replacement algorithm} keeps track of how often a page is used.
+
+A counter is associated with each page and is initially set to 0. At each clock interrupt, the OS will scan all pages in memory. For each page, the reference bit will be added to its associated counter, such that:
+\begin{itemize}
+	\item if the reference bit is 0, the counter will remain the same; and
+	\item if the reference bit is 1, the counter will be incremented.
+\end{itemize}
+
+This means that counters can be used to track how often each page has been referenced.
+
+When a page fault occurs, the page with the lowest counter is chosen for replacement.
+
+
+\section*{Evaluation of paging}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Almost full utilisation of physical memory}. &
+	\textbf{Some internal fragmentation} as a process may not use memory in multiples of a page; usually the last page may not use the entire page size.
+	\\ \hline
+	\textbf{Can execute programs that have address space larger than physical memory}. &
+	\textbf{Tuning the page size is tricky} as
+	\begin{itemize}
+		\item a smaller page size leads to less internal fragmentation but more pages are required and therefore the page tables will be larger; and
+		\item a larger page size leads to more unused programs to be loaded in to memory but less pages are requires and therefore the page tables will be smaller.
+	\end{itemize}
+	\\ \hline
+	\textbf{No external fragmentation}. & 
+	\textbf{Large memory consumption} as one page table for each process may consume large amounts of memory.
+	\\ \hline
+	& \textbf{Does not support the logical divisions of programs} as page sizes are fixed and not based on the actual size of programs.
+	\\ \hline
+\end{longtabu}
 
 \end{document}
