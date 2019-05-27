@@ -202,30 +202,6 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
 
 \pagebreak
 
-% Copyright page
-\null
-\vfill
-\begin{flushleft}
-  Copyright \copyright \ \@tsyear \ \@tsauthor \\
-  \vspace{5mm}
-  \textbf{Copying prohibited} \\
-  \vspace{5mm}
-  All rights reserved. No part of this publication may be reproduced
-  or transmitted in any form or by any means, electronic or
-  mechanical, including photocopying and recording, or by any
-  information storage or retrieval system, without the prior written
-  permission of the publisher. \\
-  \vspace{5mm}
-  Art. No \@tsartno \\
-  ISBN \@tsisbn \\
-  Edition \@tsedition \\
-  \vspace{5mm}
-  Cover design by \@tscoverdesign \\
-  \vspace{5mm}
-  Published by \@tspublished \\
-  Printed in \@tsprinted
-\end{flushleft}
-
 % Table of contents
 \tableofcontents
 

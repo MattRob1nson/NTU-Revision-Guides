@@ -203,28 +203,6 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
 
 \pagebreak
 
-% Copyright page
-\null
-\vfill
-\begin{flushleft}
-  Copyright \copyright \ \@tsyear \ \@tsauthor \\
-  \vspace{5mm}
-  \textbf{Kopiering förbjuden} \\
-  \vspace{5mm}
-  Detta verk är skyddat av lagen om upphovsrätt.
-  Ingen del av detta verk får reproduceras eller kopieras
-  utan rättighetsinnehavarens skriftliga medgivande. \\
-  \vspace{5mm}
-  Art. No \@tsartno \\
-  ISBN \@tsisbn \\
-  Utgåva \@tsedition \\
-  \vspace{5mm}
-  Omslagsdesign av \@tscoverdesign \\
-  \vspace{5mm}
-  Publicerad av \@tspublished \\
-  Tryckt i \@tsprinted
-\end{flushleft}
-
 % Table of contents
 \tableofcontents
 
