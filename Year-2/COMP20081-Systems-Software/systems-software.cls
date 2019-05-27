@@ -89,7 +89,7 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
            {\parbox[t][1.6cm][t]{\paperwidth}
            {\huge\bfseries\sffamily\flushleft\thechapter. #1}};
       % Chapter contents
-      \draw[anchor=west,inner sep=0pt] (8.8cm,-7cm) node
+      \draw[anchor=west,inner sep=0pt] (10cm,-4.85cm) node
            [tssteelblue,
             ultra thick,
             fill=white,
@@ -100,7 +100,7 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
             rounded corners,
             inner sep=0pt]
            (0,0)
-           {\hspace{1cm}\parbox[t][7.1cm][t]{11cm}
+           {\hspace{1cm}\parbox[t][9.1cm][t]{11cm}
            {\vspace{-1cm}\huge\bfseries\sffamily\flushleft
             \textcolor{black}{\sffamily\minitoc}}};
     \end{tikzpicture}
