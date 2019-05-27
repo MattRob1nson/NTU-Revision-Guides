@@ -4466,7 +4466,7 @@ This is a good solution to address external fragmentation.
 
 \subsection*{Definition}
 
-A \textbf{page table} is responsible for mapping virtual pages in to page frames.
+A \textbf{page table} is responsible for mapping virtual pages in to page frames when using paging.
 
 
 \subsection*{Fields}
@@ -4498,7 +4498,7 @@ Each logical address is formed as \texttt{(p,d)} where
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Logical program address.}
+    \caption{Logical program address in paging.}
   \end{minipage}}
 \end{figure}
 
@@ -4550,7 +4550,7 @@ The value at index \texttt{4} in the page table can then be used as the base (\t
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Using the value at \texttt{4} as the base (\texttt{b}).}
+    \caption{Using the value at index \texttt{4} as the base (\texttt{b}).}
   \end{minipage}}
 \end{figure}
 
@@ -4564,14 +4564,14 @@ The displacement (\texttt{d}) from the logical program address can then be used 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Using the displacement value to complete the physical memory address.}
+    \caption{Using the displacement value (d) to complete the physical memory address.}
   \end{minipage}}
 \end{figure}
 
 This can also be shown by performing the following operations:
 \begin{equation*}
 	\begin{aligned}
-		\text{physical memory address} & = \text{page table value at index p} + \text{displacement value} \\
+		\text{physical memory address} & = \text{page table value at index p} + \text{displacement value (d)} \\
 		\text{physical memory address} & = 1100\;0000\;0000\;0000 + 0000\;0110\;0100 \\
 		\text{physical memory address} & = 1100\;0000\;0110\;0100_{2} = 104_{10}
 	\end{aligned}
@@ -4906,6 +4906,166 @@ When a page fault occurs, the page with the lowest counter is chosen for replace
 	\textbf{Large memory consumption} as one page table for each process may consume large amounts of memory.
 	\\ \hline
 	& \textbf{Does not support the logical divisions of programs} as page sizes are fixed and not based on the actual size of programs.
+	\\ \hline
+\end{longtabu}
+
+
+\section{Segmentation}
+
+\section*{Definition}
+
+\textbf{Segmentation} is a memory management scheme that supports the logical user-view of programs.
+
+
+\section*{How it works}
+
+Each program is split in to variable chunks called segments according to the program's logical structure.
+
+Different compilers for programs may split programs in to different segments.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/segmentation.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Program segments from a C compiler.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, a C compiler may generate four segments with different sizes:
+\begin{itemize}
+	\item text segment (main code) and libraries;
+	\item data segment;
+	\item the stack; and
+	\item the heap.
+\end{itemize}
+
+The stack and heap are of dynamic size, as they may shrink and grow over the course of the program's lifetime.
+
+Memory is allocated to processes, segment by segment, in non-contiguous areas of physical memory.
+
+Each segment has its own address space.
+
+
+\section*{Segment table}
+
+\subsection*{Definition}
+
+The \textbf{segment table} is responsible for mapping logical program addresses to physical memory addresses when using segmentation.
+
+
+\subsection*{Mapping logical program addresses to physical memory addresses}
+
+Each logical address is formed as \texttt{(s,d)} where
+\begin{itemize}
+	\item \texttt{s} is the segment reference; and
+	\item \texttt{d} is the displacement within that segment (offset).
+\end{itemize}
+\texttt{s} occupies 4 bits and while \texttt{d} occupies 12 bits.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/segmentation-logical-program-address.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Logical program address in segmentation.}
+  \end{minipage}}
+\end{figure}
+
+In addition, each process has a segment table, which records the base address and the length of the segment.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/logical-program-address-and-segment-table.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Logical program address and respective segment table.}
+  \end{minipage}}
+\end{figure}
+
+The implementation is performed by the hardware, as such the Memory Management Unit (MMU) is responsible for mapping the logical addresses to physical addresses.
+
+Given a 16-bit program address \texttt{0100 0001 0111 1010}, it can be deduced that:
+\begin{equation*}
+	\begin{aligned}
+		\text{p} & = & 0100_{2} & = & 4_{10} \\
+		\text{d} & = & 0001\;0111\;1010_{2} & = & 378_{10}
+	\end{aligned}
+\end{equation*}
+
+The segment reference (\texttt{s}) provides an index to a location in the segment table.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/using-s-as-index-to-segment-table.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Using \texttt{s} as an index to the segment table.}
+  \end{minipage}}
+\end{figure}
+
+A check is also performed to ensure that the displacement value (\texttt{d}) is less than the segment length recorded in the segment table.
+
+If the check is passed, the sum of the value of the base address (\texttt{b}) at index \texttt{4} in the segment table and the displacement value (\texttt{d}) from the logical program address can then be used as the physical memory address.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-6/segmentation-logical-program-address-to-physical-memory-address.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Using the value at index \texttt{4} as the base (\texttt{b}).}
+  \end{minipage}}
+\end{figure}
+
+This can also be shown by performing the following operations:
+\begin{equation*}
+	\begin{aligned}
+		\text{physical memory address} & = \text{base address (b)} + \text{displacement value (d)} \\
+		\text{physical memory address} & = 0101\;0010\;0111\;1011 + 001\;0111\;1010 \\
+		\text{physical memory address} & = 0101\;0011\;1111\;0101_{2} = 21493_{10}
+	\end{aligned}
+\end{equation*}
+
+
+\section*{Protection and sharing}
+
+Segmentation aids protection as it:
+\begin{itemize}
+	\item assigns different modes, such as read, write and execute, to each segment; and
+	\item checks that memory references do not exceed the segment length, therefore preventing a process accessing another process' segments.
+\end{itemize}
+
+Segmentation aids sharing as a shared segment can be referenced by multiple processes, such as libraries.
+
+
+\section*{Evaluation of segmentation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Support the logical divisions of programs} as segments are based on the program's attributes. &
+	\textbf{Wasted space} as segments are usually much larger than pages.
+	\\ \hline
+	\textbf{Segments can grow and shrink} dynamically and independently, such as the stack and heap. &
+	\textbf{External fragmentation}.
+	\\ \hline
+	\textbf{Aids sharing and protection}. &
 	\\ \hline
 \end{longtabu}
 
