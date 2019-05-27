@@ -5069,4 +5069,48 @@ Segmentation aids sharing as a shared segment can be referenced by multiple proc
 	\\ \hline
 \end{longtabu}
 
+
+\section{Comparison of paging and segmentation}
+
+\begin{longtabu} to \textwidth {| X[0.6,l] | X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Attribute} & \textbf{Paging} & \textbf{Segmentation}
+	\\ \hline
+	\textbf{Uses} &
+	Useful to have more address space without having to purchase more physical memory. &
+	Useful to allow programs to be broken up in to independent logical address spaces.
+	\\ \hline
+	\textbf{Memory division} &
+	Physical division of memory which is transparent to the user. &
+	Logical division of memory which is visible to the user.
+	\\ \hline
+	\textbf{Size} &
+	Fixed size as each page is a pre-determined fixed size. &
+	Variable size as segments can be dynamic, such as stack and heap.
+	\\ \hline
+	\textbf{Fragmentation} &
+	No external fragmentation. &
+	Generates memory holes.
+	\\ \hline
+	\textbf{Address space} &
+	\multicolumn{2}{|l|}{The total address space can exceed the size of physical memory.}
+	\\ \hline
+\end{longtabu}
+
+
+\section{Paging segments}
+
+\textbf{Paging segments} is a method of combining paging and segmentation by assigning each segment with a page table. 
+
+Segments are typically larger than pages and, in the case where a segment does not fit in physical memory, this method must be used.
+
+This allows the advantages of both memory management schemes to be present, such that this method:
+\begin{itemize}
+	\item avoids external fragmentation;
+	\item aids sharing and protection; and
+	\item supports the user-view of programs.
+\end{itemize}
+
+Paging segments is roughly the method used in modern systems, such as Intel-based systems.
+
 \end{document}
