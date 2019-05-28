@@ -5129,4 +5129,83 @@ This allows the advantages of both memory management schemes to be present, such
 
 Paging segments is roughly the method used in modern systems, such as Intel-based systems.
 
+
+\chapter{File Management}
+
+\section{Non-volatile storage}
+
+\section*{Definition}
+
+\textbf{Non-volatile storage} is a type of computer memory that can retrieve stored information even after having been power cycled.
+
+
+\section*{Why is it used?}
+
+It is desirable that data should persist for later use and further processing. This should happen even after:
+\begin{itemize}
+	\item power-down;
+	\item critical errors;
+	\item crashes; and
+	\item forced shut-downs.
+\end{itemize}
+
+Solely relying on RAM would present issues as:
+\begin{itemize}
+	\item information in the process address space would be lost when the process terminates; and
+	\item for most applications it is far too small to contain all of the required data and instructions at any given time.
+\end{itemize}
+
+
+\newpage
+
+\section{Filing system}
+
+\section*{Definition}
+
+A \textbf{filing system} is a method of organising and retrieving files from a storage medium, such as a hard drive.
+
+
+\section*{Objectives}
+
+A filing system aims to:
+\begin{itemize}
+	\item facilitate the long-term storage of data;
+	\item allow the creation and deletion of files with automatic management of secondary storage;
+	\item allow for file reference using symbolic names;
+	\item provide access control to protect files against unauthorised access and allow sharing of files when required; and
+	\item protect files against system failure.
+\end{itemize}
+
+
+\section{Files}
+
+\section*{Defintion}
+
+A \textbf{file} is a uniform logical unit of information created by a process.
+
+
+\section*{Characteristics}
+
+Files also have an address space. However, the mapping in to a mass storage unit rather than RAM. As such, files can be described as a named collection of related information that is recorded on secondary storage, such as:
+\begin{itemize}
+	\item the set of lines in a program; or
+	\item the set of words in a text document.
+\end{itemize}
+
+Files are used for storing large amounts of data in the long-term.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/processes-accessing-file.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Processes \texttt{P1}, \texttt{P2} and \texttt{P3} accessing a file.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, processes are able to access a file's data concurrently.
+
 \end{document}
