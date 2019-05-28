@@ -5179,7 +5179,7 @@ A filing system aims to:
 
 \section{Files}
 
-\section*{Defintion}
+\section*{Definition}
 
 A \textbf{file} is a uniform logical unit of information created by a process.
 
@@ -5582,8 +5582,247 @@ OSs offer several system calls for file management, as shown below.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Typical file operations}
+    \caption{Typical file operations.}
   \end{minipage}}
 \end{figure}
+
+
+\newpage
+
+\section{Directories}
+
+\section*{Definition}
+
+A \textbf{directory} (or \textbf{folder}) is a file system cataloging structure which contains references to other computer files, and possibly other directories.
+
+
+\section*{Characteristics}
+
+Most filing systems allow files to be grouped together in to directories, resulting in a more logical organisation.
+
+Directories allow:
+\begin{itemize}
+	\item operations to be performed in bulk on groups of files, such as copying files or setting one of their attributes; and
+	\item different files to have the same file name provided that they are in different directories.
+\end{itemize}
+
+
+\section*{File descriptor table}
+
+Each directory is managed using a special file containing a file descriptor table.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/file-descriptor-table.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{File descriptor table.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the file descriptor table contains descriptors for each file under that directory which correspond to specific entries on the global file table.
+
+
+\newpage
+
+\section*{Directory structure}
+
+\subsection*{Definition}
+
+The \textbf{directory structure} determines how the OS organises the files and directories in the file system.
+
+
+\subsection*{Single-level directory systems}
+
+\textbf{Single-level directory systems} use one directory for all files in the file system.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{3cm}]{images/chapter-7/single-level-directory-system.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Single-level directory system.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows a single-level directory system with four files owned by three different users \texttt{A}, \texttt{B} and \texttt{C}.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Simplicity} as the root directory is the only directory to be implemented. &
+	\textbf{Limited grouping capability} as the root directory is the only directory present in the file system.
+	\\ \hline
+	\textbf{Ability to quickly find files} as only the root directory must be searched. &
+	\textbf{Naming issues} as the root directory is the only directory present in the file system and so no two files can have the same name.
+	\\ \hline
+\end{longtabu}
+
+
+\newpage
+
+\subsection*{Two-level directory systems}
+
+\textbf{Two-level directory systems} use a separate directory for each user.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/two-level-directory-system.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Two-level directory system.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows a two-level directory system with directories for the users \texttt{A}, \texttt{B} and \texttt{C}.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Flexible naming} as files can have the same name provided that they are in different user directories. &
+	\textbf{Limited grouping capability} as the user directory is the only directory present in the file system.
+	\\ \hline
+\end{longtabu}
+
+
+\newpage
+
+\subsection*{Hierarchical directory systems}
+
+\textbf{Hierarchical directory systems} maintain directories in a tree-like structure.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/hierarchical-directory-system.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Hierarchical directory system.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows a two-level directory system with directories for the users \texttt{A}, \texttt{B} and \texttt{C}.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Grouping capabilities} as directories can be created by users to organise files. &
+	\textbf{Some complexity} as a method for browsing and locating files must be implemented.
+	\\ \hline
+	\textbf{More flexible naming} as files can have the same name provided that they are in different directories. &
+	\\ \hline
+\end{longtabu}
+
+The exact implementation may differ between OSs.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-7/unix-directory-tree.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Unix directory tree.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows the directory tree used by Unix-based OSs.
+
+
+\newpage
+
+\section*{Directory paths}
+
+\subsection*{Browsing files}
+
+Two common methods are used for browsing files: absolute path name; and relative path name.
+
+An \textbf{absolute path name} is relative to the root directory and is unique. For example:
+\begin{itemize}
+	\item in MS-DOS and Windows -- \texttt{\textbackslash NTU\textbackslash syssoftware\textbackslash demo.c}; and
+	\item in Unix-based OSs -- \texttt{/NTU/syssoftware/demo.c}.
+\end{itemize}
+
+A \textbf{relative path name} is relative to the current directory (or present working directory). For example:
+\begin{itemize}
+	\item in MS-DOS and Windows -- if the current working directory is \texttt{\textbackslash NTU \textbackslash syssoftware}, the the file whose absolute path is \texttt{\textbackslash NTU\textbackslash syssoftware\textbackslash demo.c} can be referenced as \texttt{demo.c}; and
+	\item in Unix-based OSs -- if the current working directory is \texttt{/NTU/syssoftware}, the the file whose absolute path is \texttt{/NTU/syssoftware/demo.c} can be referenced as \texttt{demo.c}.
+\end{itemize}
+
+\subsection*{Special enteries}
+
+Some special entries exist to provide shortcuts:
+\begin{itemize}
+	\item \texttt{.} (dot) -- shortcut for current directory; and
+	\item \texttt{..} (dot dot) -- shortcut for parent directory.
+\end{itemize}
+
+
+\subsection*{Example Unix directory commands}
+
+Given that it is required to backup the \texttt{dictionary} file located in the \texttt{lib} directory:
+\begin{itemize}
+	\item if the current directory is \texttt{/} (root directory), then the command to perform this action would be \texttt{cp /usr/lib/dictionary /usr/lib/dictionary.bak}; and
+	\item if the current directory is \texttt{/usr/lib/}, then the command to perform this action would be \texttt{cp dictionary dictionary.bak}.
+\end{itemize}
+
+Given that it is required to move the \texttt{dictionary} file located in the \texttt{lib} directory to the \texttt{ast} directory:
+\begin{itemize}
+	\item if the current directory is \texttt{/} (root directory), then the command to perform this action would be \texttt{mv /usr/lib/dictionary /usr/ast/dictionary}; and
+	\item if the current directory is \texttt{/usr/ast/}, then the command to perform this action would be \texttt{mv dictionary /usr/ast/dictionary}.
+\end{itemize}
+
+
+\newpage
+
+\section*{Directory file operations}
+
+OSs offer several system calls for directories, as shown below.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \begin{longtabu} to \textwidth {|X[0.5,l] | X[3,l] |}
+	    \hline
+	    \textbf{Operation} & \textbf{Description}
+	    \\ \hline
+	    \texttt{Create} & An empty directory is created.
+		\\ \hline
+	    \texttt{Delete} & An existing directory can be deleted. Non-empty directories on many Unix-based OSs will require further clarification by using a "\texttt{force}" command.
+	    \\ \hline
+	    \texttt{Opendir} & Directories can be read. For example, when listing all of the files in the directory.
+	    \\ \hline
+	    \texttt{Closedir} & When a directory has been read, it should be closed to free up space.
+	    \\ \hline
+	    \texttt{Rename} & Change the name of an existing directory.
+	    \\ \hline
+	    \texttt{Link} & A technique that allows a file to appear in more than one directory.
+	    \\ \hline
+	    \texttt{Unlink} & If a file is unlinked, it is only normally present to one directory.
+	    \\ \hline
+	\end{longtabu}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Typical directory operations.}
+  \end{minipage}}
+\end{figure}
+
+There are more systems calls depending on the OS used.
 
 \end{document}
