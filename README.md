@@ -21,7 +21,7 @@ This repository contains my revision guides for theoretical and exam-based modul
 <p>
 
 * **Module:** ITEC10261 Computer Technology & Maths
-* **Component:** Technical Strand
+* **Component:** Computer Technology Strand
 * **Assessment Type:** In-class Test
 
 [View](https://github.com/MattRob1nson/NTU-Revision-Guides/blob/master/Year-1/ITEC10261-Computer-Technology-%26-Maths-Computer-Technology-Strand.pdf) or [download](https://github.com/MattRob1nson/NTU-Revision-Guides/blob/master/Year-1/ITEC10261-Computer-Technology-%26-Maths-Computer-Technology-Strand.pdf) the PDF.
