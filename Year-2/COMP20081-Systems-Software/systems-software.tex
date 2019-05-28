@@ -5830,7 +5830,9 @@ There are more systems calls depending on the OS used.
 
 \section{File system layout}
 
-File systems are stored on drives. Most drives can be divided up into one or more \textbf{partitions/volumes}, each holding an independent file system.
+File systems are stored on drives. Most disks can be divided up into one or more \textbf{partitions/volumes}, each holding an independent file system.
+
+The terms "drives" and "disk" can be used interchangeably despite referring to different types of mass storage
 
 \begin{figure}[H]
   \lineskip=-\fboxrule
@@ -5844,7 +5846,7 @@ File systems are stored on drives. Most drives can be divided up into one or mor
   \end{minipage}}
 \end{figure}
 
-\texttt{Sector 0} of the drive is the \textbf{Master Boot Record (MBR)}. This is used to boot the computer via a \textbf{boot block} from a specified partition, from which the OS is loaded.
+\texttt{Sector 0} of the disk is the \textbf{Master Boot Record (MBR)}. This is used to boot the computer via a \textbf{boot block} from a specified partition, from which the OS is loaded.
 
 \begin{figure}[H]
   \lineskip=-\fboxrule
@@ -5862,11 +5864,13 @@ File systems are stored on drives. Most drives can be divided up into one or mor
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Process for booting an OS from a drive.}
+    \caption{Process for booting an OS from a disk.}
   \end{minipage}}
 \end{figure}
 
-Every partition starts with a boot block, even if it does not contain a bootable operating system. Besides, it may contain one in the future.
+\newpage
+
+The end of the MBR contains the partition table. This table gives the starting and ending addresses of each partition. Every partition starts with a boot block, even if it does not contain a bootable operating system. Besides, it may contain one in the future.
 
 The \textbf{superblock} contains key parameters about the file system on the partition and is read in to memory when the computer is booted or the file system is first touched. Typical information in the superblock includes:
 \begin{itemize}
@@ -5874,5 +5878,295 @@ The \textbf{superblock} contains key parameters about the file system on the par
 	\item the number of blocks in the file system; and
 	\item other key administrative information.
 \end{itemize}
+
+
+\section{File block allocation methods}
+
+\section*{Objective}
+
+\textbf{File block allocation methods} aim to keep track of which disk blocks go with which file.
+
+Various methods are used in different OSs, including:
+\begin{itemize}
+	\item contiguous allocation;
+	\item linked list allocation (non-contiguous);
+	\item linked list with file allocation table; and
+	\item i-nodes.
+\end{itemize}
+
+
+\section*{Contiguous allocation}
+
+\subsection*{How it works}
+
+In \textbf{contiguous allocation}, disks are split in to blocks of fixed size.
+
+This method is often used for CDs.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/contiguous-allocation.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Contiguous allocation for files \texttt{A}-\texttt{G}.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows how a different number of cotiguous blocks may be allocated to different files. For example:
+\begin{itemize}
+	\item if the fixed size of the blocks was \texttt{1KB}, a file with size \texttt{50KB} would be assigned to 50 consecutive blocks; and
+	\item if the fixed size of the blocks was \texttt{2KB}, a file with size \texttt{50KB} would be assigned to 25 consecutive blocks.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/contiguous-allocation-removing-files.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Contiguous allocation for files \texttt{A}-\texttt{G}, where files \texttt{D} and \texttt{F} are removed.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, removing files frees up the blocks that were once allocated to the deleted file.
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Simple implementation} as it is only required to store the first block address and its length. &
+	\textbf{Overhead} as it is required to track the size of the files when initially created.
+	\\ \hline
+	\textbf{Good performance}. &
+	\textbf{Files cannot grow} as their number of blocks is fixed and the size of the blocks is fixed. For example, it would not be possible to edit an existing document and introduce new data.
+	\\ \hline
+	\textbf{Allows easy random access}. &
+	\textbf{Internal fragmentation} as the data inside a file block may be smaller than the fixed block size.
+	\\ \hline
+	\textbf{Resilient to drive faults} as damage to a single block results in only localised loss of data. &
+	\textbf{External fragmentation} as when files are deleted, holes may be generated. This can be overcome by performing compaction, however this increases the system overhead.
+	\\ \hline
+\end{longtabu}
+
+
+\newpage
+
+\section*{Linked list allocation (non-contiguous)}
+
+\subsection*{How it works}
+
+In \textbf{linked list allocation}, files are stored as linked lists of blocks.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/linked-list-allocation.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Linked list allocation.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, each block contains:
+\begin{itemize}
+	\item a pointer to the next block (occupies the first word of each block); and
+	\item data.
+\end{itemize}
+
+The final block contains a null pointer, usually denoted by a zero (\texttt{0}) as no further blocks for the file exist.
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Every block can be used}. &
+	\textbf{Does not support random access} as it is very slow due to the necessity to traverse through the chain of blocks.
+	\\ \hline
+	\textbf{File size does not have to be known beforehand} as files can grow because new blocks can be easily added by changing the null pointer on the last block to point to the newly added block. &
+	\textbf{Wasted space} as some space is lost for useful data within each block due to storage of the pointer.
+	\\ \hline
+	\textbf{No external fragmentation}. &
+	\\ \hline
+	\textbf{No internal fragmentation}, except for the last block. &
+	\\ \hline
+\end{longtabu}
+
+
+\section*{Linked list with file allocation table (FAT)}
+
+When using a \textbf{linked list with file allocation table (FAT)}, the FAT is located in main memory and stores the pointer of all of the blocks.
+
+This method is used by MS-DOS and older versions of Windows.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/linked-list-allocation.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Linked list allocation for files \texttt{A} and \texttt{B}.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows the linked list allocation for files \texttt{A} and \texttt{B}:
+\begin{itemize}
+	\item file \texttt{A} uses disk blocks 4, 7, 2, 10, and 12; and
+	\item file \texttt{B} uses disk blocks 6, 3, 11, and 14.
+\end{itemize}
+
+The pointer word from each block is put in to the FAT in main memory.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/linked-list-with-file-allocation-table.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Linked list using a FAT in main memory.}
+  \end{minipage}}
+\end{figure}
+
+For example, using the FAT in the figure above:
+\begin{itemize}
+	\item for file \texttt{A}, it is possible to start with block \texttt{4} and follow the chain to the end at \texttt{12}; and
+	\item for file \texttt{B}, it is possible to start with block \texttt{6} and follow the chain to the end at \texttt{14}.
+\end{itemize}
+
+Both chains are terminated with a special marker, usually denoted as \texttt{-1}, that is not a valid block number. This is used to signal the end of the blocks for a given file.
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{No wasted space} as the pointer is not stored in the block, as it was in linked list allocation. &
+	\textbf{Does not scale well to large disks} as the FAT may get too large for main memory, especially for drives with large capacities that require more pointers to be stored as there are more files and more blocks.
+	\\ \hline
+	\textbf{Random access is much faster} than linked list allocation as the FAT is stored in main memory, which is a faster storage medium. &
+	\textbf{Serious data loss} can occur should damage be inflicted on the FAT. However, this can be mitigated by storing several backups of the FAT.
+	\\ \hline
+	\textbf{No disk references are required} when following a chain in the FAT as it is stored in main memory. &
+	\\ \hline
+\end{longtabu}
+
+
+\section*{Index-nodes (I-nodes)}
+
+When using \textbf{index-nodes} (i-nodes), each file is associated with an i-node which lists:
+\begin{itemize}
+	\item all of the attributes of the file's blocks; and
+	\item the disk addresses of the file's blocks.
+\end{itemize}
+
+This method is used by Unix-based OSs.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/i-nodes.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{I-nodes for files on a disk.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows an example of some i-nodes stored for files on a disk.
+
+Given the i-node, it is then possible to find all the blocks of the file.
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{More efficient memory usage} than FAT as only the i-node of the file must be present in main memory and only when the corresponding file is opened. &
+	\textbf{Files may grow beyond the limit} of the fixed number of addresses in each i-node. However, this can be mitigated by reserving the last disk address for the address of a block containing more disk-block addresses. This can be further improved, as shown in Unix in the section below.
+	\\ \hline
+	& \textbf{List disk addresses must point to an address block instead of a data block}.
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{I-nodes in Unix}
+
+In Unix, the i-node contains a number of \textbf{direct pointers} to disk blocks. There are typically ten direct pointers.
+
+In addition to the direct pointers, there are three \textbf{indirect pointers} that point to further address blocks, which eventually lead to a disk data block.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/unix-i-node.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{An i-node in a Unix-based OS.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the indirect pointer include:
+\begin{itemize}
+	\item a single level of indirections;
+	\item a double indirect pointer; and
+	\item a triple indirect pointer.
+\end{itemize}
+
+These enable the file blocks to be located for a file, without restricting files to a fixed number of addresses, as shown below.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    The file system locates the root directory by using the i-node located at a fixed place on the disk.
+    
+	$\downarrow$
+	
+	The file system looks up the first component of the path, \texttt{usr}, in the root directory to find the i-node number of the \texttt{/usr} file.
+	
+	$\downarrow$
+	
+	From this i-node, the file system locates the directory for \texttt{/usr} and looks up the next component of the path, \texttt{ast}, inside the i-node.
+	
+	$\downarrow$
+	
+	When the entry for \texttt{ast} is found, it has the i-node for the directory \texttt{/usr/ast}.
+	
+	$\downarrow$
+	
+	From this i-node, the file system can locate the directory itself and lookup the \texttt{mbox} file.
+	
+	$\downarrow$
+	
+	The i-node for the \texttt{mbox} file is read in to main memory and is kept there until the file is closed. 
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Process for finding file blocks for \texttt{/usr/ast/mbox} using i-nodes in a Unix-based OS.}
+  \end{minipage}}
+\end{figure}
 
 \end{document}
