@@ -5825,4 +5825,54 @@ OSs offer several system calls for directories, as shown below.
 
 There are more systems calls depending on the OS used.
 
+
+\chapter{File System Implementation}
+
+\section{File system layout}
+
+File systems are stored on drives. Most drives can be divided up into one or more \textbf{partitions/volumes}, each holding an independent file system.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/file-system-layout.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{File system layout.}
+  \end{minipage}}
+\end{figure}
+
+\texttt{Sector 0} of the drive is the \textbf{Master Boot Record (MBR)}. This is used to boot the computer via a \textbf{boot block} from a specified partition, from which the OS is loaded.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    The MBR program locates the active partition.
+    
+	$\downarrow$
+	
+	The MBR reads in the first block in the active partition, called the boot block.
+	
+	$\downarrow$
+	
+	The program in the boot block is executed and loads the OS contained in that partition.
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Process for booting an OS from a drive.}
+  \end{minipage}}
+\end{figure}
+
+Every partition starts with a boot block, even if it does not contain a bootable operating system. Besides, it may contain one in the future.
+
+The \textbf{superblock} contains key parameters about the file system on the partition and is read in to memory when the computer is booted or the file system is first touched. Typical information in the superblock includes:
+\begin{itemize}
+	\item a magic number to identify the file system type;
+	\item the number of blocks in the file system; and
+	\item other key administrative information.
+\end{itemize}
+
 \end{document}
