@@ -5208,4 +5208,382 @@ Files are used for storing large amounts of data in the long-term.
 
 As shown in the figure above, processes are able to access a file's data concurrently.
 
+
+\section*{File naming}
+
+\subsection*{Motivation}
+
+File naming removes the need for a user to provide numerical addresses to access files. Instead, files can be accessed using a user-friendly name.
+
+
+\subsection*{File naming conventions}
+
+Different OSs enforce different file naming conventions but most follow a common pattern.
+
+Many OSs, such as Windows and Unix-based OSs, support up to approximately 260 characters for file names.
+
+OSs place restrictions on which characters can be used in file names. For example:
+\begin{itemize}
+	\item in Windows, the question-mark character (?) is not allowed in file names; while
+	\item in Unix-based OSs, the question-mark character (?) is valid.
+\end{itemize}
+
+Some OSs distinguish between upper-case and lower-case in file names. For example:
+\begin{itemize}
+	\item in Windows, files named \texttt{ABC}, \texttt{Abc} and \texttt{abc} would all represent the same file; while
+	\item in Unix-based OSs, files name \texttt{ABC}, \texttt{Abc} and \texttt{abc} would all represent different files as the OS is case sensitive.
+\end{itemize}
+
+
+\subsection*{File extensions}
+
+A \textbf{file extension} is a string of characters attached to a filename, usually preceded by a full stop and indicating the format of the file.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    file.ext
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Base name and extension.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows the format for a typical file name, consisting of:
+\begin{itemize}
+	\item a base name -- often indicative of the file's contents; and
+	\item a file extension -- informs the user and the OS what type of data the file contains.
+\end{itemize}
+
+In MS-DOS, only three (3) characters were allowed for file extensions. While, in Unix-based OSs, the length of a file extension is down to the discretion of the user or process.
+
+In Unix-based OSs, file extensions are not enforced by the OS. However, for example, a C compiler would require a file with the extension \texttt{.c} to compile.
+
+GUI-based OSs typically attach meanings to extensions and associate applications to file extensions. For example, opening a file with the \texttt{.docx} extension may launch Microsoft Word.
+
+However, this poses an issue as it is easy to "trick" and corrupt files by modifying extensions. This is addressed in macOS, which examines the contents of files in order to determine the file's type.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \begin{longtabu} to \textwidth {|X[0.5,l] | X[3,l] |}
+	    \hline
+	    \textbf{Extension} & \textbf{Meaning}
+	    \\ \hline
+	    \texttt{.bak} & Backup file.
+	    \\ \hline
+	    \texttt{.c} & C source program.
+	    \\ \hline
+	    \texttt{.gif} & Graphical Interchange Format image.
+	    \\ \hline
+	    \texttt{.html} & World Wide Web HyperText Markup Language document.
+	    \\ \hline
+	    \texttt{.iso} & ISO image of a CD-ROM (for burning to a CD).
+	    \\ \hline
+	    \texttt{.jpg} & Still picture encoded with the JPEG standard.
+	    \\ \hline
+	    \texttt{.mp3} & Music encoded in MPEG layer 3 audio format.
+	    \\ \hline
+	    \texttt{.mpg} & Movie encoded with the MPEG standard.
+	    \\ \hline
+	    \texttt{.o} & Object file (compiler output, not yet linked).
+	    \\ \hline
+	    \texttt{.pdf} & Portable Document Format file.
+	    \\ \hline
+	    \texttt{.ps} & PostScript file.
+	    \\ \hline
+	    \texttt{.tex} & Input for the TEX formatting program.
+	    \\ \hline
+	    \texttt{.txt} & General text file.
+	    \\ \hline
+	    \texttt{.zip} & Compressed archive.
+		\\ \hline
+	\end{longtabu}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Common file extensions.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows some common file extensions. However, this list is not exhaustive.
+
+
+\section*{File attributes}
+
+\subsection*{Definition}
+
+\textbf{File attributes} are metadata associated with computer files that define file system behaviour. Each attribute can have one of two states:
+\begin{itemize}
+	\item set; and
+	\item cleared.
+\end{itemize}
+
+
+\subsection*{Common attributes}
+
+Attributes are considered distinct from other metadata.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \begin{longtabu} to \textwidth {|X[1.2,l] | X[3,l] |}
+	    \hline
+	    \textbf{Attribute} & \textbf{Meaning}
+	    \\ \hline
+	    \texttt{Protection} & Who can access the file and in what way.
+		\\ \hline
+	    \texttt{Password} & Password needed to access the file.
+	    \\ \hline
+	    \texttt{Creator} & ID of the person who created the file.
+	    \\ \hline
+	    \texttt{Owner} & Current owner.
+	    \\ \hline
+	    \texttt{Read-only flag} & \texttt{0} for read/write and \texttt{1} for read-only.
+	    \\ \hline
+	    \texttt{Hidden flag} & \texttt{0} for normal and \texttt{1} for do not display in listings.
+	    \\ \hline
+	    \texttt{System flag} & \texttt{0} for normal file and \texttt{1} for system file.
+	    \\ \hline
+	    \texttt{Archive flag} & \texttt{0} for has been backed up and \texttt{1} for needs to be backed up.
+	    \\ \hline
+	    \texttt{ASCII/binary flag} & \texttt{0} for ASCII file and \texttt{1} for binary file 
+	    \\ \hline
+	    \texttt{Random access flag} & \texttt{0} for sequential access only and \texttt{1} for random access.
+	    \\ \hline
+	    \texttt{Temporary flag} & \texttt{0} for normal and \texttt{1} for delete file on process exit. 
+	    \\ \hline
+	    \texttt{Lock flags} & \texttt{0} for unlocked and \texttt{non-zero} for locked. 
+	    \\ \hline
+	    \texttt{Record length} & Number of bytes in a record. 
+	    \\ \hline
+	    \texttt{Key position} & Offset of the key within each record.
+	    \\ \hline
+	    \texttt{Key length} & Number of bytes in the key field.
+	    \\ \hline
+	    \texttt{Creation time} & Date and time the file was created.
+	    \\ \hline
+	    \texttt{Time of last access} & Date and time the file was last accessed.
+	    \\ \hline
+	    \texttt{Time of last change} & Date and time the file was last changed. 
+	    \\ \hline
+	    \texttt{Current size} & Number of bytes in the file.
+	    \\ \hline
+	    \texttt{Maximum size} & Number of bytes the file may grow to.
+		\\ \hline
+	\end{longtabu}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Common file attributes.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows some common file attributes. However, this list is not exhaustive.
+
+
+\section*{File structure}
+
+Files can be structured in any of several ways. Three common methods are:
+\begin{itemize}
+	\item byte sequence;
+	\item record sequence; and
+	\item tree.
+\end{itemize}
+
+
+\newpage
+
+\subsection*{Byte sequence}
+
+In the \textbf{byte sequence} method, the OS considers a file to be an unstructured sequence of bytes.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/file-structure-byte-sequence.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Byte sequence for a file.}
+  \end{minipage}}
+\end{figure}
+
+The OS is not concerned with the file's contents. Instead, it is presented with bytes of data. Any meaning must be imposed by user-level programs.
+
+Both UNIX-based OSs and Windows use this approach.
+
+
+\subsection*{Record sequence}
+
+In the \textbf{record sequence} method, a file is a sequence of fixed-length records, each with some internal structure.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/file-structure-record-sequence.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Record sequence for a file.}
+  \end{minipage}}
+\end{figure}
+
+Central to the idea of a file being a sequence of records is the idea that:
+\begin{itemize}
+	\item the read operation returns one record; and
+	\item the write operation overwrites or appends one record.
+\end{itemize}
+
+No modern general-purpose system uses this model as its primary file system. However, this was useful when 80-column punched cards and 132-character line printer paper were used on mainframe computer systems.
+
+
+\subsection*{Tree}
+
+In the \textbf{tree} method, a file consists of a tree of variable-length records, each containing a key field in a fixed position in the record.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/file-structure-tree.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Tree for a file.}
+  \end{minipage}}
+\end{figure}
+
+The tree is sorted on the key field, to allow rapid searching for a particular key.
+
+This type of file is different from the unstructured byte streams used in Windows and Unix-based OSs but is used on some large mainframe computers for commercial data processing and database systems.
+
+
+\section*{File access}
+
+\subsection*{Definition}
+
+\textbf{File access} refers to the way in which the files stored may be accessed.
+
+
+\subsection*{Sequential access}
+
+In \textbf{sequential access} a process can read all the bytes or records in a file in order, starting at the beginning.
+
+It is not possible to skip around and read them out of order. However, sequential files can be rewound so they could be read as often as needed.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/sequential-access.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Sequential access of a file.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, sequential access allows the operations:
+\begin{itemize}
+	\item read next; and
+	\item write next.
+\end{itemize}
+
+Sequential files were convenient when the storage medium was magnetic tape rather than disk, as magnetic tapes are accessed sequentially. However, this method of access is still interesting today due to the locality principle (the tendency of a processor to access the same set of memory locations repetitively over a short period of time).
+
+
+\subsection*{Random (direct) access}
+
+In \textbf{random (direct) access} a process can read the bytes or records of a file out of order and access records by key rather than by position.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-7/random-access.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Random (direct) access of a file.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, random (direct) access allows the operations:
+\begin{itemize}
+	\item read \texttt{n}; and
+	\item write \texttt{n}.
+\end{itemize}
+\texttt{n} represents a relative block number.
+
+Random (direct) access is essential for most modern applications.
+
+
+\section*{File types}
+
+Many OSs support several types of files, as shown below.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \begin{longtabu} to \textwidth {|X[1,l] | X[3,l] |}
+	    \hline
+	    \textbf{File type} & \textbf{Description}
+	    \\ \hline
+	    Regular & Ordinary files that contain data.
+	    \\ \hline
+	    Executable & files that contain program code that can be executed.
+		\\ \hline
+	    Directory / folder & System file containing references to other files.
+	    \\ \hline
+	    Character special & Not true files, rather directory entries which refer to character devices and allow communication with I/O devices such as printers.
+	    \\ \hline
+	    Block special & Not true files, rather directory entries which refer to block devices and are used for communication with storage devices such as disks and memory.
+	    \\ \hline
+	\end{longtabu}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{File types}
+  \end{minipage}}
+\end{figure}
+
+
+\section*{Typical file operations}
+
+OSs offer several system calls for file management, as shown below.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \begin{longtabu} to \textwidth {|X[1,l] | X[3,l] |}
+	    \hline
+	    \textbf{Operation} & \textbf{Description}
+	    \\ \hline
+	    \texttt{Read} & Data are read from file.
+		\\ \hline
+	    \texttt{Write} & Data are written to an existing file.
+	    \\ \hline
+	    \texttt{Append} & Restricted form of write. Data can only be added to the end of a file, while maintaining the existing contents of the file
+	    \\ \hline
+	    \texttt{Seek} & Used for random access files. Repositions the file pointer to a specific location in the file.
+	    \\ \hline
+	    \texttt{Get attributes} & Retrieve the attributes of the file. For example, used by the C compiler.
+	    \\ \hline
+	    \texttt{Set attributes} & Some attributes can be set by the user, such as protection-mode.
+	    \\ \hline
+	    \texttt{Rename} & Change the name of an existing file.
+	    \\ \hline
+	\end{longtabu}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Typical file operations}
+  \end{minipage}}
+\end{figure}
+
 \end{document}
