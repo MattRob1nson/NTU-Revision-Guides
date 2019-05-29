@@ -6502,4 +6502,130 @@ In Windows, multiple drives appear with distinct drive letters such as \texttt{C
 
 In Unix-based OSs, a uniform file system is presented with a single root where new drives usually appear in the \texttt{/media/} directory.
 
+
+\newpage
+
+\section{RAID}
+
+\section*{Definition}
+
+\textbf{Redundant Array of Inexpensive Disks (RAID)} is a data storage virtualisation technology that combines multiple physical disk drive components into one or more logical units for the purposes of data redundancy, performance improvement, or both.
+
+RAID provides another layer of abstraction as data is distributed across several physical disks which appear to be a single logical disk.
+
+
+\section*{Why is RAID required?}
+
+Disks remain the bottleneck in computer systems as their access speeds are much slower than the CPU's clock speed. As such, RAID is often used for speed enhancements along with other benefits, as seen below.
+
+
+\section*{Types of RAID}
+
+There are multiple types of RAID that are suited to different use cases.
+
+
+\subsection*{Striping, mirroring and parity}
+
+Different types of RAID use different techniques including:
+\begin{itemize}
+	\item striping -- distributing the data across several disks in a way which gives improved speed and full capacity;
+	\item mirroring -- uses more than one disk which store the same data; and
+	\item parity -- uses an additional disk to provide fault tolerance where a single data bit is added to the end of a data block to ensure the number of bits in the message is either odd or even.
+\end{itemize}
+
+Striping provides no security on its own but gives the best speed and capacity.
+
+Mirroring degrades speed and capacity but provides security.
+
+
+\subsection*{RAID 0}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/raid0.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{RAID 0.}
+  \end{minipage}}
+\end{figure}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
+    \hline
+    \textbf{Striping} & YES
+	\\ \hline
+	\textbf{Mirroring} & NO
+	\\ \hline
+	\textbf{Parity} & NO
+	\\ \hline
+\end{longtabu}
+
+The capacity of a RAID 0 volume is the sum of the capacities of the disks in the set. However, striping distributes the contents of each file among all disks in the set and therefore the failure of any disk causes all files to be lost.
+
+
+\subsection*{RAID 1}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/raid1.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{RAID 1 (backup and parity drives are shaded).}
+  \end{minipage}}
+\end{figure}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
+    \hline
+    \textbf{Striping} & NO
+	\\ \hline
+	\textbf{Mirroring} & YES
+	\\ \hline
+	\textbf{Parity} & NO
+	\\ \hline
+\end{longtabu}
+
+Data is written identically to two drives, thereby producing a "mirrored set" of drives. Therefore, any read request can be serviced by any drive in the set.
+
+If a request is broadcast to every drive in the set, it can be serviced by the drive that accesses the data first (depending on its seek time and rotational latency), improving performance.
+
+Sustained read throughput, if the controller or software is optimised for it, approaches the sum of throughputs of every drive in the set, just as for RAID 0.
+
+Actual read throughput of most RAID 1 implementations is slower than the fastest drive.
+
+Write throughput is always slower because every drive must be updated, and the slowest drive limits the write performance.
+
+The array continues to operate as long as at least one drive is functioning.
+
+
+\subsection*{RAID 1+0}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/raid1plus0.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{RAID 1+0.}
+  \end{minipage}}
+\end{figure}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
+    \hline
+    \textbf{Striping} & YES
+	\\ \hline
+	\textbf{Mirroring} & YES
+	\\ \hline
+	\textbf{Parity} & NO
+	\\ \hline
+\end{longtabu}
+
+RAID 1+0 takes advantage of both RAID 0's striping and RAID 1's mirroring. As such, if striping is applied to two disks, an additional two disks are required to mirror the striped drives.
+
 \end{document}
