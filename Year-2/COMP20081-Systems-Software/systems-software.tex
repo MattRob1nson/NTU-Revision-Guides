@@ -7311,7 +7311,6 @@ Java is a high-level programming language, developed by James Gosling in the ear
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
     1110001100000000
     
     0101011011100000
@@ -7340,7 +7339,6 @@ Java is a high-level programming language, developed by James Gosling in the ear
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
     CMP AX,97
     
 	JL DONE	
@@ -7365,13 +7363,15 @@ A \textbf{high-level programming language} is a programming language with strong
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
-    CMP AX,97
+    int x, y, sum;
     
-	JL DONE	
-	CMP AX,122	
-	JG DONE	
-	SUB AX,32
+    x = 2;
+    
+    y = 1;
+    
+    sum = x + y;
+
+	return sum;
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
@@ -7393,5 +7393,51 @@ The amount of abstraction provided defines how "high-level" a programming langua
 High-level languages also provide \textbf{portability} as the same code can be ran on different CPUs. This is achieved by using a compiler.
 
 A \textbf{compiler} is a program that translates each line of high-level code into machine code and then executes the entire code.
+
+
+\newpage
+
+\section{Java Virtual Machine (JVM)}
+
+\section*{Definition}
+
+A \textbf{Java Virtual Machine (JVM)} is a virtual machine that enables a computer system to run Java programs as well as programs written in other languages that are also compiled to Java bytecode. 
+
+
+\section*{How it works}
+
+All source code is written in plain text with the \texttt{.java} extension.
+
+The compilation process generates \texttt{.class} files that contains bytecodes.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-10/jvm.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Compiler and JVM.}
+  \end{minipage}}
+\end{figure}
+
+The bytecodes are interpreted by the JVM, which translates the bytecodes in to machine code at run-time (on the fly).
+
+The JVM is available on many different operating systems and platforms.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-10/jvm-platforms.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Compiler and JVM.}
+  \end{minipage}}
+\end{figure}
+
+This means that the same \texttt{.class} is capable of running on multiple platforms.
 
 \end{document}
