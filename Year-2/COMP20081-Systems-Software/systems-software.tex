@@ -7520,4 +7520,93 @@ If a program consists of multiple classes, then compile only the part that has b
 
 Editors that include Integrated Development Environments (IDEs), such as NetBeans and Eclipse, offer automatic compilation and execution tools that are usually triggered by clicking a button on the GUI.
 
+
+\newpage
+
+\section{Simple Java programs}
+
+\section*{Hello world}
+
+\begin{lstlisting}[title={HelloWorldApp.java}]
+class HelloWorldApp {
+	public static void main(String[] args) {
+		System.out.println("Hello World!"); //Display the message
+	}
+	/*implement other methods here*/
+}
+\end{lstlisting}
+
+From the \texttt{HelloWorldApp.java}, it can be seen that:
+\begin{itemize}
+	\item single-line comments start with two forward slashes (\texttt{//});
+	\item multi-line comments start with a forward slash and two asterisks (\texttt{/**}) and end with an asterisk and a forward slash (\texttt{*/}) where each line is preceded by an asterisk (\texttt{*});
+	\item all programs require at least one class that should have the same name as the file name, such as \texttt{class HelloWorldApp \string{ \string}}, with a main function that takes an argument written as \texttt{public static void main(String[] args)\string{ \string}}; and
+	\item the main function should contain statements that control the program's flow, in this case only \texttt{System.out.println("Hello world");}.
+\end{itemize}
+
+
+\section*{For loops}
+
+\begin{lstlisting}[title={HelloWorldApp2.java}]
+class HelloWorldApp {
+	public static void main(String[] args) {
+		for(int i = 0; i < 5; i++) {
+			System.out.println("Hello World!");
+		}
+	}
+}
+\end{lstlisting}
+
+The \texttt{HelloWorldApp2.java} program would print the string "\texttt{Hello world!}" five times.
+
+
+\newpage
+
+\section*{Using arguments and if statements}
+
+\begin{lstlisting}[title={HelloWorldApp3.java}]
+class HelloWorldApp {
+	public static void main(String[] args) {
+		String temp = args[0];
+		
+		if (temp.equals("1")) {
+			System.out.println("Hello World!");
+		} else if (temp.equals("2")) {
+			System.out.println("Hello Universe!");
+		} else {
+			System.err.println("Error");
+		}
+	}
+}
+\end{lstlisting}
+
+The \texttt{HelloWorldApp3.java} program shows how the argument passed in to the \texttt{main} function can be used to control program flow using a \texttt{if-else} statement.
+
+As the argument for the main function is an array of type \texttt{String}, the \texttt{temp} variable is obtained from the first item in the array by using \texttt{temp[0]}.
+
+This program also shows that the normal equality operation (\texttt{==}) used in if statements, and other control blocks, is not to be used for variables of type \texttt{String}. Instead, the \texttt{equals} method must be called on the variable with the checking criteria as a parameter.
+
+It is also worth noting that errors are written out by using the \texttt{System.err.println} function, rather than the \texttt{System.out.println} function.
+
+
+\section*{Converting String type to Integer}
+
+\begin{lstlisting}[title={HelloWorldApp4.java}]
+class HelloWorldApp {
+	public static void main(String[] args) {
+		int temp = Integer.parseInt(args[0]);
+		
+		if (temp == 1) {
+			System.out.println("Hello World!");
+		} else if (temp == 2) {
+			System.out.println("Hello Universe!");
+		} else {
+			System.err.println("Error");
+		}
+	}
+}
+\end{lstlisting}
+
+The \texttt{HelloWorldApp4.java} program is an adaptation of the \texttt{HelloWorldApp3.java} program that converts the data stored in \texttt{args[0]} from \texttt{String} type to \texttt{int} before continuing with the if statements. This allows the if statements to use the normal equality operation (\texttt{==}).
+
 \end{document}
