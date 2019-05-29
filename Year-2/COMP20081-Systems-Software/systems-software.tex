@@ -2356,7 +2356,7 @@ All user threads from each process map to one kernel thread.
 \end{figure}
 
 
-\subsection*{Evalution}
+\subsection*{Evaluation}
 
 \begin{longtabu} to \textwidth {|X[1,l]|X[1,l]|}
     \hline
@@ -6722,5 +6722,546 @@ Each I/O controller has a few registers that are used for communicating with the
 	SONET OC-786 network & \texttt{5 GB/sec}
 	\\ \hline
 \end{longtabu}
+
+
+\section{Input/Output (I/O) system}
+
+\section*{Definition}
+
+The \textbf{Input/Output (I/O) system} includes all the agents that are involved in I/O operations, including:
+\begin{itemize}
+	\item the device(s) themselves;
+	\item the device controller(s);
+	\item the OS mediating the operations; and
+	\item the user process requesting the operations.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-9/io-system-layers.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{I/O system layers.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows the several layers on which the I/O system depends, with the agents residing in each layer.
+
+
+\newpage
+
+\section*{Structure}
+
+\subsection*{User program}
+
+The user program makes an I/O request in a high level language.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/user-program-request.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{User program request translation to system calls.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the request is translated and relayed by system calls.
+
+
+\subsection*{I/O control system}
+
+The I/O control system is a piece of device-independent software that deals with I/O-related system calls.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/io-control-system.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{I/O control system and device driver.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the I/O control system is a platform for installed device drivers to communicate.
+
+
+\newpage
+
+\subsection*{Device driver}
+
+A device driver is a software module that manages the communication with a specific I/O device. This is written by the manufacturer of the piece of hardware and is specifically designed for that piece of hardware.
+
+\textbf{Specific device drivers} are provided by hardware manufactures on installation discs or Internet download links. Hardware manufacturers must create device drivers for each operating system for which the hardware must be compatible.
+
+\textbf{Generic device drivers}, or \textbf{non-specific device drivers}, are often provided in operating systems. These may not be as good as specific device drivers because they may not be supported by the device or provide all of the necessary features to allow the hardware device to operate properly.
+
+The exact detail of which device driver is required by the operating system is stored in a file and the drivers for the hardware connected are loaded when the computer system is booted.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/device-driver.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Device driver and PCIe bus.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the device driver converts the logical I/O requests in to specific commands directed to that device. This is communicated using the bus, to which the PCIe bus is connected.
+
+A problem arises as many different manufactures create device drivers for their devices.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{0.4935\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+  	\centering
+  	\includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/without-standard-driver-interface.png}
+  \end{minipage}
+  \begin{minipage}{0.5\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+  	\centering
+  	\includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/with-standard-driver-interface.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Device driver interfacing}
+  \end{minipage}}
+\end{figure}
+
+In the figure above, the left image shows a case where a standard driver interface is not used. This means that the operating system would need to be modified to be compatible with each device driver after a manufacturer develops a new device. This would yield a high amount of maintenance and code required in the operating system.
+
+In the figure above the right image shows a case where a standard driver interface is used. This allows the operating system to expose an application programming interface (API) to device manufacturers. The device manufacturers must adhere to the API and therefore, all drivers follow this API definition so the operating system code does not have to be modified.
+
+
+\subsection*{Device controller}
+
+The device controller is a hardware unit attached to the bus.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/device-controller-and-io-device.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Device controller and I/O device.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the device controller provides and interface between the computer system and the I/O device using electrical signals.
+
+
+\subsection*{I/O device}
+
+The I/O device may be:
+\begin{itemize}
+	\item a \textbf{block device} that transfers data in groups of characters; or
+	\item a \textbf{character device} that transfers data one character at a time.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/device-controller-and-io-device.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Complete I/O system.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows the complete I/O system.
+
+Each I/O device has a \textbf{device descriptor} containing information about the device. For example:
+\begin{itemize}
+	\item the device identification;
+	\item the instructions that operate the device;
+	\item the current status; and
+	\item the current user process (if any).
+\end{itemize}
+
+The information in the device descriptor is used by the I/O controller.
+
+
+\section*{Objectives of the I/O system}
+
+The I/O system aims to be \textbf{efficient} as:
+\begin{itemize}
+	\item I/O devices are much slower than the CPU; and
+	\item I/O devices should be used efficiently as to avoid blocking the CPU.
+\end{itemize}
+
+In addition, the I/O system aims to allow \textbf{independence and uniformity} as:
+\begin{itemize}
+	\item I/O devices are quite complex and diverse;
+	\item the user should not be concerned with the details of I/O devices;
+	\item the user should be able to treat I/O devices in a uniform way; and
+	\item the user should deal with the virtual devices presented by the OS, rather than the physical devices.
+\end{itemize}
+
+Finally, the I/O system should provide \textbf{error handling} that should be:
+\begin{itemize}
+	\item handled as close to the hardware as possible; and
+	\item transparent to the user.
+\end{itemize}
+
+
+\section*{I/O interrupts}
+
+\subsection*{Definition}
+
+An \textbf{interrupt} is a signal sent to the processor indicating that an event caused by hardware or software requires immediate attention.
+
+In I/O, interrupts are used as a way of controlling I/O activity in which a peripheral or terminal that needs to make or receive a data transfer.
+
+
+\newpage
+
+\subsection*{How it works}
+
+Interrupts are very important and are not trivial to handle.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/io-interrupt.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{An I/O interrupt.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows that:
+\begin{itemize}
+	\item an I/O interrupt is generated when a particular I/O device is finished with a current process;
+	\item the interrupt controller issues the interrupt to the CPU by asserting a signal on its assigned bus line;
+	\item the CPU's interrupt controller chip detects the signal from the interrupt controller and performs some subsequent actions based on the conditions; and
+	\item the CPU acknowledges the interrupt to the interrupt controller.
+\end{itemize}
+
+The connections between the devices and the controller actually use interrupt lines on the bus rather than dedicated wires.
+
+If no other interrupts are pending, the interrupt controller handles the interrupt immediately. However, if another interrupt is in progress, or another device has made a simultaneous request on a higher-priority interrupt request line on the bus, the device is just ignored for the moment. In this case it continues to assert an interrupt signal on the bus until it is serviced by the CPU.
+
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    The CPU stops the current process.
+    
+    $\downarrow$
+    
+    Information including:
+    \begin{itemize}
+    	\item the contents of the program counter (PC);
+    	\item registers that are not already saved by the interrupt hardware are saved; and
+    	\item the return address.
+    \end{itemize}
+    is saved by pushing to the stack, in order to preserve the state of the current process.
+    
+	$\downarrow$
+	
+	The I/O controller informs the CPU on which interrupt service procedure to use based on the device identification information obtained from the device descriptor.
+	
+	$\downarrow$
+    
+    The number on the address lines is used as an index in to a table called the interrupt vector to fetch a new program counter.
+    
+    $\downarrow$
+    
+    This program counter points to the start of the corresponding interrupt service procedure.
+    
+    $\downarrow$
+	
+	The CPU sets up context for the interrupt service procedure.
+	
+	$\downarrow$
+	
+	The CPU sets up stack for the interrupt service procedure.
+    
+    $\downarrow$
+    
+    The CPU uses the program counter's value to begin the interrupt service procedure.
+    
+    $\downarrow$
+    
+    Shortly after it starts running, the interrupt service procedure acknowledges the interrupt by writing a certain value to one of the interrupt controller’s I/O ports. This acknowledgement tells the controller that it is free to issue another interrupt.
+	
+	$\downarrow$
+	
+	The CPU copies the registers from where they were saved to the process table.
+	
+	$\downarrow$
+	
+	The interrupt service procedure extracts information from the device control registers.
+	
+	$\downarrow$
+	
+	The CPU chooses which process to run next.
+	
+	$\downarrow$
+	
+	The CPU sets up the Memory Management Unit (MMU) context for the next process to run.
+	
+	$\downarrow$
+	
+	The CPU loads the new process' registers.
+	
+	$\downarrow$
+	
+	The CPU starts running the new process.
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Process for handling an I/O interrupt once received by the CPU.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows the process for handling an I/O interrupt once it has been received by the the CPU.
+
+
+\section*{Direct Memory Access (DMA)}
+
+\subsection*{Definition}
+
+\textbf{Direct Memory Access (DMA)} is an alternative method of handling I/O operations that allows an I/O device to send or receive data directly to or from the main memory, bypassing the CPU to speed up memory operations.
+
+
+\subsection*{How it works}
+
+The computer system and peripherals communicate directly with each other using memory buses, removing intervention of the CPU.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/dma-transfer.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{DMA Transfer.}
+  \end{minipage}}
+\end{figure}
+
+During DMA, the CPU is idle and has no control over the memory buses.
+
+The DMA controller takes over the buses to manager the transfer directly between the I/O devices and the memory unit.
+
+
+\subsection*{Benefits over interrupts}
+
+When considering a case where a user process requests sending an eight character string "\texttt{ABCDEFGH}" to a printer peripheral, an interrupt would be caused for each character sent, as shown in the figure below.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/printing-a-string.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Process for printing a string using interrupts.}
+  \end{minipage}}
+\end{figure}
+
+This is not very efficient as the data transfer between the device and memory unit is limited by the speed of the CPU. Whereas, DMA allows \textbf{burst transfer} where a block sequence of words in memory is transferred in a continuous burst by the DMA controller.
+
+
+\section*{Buffering}
+
+\subsection*{Definition}
+
+A \textbf{buffer} is an interim memory area that holds data in transit between process's working RAM and the I/O device.
+
+\subsection*{Why is buffering required?}
+
+If a process does repeated I/O, then it will be repeatedly waiting for the I/O to complete. For example, in a a disk read operation:
+\begin{itemize}
+	\item the process issues some system calls;
+	\item the process waits to read the first block of data to memory; and
+	\item the process performs some processing on the data.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/read-processing-cycle.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Read-processing cycle.}
+  \end{minipage}}
+\end{figure}
+
+The read-processing cycle shown in the figure above presents some issues as:
+\begin{itemize}
+	\item the CPU is idle for most of the time as it is waiting for data transfer to finish and will issue interrupts; and
+	\item the disk drive is not running continuously.
+\end{itemize}
+
+This shows that with no buffering, neither the CPU or disk drive are being used to their maximum capabilities as allowing a process to run many times for short runs is inefficient.
+
+
+\subsection*{Input and output buffering}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/read-processing-cycle-with-buffer.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Read-processing cycle with a single buffer.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the buffer holds the data in transit between process's working RAM and the I/O device in order to:
+\begin{itemize}
+	\item cope with the speed mismatch between the devices as the I/O devices are generally slower than the CPU; and
+	\item perform a checksum validation to ensure that the data is valid.
+\end{itemize}
+
+When a user process is attempting to obtain input data from an I/O device, \textbf{input buffering} is used where:
+\begin{itemize}
+	\item input data is transferred to an area of memory called the input buffer;
+	\item the process gets data from the input buffer;
+	\item the OS fills the input buffer when it is empty; and
+	\item the process is blocked if it attempts to get data from an empty input buffer.
+\end{itemize}
+
+When a user process is attempting to output data to an I/O device, \textbf{output buffering} is used where:
+\begin{itemize}
+	\item output data is transferred to an area of memory called the output buffer;
+	\item the OS empties the output buffer when it is full; and
+	\item the process is blocks if it attempts to output before the system has emptied the output buffer.
+\end{itemize}
+
+
+\newpage
+
+\subsection*{Single buffering}
+
+When using single buffering, blocks are read in to the buffer and then moved to the user's work area.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/read-processing-cycle-with-buffer.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Read-processing cycle with a single buffer.}
+  \end{minipage}}
+\end{figure}
+
+When blocks are moved from the buffer, processing can be completed in parallel with the transfer of the next blocks.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Interrupts are reduced} as the CPU is not always waiting for the data transfer to finish. &
+	\textbf{The I/O device is idle for some time} as the CPU must wait for the buffer to be filled.
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{Double buffering}
+
+When using double buffering:
+\begin{itemize}
+	\item the process reads/writes to one buffer; while
+	\item the OS empties/fills the other buffer.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/read-processing-cycle-with-double-buffers.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Read-processing cycle with double buffers.}
+  \end{minipage}}
+\end{figure}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Transferring data may be continuous} if the processing time is less than the transferring time. &
+	\textbf{The I/O device may still be idle for some time} if the transferring time is less than the processing time.
+	\\ \hline
+	\textbf{Increases utilisation of the I/O device} as it is idle for less time than in single buffering. &
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{Multiple buffering}
+
+In order to achieve continuous I/O, double buffering can be extended to multiple buffering.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/read-processing-cycle-with-multiple-buffer.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Read-processing cycle with multiple buffers.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, multiple buffering can be implemented with any number, \texttt{n}, buffers in order to achieve continuous I/O.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Can achieve continuous I/O} if enough buffers are used. &
+	\textbf{Adds more complexity and overhead} as more buffers must be managed.
+	\\ \hline
+	\textbf{Maximum utilisation of the I/O device} as there is continuous I/O. &
+	\textbf{Increased memory usage} as more buffers are stored in memory.
+	\\ \hline
+\end{longtabu}
+
+
+\newpage
+
+\section*{Overview of the I/O system}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-9/layers-of-io-system.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{I/O system layers.}
+  \end{minipage}}
+\end{figure}
+
+The figure above shows an overview of the I/O system which contains multiple layers where each layer has a main function.
 
 \end{document}
