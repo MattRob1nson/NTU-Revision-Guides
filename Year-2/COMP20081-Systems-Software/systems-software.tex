@@ -6466,4 +6466,33 @@ In the event of failure, the log is used to bring the disk back in to a consiste
 
 Log entries are erased once the operations complete successfully.
 
+
+\newpage
+
+\section{Backups}
+
+\section*{Definition}
+
+A \textbf{backup}, or \textbf{data backup}, refers to the process of  copying data on the disk in to an archive file so that it may be used to restore the original after a data loss event.
+
+
+\section*{Why are backups used?}
+
+Backups help to solve potential problems by allowing:
+\begin{itemize}
+	\item recovery from disasters; and
+	\item recovery from mistakes.
+\end{itemize}
+
+
+\section*{Issues}
+
+The process for \textbf{backing up is slow} as all files must be copied. However, this can be mitigated by performing incremental backups where only those files that have been changed since the previous backup are copied. This reduces the time taken for a backup, apart from the initial backup.
+
+\textbf{Backups occupy large amounts of space}, especially if the stored data on the disk is larger. This can be mitigated by compressing the backup data. However, a corrupted part of the compressed data can render an entire backup unreadable.
+
+The \textbf{system must be inactive} while a backup is being performed. This makes it difficult to continue using the system as the file system is actively being backed up.
+
+Must ensure \textbf{physical security of backup media} as physical corruption of backups can occur on CD-ROMS, disks and magnetic tapes etc.
+
 \end{document}
