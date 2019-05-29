@@ -3891,6 +3891,8 @@ As discovered before, machine instructions should not directly access the physic
 
 The \textbf{Memory Management Unit (MMU)} is responsible for the logical-physical conversion. This is achieved by using registers to record the location of the partition in order to map the logical addresses to the correct physical addresses.
 
+The ultimate aim for the MMU is to perform efficiently such that the CPU does not have to access memory past the cache level. This does not always happen but, in an ideal world, the CPU would only be accessing the faster memory, its registers and cache, as to prevent bottlenecks.
+
 
 \newpage
 
