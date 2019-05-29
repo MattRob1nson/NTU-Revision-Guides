@@ -6628,4 +6628,99 @@ The array continues to operate as long as at least one drive is functioning.
 
 RAID 1+0 takes advantage of both RAID 0's striping and RAID 1's mirroring. As such, if striping is applied to two disks, an additional two disks are required to mirror the striped drives.
 
+
+\chapter{Input/Output (I/O)}
+
+\section{Input/Output (I/O) devices}
+
+\section*{Defintion}
+
+An \textbf{Input/Output (I/O) device} is a hardware device that has the ability to accept inputted, outputted or other processed data. It also can acquire respective media data as input sent to a computer or send computer data to storage media as storage output.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-9/input-output-venn-diagram.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Venn diagram of I/O devices.}
+  \end{minipage}}
+\end{figure}
+
+An I/O device can be responsible for input and output as shown in the cross section in the Venn diagram above.
+
+I/O devices typically consists of:
+\begin{itemize}
+	\item the \textbf{device proper} -- an electro-mechanical component generally located outside the computer, such as a peripheral; and
+	\item the \textbf{device controller} -- an electrical component often in the form of a chip on the mother board or a card that can be inserted in to an expansion slot, such as on the Peripheral Component Interconnect Express (PCIe) slot.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-9/device-proper-device-controller-connection.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{I/O device proper connection to device controller.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the I/O device proper is connected using a cable to the device controller for communication to and from the outer world.
+
+
+\section*{I/O controllers}
+
+Each I/O controller has a few registers that are used for communicating with the CPU:
+\begin{itemize}
+	\item write operation -- the OS can command the device to deliver/accept data or switch on or off itself, or perform any other action; and
+	\item read operation -- the OS can determine the device's current state, such as whether it is prepared to accept a new command.
+\end{itemize}
+
+
+\section*{Typical characteristics and specifications}
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Device} & \textbf{Data rate}
+	\\ \hline
+	Keyboard & \texttt{10 bytes/sec}
+	\\ \hline
+	Mouse & \texttt{100 bytes/sec}
+	\\ \hline
+	56K modem & \texttt{7 KB/sec}
+	\\ \hline
+	Scanner at 300dpi & \texttt{1 MB/sec}
+	\\ \hline
+	Digital camcorder & \texttt{3.5 MB/sec}
+	\\ \hline
+	4x Blu-ray disc & \texttt{18 MB/sec}
+	\\ \hline
+	802.11n Wireless & \texttt{37.5 MB/sec}
+	\\ \hline
+	USB 2.0 & \texttt{60 MB/sec}
+	\\ \hline
+	FireWire 800 & \texttt{100 MB/sec}
+	\\ \hline
+	Gigabit Ethernet & \texttt{125 MB/sec}
+	\\ \hline
+	SATA 3 disk drive & \texttt{600 MB/sec}
+	\\ \hline
+	USB 3.0 & \texttt{625 MB/sec}
+	\\ \hline
+	SCSI Ultra 5 bus & \texttt{640 MB/sec}
+	\\ \hline
+	Single-lane PCIe 3.0 bus & \texttt{985 MB/sec}
+	\\ \hline
+	Thunderbolt 2 bus & \texttt{2.5 GB/sec}
+	\\ \hline
+	SONET OC-786 network & \texttt{5 GB/sec}
+	\\ \hline
+\end{longtabu}
+
 \end{document}
