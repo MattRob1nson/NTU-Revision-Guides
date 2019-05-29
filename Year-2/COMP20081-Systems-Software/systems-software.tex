@@ -6422,4 +6422,48 @@ To deal with inconsistent file systems, most OSs provide a utility program that 
 
 These utilities can be run whenever the system is booted, especially after a crash.
 
+
+\newpage
+
+\section{Journaling}
+
+\section*{Definition}
+
+A \textbf{journaling file system} is a file system that keeps track of changes not yet committed to the file system's main part by recording the intentions of such changes in a data structure known as a "journal", which is usually a circular log.
+
+
+\section*{Why is journaling required?}
+
+A single file operation may involve multiple actual writes to the disk. For example, in a Unix-based OS, removing a file requires the following three operations to be performed:
+\begin{itemize}
+	\item remove the file from its directory;
+	\item release the i-node to the pool of free i-nodes; and
+	\item return all the disk blocks to the pool of free disk blocks.
+\end{itemize}
+
+This process is similar in Windows.
+
+In the event that a system crashes between any one of the three tasks above, the i-nodes and file blocks will not be accessible from any file or available for reassignment. This would require time consuming requires by using the consistency utilities.
+
+
+\section*{How it works}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/journaling.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Journaling.}
+  \end{minipage}}
+\end{figure}
+
+The journaling file system uses a special disk area to make a log entry. The log entry lists the actions to be completed.
+
+In the event of failure, the log is used to bring the disk back in to a consistent state by completing all pending actions.
+
+Log entries are erased once the operations complete successfully.
+
 \end{document}
