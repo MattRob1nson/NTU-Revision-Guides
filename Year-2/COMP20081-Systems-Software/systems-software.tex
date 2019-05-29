@@ -6392,4 +6392,34 @@ When considering a \texttt{1TB} disk, which requires around 130,000 \texttt{1KB}
 	\\ \hline
 \end{longtabu}
 
+
+\newpage
+
+\section{Consistency}
+
+A file system may be in any one of the following states:
+\begin{itemize}
+	\item consistent;
+	\item missing block;
+	\item duplicate block in free list; or
+	\item duplicate data block.
+\end{itemize}
+
+Many file systems read blocks, modify their contents and write them out later.
+
+If the system crashes before all the modified blocks have been written out, the file system can be left in an inconsistent state. This problem is especially critical if some of the blocks that have not been written out are:
+\begin{itemize}
+	\item i-node blocks;
+	\item directory blocks; or
+	\item blocks containing the linked list.
+\end{itemize}
+
+To deal with inconsistent file systems, most OSs provide a utility program that checks for file system consistency. For example:
+\begin{itemize}
+	\item Windows provides \texttt{chkdsk}; and
+	\item Unix-based OSs provide \texttt{fsck}.
+\end{itemize}
+
+These utilities can be run whenever the system is booted, especially after a crash.
+
 \end{document}
