@@ -4690,7 +4690,7 @@ This is not feasible because:
 However, this is useful for benchmarking page replacement algorithms a posteriori (i.e. "what if").
 
 
-\subsection*{Not recently used page replacement}
+\subsection*{Not recently used (NRU) page replacement}
 
 The \textbf{not recently used page replace algorithm} uses the reference and modified bits from the page table to collect useful page usage statistics.
 
@@ -4862,7 +4862,7 @@ When a page fault occurs, the page being pointed to by the hand and performs act
 This algorithm is realistic as it avoids the unnecessary movement of pages as seen in the second chance page replacement algorithm.
 
 
-\subsection*{Least recently used page replacement}
+\subsection*{Least recently used (LRU) page replacement}
 
 The \textbf{least recently use page replacement algorithm} is based on the ideas that:
 \begin{itemize}
@@ -4887,7 +4887,7 @@ As such, the algorithm swaps out pages that have been unused for the longest tim
 \end{longtabu}
 
 
-\subsection*{Not frequently used page replacement}
+\subsection*{Not frequently used (NFU) page replacement}
 
 The \textbf{not frequently used page replacement algorithm} keeps track of how often a page is used.
 
@@ -4900,6 +4900,29 @@ A counter is associated with each page and is initially set to 0. At each clock 
 This means that counters can be used to track how often each page has been referenced.
 
 When a page fault occurs, the page with the lowest counter is chosen for replacement.
+
+
+\subsection*{Summary of page replacement algorithms}
+
+\begin{longtabu} to \textwidth {| X[0.25,l] | X[1,l] |}
+    \hline
+    \textbf{Algorithm} & \textbf{Comment}
+	\\ \hline
+	Optimal & Not implementable, but useful as a benchmark.
+	\\ \hline
+	NRU & Very crude approximation of LRU.
+	\\ \hline
+	FIFO & May throw out important pages.
+	\\ \hline
+	Second chance & Big improvement over FIFO.
+	\\ \hline
+	Clock & Realistic.
+	\\ \hline
+	LRU & Excellent, but difficult to implement exactly.
+	\\ \hline
+	NFU & Fairly crude approximation to LRU.
+	\\ \hline
+\end{longtabu}
 
 
 \section*{Evaluation of paging}
