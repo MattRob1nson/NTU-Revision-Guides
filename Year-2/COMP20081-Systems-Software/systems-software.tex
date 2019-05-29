@@ -7422,7 +7422,7 @@ The compilation process generates \texttt{.class} files that contains bytecodes.
   \end{minipage}}
 \end{figure}
 
-The bytecodes are interpreted by the JVM, which translates the bytecodes in to machine code at run-time (on the fly).
+The bytecodes are interpreted by the JVM, which translates the bytecodes in to machine code at runtime (on the fly).
 
 The JVM is available on many different operating systems and platforms.
 
@@ -7439,5 +7439,85 @@ The JVM is available on many different operating systems and platforms.
 \end{figure}
 
 This means that the same \texttt{.class} is capable of running on multiple platforms.
+
+
+\newpage
+
+\section{Environment}
+
+\section*{The Java environment}
+
+The Java environment is a software-only platform that runs on top of other hardware-based platforms. It consists of two components:
+\begin{itemize}
+	\item a Java Virtual Machine (JVM); and
+	\item Java Application Programming Interface (API) libraries, containing a large collection of ready-made components.
+\end{itemize}
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-10/java-environment.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{The Java environment.}
+  \end{minipage}}
+\end{figure}
+
+The API is grouped in to libraries and classes. More information about the APIs is available on Oracle's website (\url{http://docs.oracle.com/javase/8/docs/api/}). 
+
+
+\section*{Java environment vs C++ environment}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+    \hline
+    \textbf{Similarities} & \textbf{Differences}
+	\\ \hline
+	\textbf{Uses block structure} with curly braces (\texttt{\string{ \string}}) for blocks and normal braces (\texttt{()}) for block statements. &
+	\textbf{Java's compiler is more sophisticated} as there is no need for a \texttt{makefile}.
+	\\ \hline
+	\textbf{Both import libraries in a similar manner} where C++ uses \texttt{\#include <>}, Java uses \texttt{import <>}. &
+	\textbf{Java does not use header files}, while C++ uses header files with the \texttt{.h} extension.
+	\\ \hline
+	& \textbf{Java does not support pointers}, while C++ has inherited support for pointers from C along with other pointer types such as \texttt{shared\_ptr} included in the standard library.
+	\\ \hline
+	& \textbf{The compiler for Java generates bytecode}, while the compiler for C++ generates machine code.
+	\\ \hline
+\end{longtabu}
+
+It is important to note the \textbf{Java is slower than C++} as the bytecode is interpreted at runtime, where as in C++ the machine code can be run directly on the CPU.
+
+
+\section*{Benefits of the Java environment}
+
+Benefits of the Java environment include:
+\begin{itemize}
+	\item well documented;
+	\item do more with less code;
+	\item automatic garbage collection, meaning that there is no need to deallocate memory after allocation because it is performed automatically;
+	\item no platform dependencies;
+	\item supports multi-threading and inter-networking applications;
+	\item contains a library for GUIs; and
+	\item easy to learn for programmers already familiar with C/C++.
+\end{itemize}
+
+
+\section*{Compiling and executing}
+
+\subsection*{Manual method}
+
+Java programs can be compiled and executed by using commands on the command-line:
+\begin{itemize}
+	\item compile a Java program -- \texttt{javac MyProgram.java}; and
+	\item execute a Java program -- \texttt{java MyProgram}.
+\end{itemize}
+
+If a program consists of multiple classes, then compile only the part that has been modified.
+
+
+\subsection*{Automatic method}
+
+Editors that include Integrated Development Environments (IDEs), such as NetBeans and Eclipse, offer automatic compilation and execution tools that are usually triggered by clicking a button on the GUI.
 
 \end{document}
