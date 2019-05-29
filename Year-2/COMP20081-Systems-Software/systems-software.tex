@@ -6322,4 +6322,74 @@ There is a similar trade off with block size as there was with page size in memo
 
 Typical block sizes include: \texttt{512 Bytes}, \texttt{1KB} and \texttt{2KB}.
 
+
+\newpage
+
+\section{Tracking free space}
+
+\section*{Linked list method}
+
+The \textbf{linked list method} is a way of tracking free space on a disk where some of the free blocks are used to hold free disk numbers.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/tracking-free-space-using-a-linked-list.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Tracking free space using a linked list.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, each block holds as many free disk block numbers as possible. The blocks are linked together resulting in a linked list of free blocks, by using one slot in each list for a pointer to the next block.
+
+When considering a \texttt{1TB} disk, which has about 1 billion disk blocks, storing all these addresses at 32 bit per block requires about 4 million blocks.
+ 
+ Generally, free blocks are used to hold the free list, so the storage is essentially free.
+
+
+\newpage
+
+\section*{Bitmap method}
+
+The \textbf{bitmap method} is another way of tracking free space on a disk where a bit map is stored that records whether particular blocks are free or not.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/tracking-free-space-using-a-bitmap.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Tracking free space using a bitmap.}
+  \end{minipage}}
+\end{figure}
+
+As shown in the figure above, the bitmap records:
+\begin{itemize}
+	\item a zero (\texttt{0}) if the disk block is used; and
+	\item a one (\texttt{1}) if the disk block is free.
+\end{itemize}
+
+A disk with \texttt{n} blocks requires a bitmap with \texttt{n} bits. 
+
+When considering a \texttt{1TB} disk, which requires around 130,000 \texttt{1KB} blocks to store the information, it is clear to see that a bitmap occupies less space than a linked list. Only if the disk is nearly full (i.e. has few free blocks) will the linked list method require fewer blocks than the bitmap.
+
+
+\section*{Comparison of linked list method and bitmap method}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[3,l] | X[3,l] |}
+    \hline
+    \textbf{Criteria} & \textbf{Linked list method} & \textbf{Bitmap method}
+	\\ \hline
+	\textbf{Occupied space} & 32 bits per block. & 1 bit per block.
+	\\ \hline
+	\textbf{Number of blocks} & The number of blocks required to track free space becomes less as the drive gets fuller. &
+	The number of blocks required to track free space is constant.
+	\\ \hline
+\end{longtabu}
+
 \end{document}
