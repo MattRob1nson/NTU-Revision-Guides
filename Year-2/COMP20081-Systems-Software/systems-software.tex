@@ -7301,4 +7301,97 @@ Java is a high-level programming language, developed by James Gosling in the ear
 	\item highly portable (slogan: \textit{"Write Once, Run Anywhere"}).
 \end{itemize}
 
+
+\section{Code}
+
+\section*{Machine code}
+
+\textbf{Machine code} is the language that is actually used by the processor, and differs between processors.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    1110001100000000
+    
+    0101011011100000
+
+    0110100001000000
+    
+	0000100000001000
+	
+	0001011011000100
+	
+	0001001001100001
+	
+	0110100001000000
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Example machine code.}
+  \end{minipage}}
+\end{figure}
+
+
+\section*{Assembly language}
+
+\textbf{Assembly language} is a low-level language that uses mnemonics to refer to instructions for the CPU to process. It requires an assembler to convert the assembly instructions into machine code.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    CMP AX,97
+    
+	JL DONE	
+	CMP AX,122	
+	JG DONE	
+	SUB AX,32
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Example assembly language.}
+  \end{minipage}}
+\end{figure}
+
+The code in assembly language has a one-to-one relationship with the corresponding machine code.
+The code in assembly language has a many-to-one relationship with the corresponding high-level language code.
+
+
+\section*{High-level languages}
+
+A \textbf{high-level programming language} is a programming language with strong abstraction from the details of the computer.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    CMP AX,97
+    
+	JL DONE	
+	CMP AX,122	
+	JG DONE	
+	SUB AX,32
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Example code written in a high-level language.}
+  \end{minipage}}
+\end{figure}
+
+High-level languages may:
+\begin{itemize}
+	\item use natural language elements;
+	\item be easier to use; and/or
+	\item automate or hide entirely significant areas of computing systems, such as memory management.
+\end{itemize}
+
+These attributes of high-level languages make the process of developing a program simpler and more understandable than when using a lower-level language.
+
+The amount of abstraction provided defines how "high-level" a programming language is.
+
+High-level languages also provide \textbf{portability} as the same code can be ran on different CPUs. This is achieved by using a compiler.
+
+A \textbf{compiler} is a program that translates each line of high-level code into machine code and then executes the entire code.
+
 \end{document}
