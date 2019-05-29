@@ -6291,6 +6291,35 @@ These enable the file blocks to be located for a file, without restricting files
 
 The process for accessing a relative path name is identical, except that the search begins from the current working directory.
 
-Using the process, the i-node of the \texttt{mbox} file is kept in main memory until the file is closed. However, locating a file in other hierarchical file systems is similar, lookup is completed component by component.
+Using this process, the i-node of the \texttt{mbox} file is kept in main memory until the file is closed. However, locating a file in other hierarchical file systems is similar, lookup is completed component by component.
+
+
+\newpage
+
+\section{Determining block size}
+
+All allocation methods require the disk to be split in to fixed-size blocks.
+
+\begin{figure}[H]
+  \lineskip=-\fboxrule
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \centering
+    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/blocks-on-disk.png}
+  \end{minipage}}
+  \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+    \abovecaptionskip=0pt
+    \caption{Blocks on HDD.}
+  \end{minipage}}
+\end{figure}
+
+Nearly all modern operating systems use the fixed-sized blocks as shown in the figure above.
+
+There is a similar trade off with block size as there was with page size in memory management. As such, tuning the block size is tricky as:
+\begin{itemize}
+	\item \textbf{a smaller block size may lead to increased overhead}, as a file may occupy several blocks and therefore there will be a longer access time since more blocks have to be located; and 
+	\item \textbf{a larger block size may lead to wasted space} as a small file of \texttt{1KB} would occupy a big chunk, such as \texttt{32KB}, of the disk block.
+\end{itemize}
+
+Typical block sizes include: \texttt{512 Bytes}, \texttt{1KB} and \texttt{2KB}.
 
 \end{document}
