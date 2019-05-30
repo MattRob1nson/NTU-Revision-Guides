@@ -7628,4 +7628,61 @@ class HelloWorldApp {
 
 The \texttt{HelloWorldApp4.java} program is an adaptation of the \texttt{HelloWorldApp3.java} program that converts the data stored in \texttt{args[0]} from \texttt{String} type to \texttt{int} before continuing with the if statements. This allows the if statements to use the normal equality operation (\texttt{==}).
 
+
+\chapter{Java Language Basics}
+
+\section{Java as an object-oriented language}
+
+\section*{Definitions}
+
+Java is a \textbf{class-based object-oriented programming (OOP)} language.
+
+An \textbf{Object-Oriented Programming (OOP)} language is based around object, which may contain:
+\begin{itemize}
+	\item data -- in the form of attributes/fields; and
+	\item code -- in the form of methods/functions.
+\end{itemize}
+
+A \textbf{class} is a blueprint, i.e. the generic definition, for an object which defines its attributes and methods.
+
+An \textbf{object} is an instance of a class.
+
+A \textbf{method}, or behaviour, defines the functionality of a class.
+
+An \textbf{attribute} is a piece of data associated with a class.
+
+
+\newpage
+
+\section*{Creating a class}
+
+\begin{lstlisting}[title={Student class.}]
+public class Student {
+	String name;
+	
+	public void setName(String n) {
+		name = n;
+	}
+	
+	public String getName() {
+		return name;
+	}
+}
+\end{lstlisting}
+
+The code above creates the \texttt{Student} class. This class then be instantiated as an object elsewhere in the code.
+
+\begin{lstlisting}[title={Instantiation of a Student object.}]
+class HelloWorldApp {
+	public static void main(String[] args) {
+		Student bob = new Student();
+		bob.setName("Bob");
+		System.out.println(bob.getName());
+	}
+}
+
+Instantiating the Student object, as shown above, allows access to the public methods for the object \texttt{bob}.
+
+\end{lstlisting}
+
 \end{document}
