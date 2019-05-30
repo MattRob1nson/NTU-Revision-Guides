@@ -8256,4 +8256,99 @@ In the figure above, \texttt{Machine A}, \texttt{Machine B} and \texttt{Machine 
 	\item each have their own network OS services and kernel.
 \end{itemize}
 
+
+\section{Internetworks}
+
+\section*{Definition}
+
+An \textbf{internetwork} is a collection of interconnected networks that are connected by gateways/routers.
+
+
+\section*{The Internet}
+
+The Internet is the best known example of an internetwork. In the past, the Internet:
+\begin{itemize}
+	\item started as the Advanced Research Projects Agency Network (ARPANET);
+	\item was used as the US military network for communications in the late 1960s;
+	\item started with only four computer systems (hosts); and
+	\item used only a single protocol.
+\end{itemize}
+
+The modern internet is currently a multi-protocol network of networks.
+
+
+\section*{Communication protocols}
+
+\subsection*{Definition}
+
+A \textbf{protocol} is a formal standard comprised of rules, procedures and formats that define how communication will take place between two or more devices over a network. Network protocols govern the end-to-end communication between networked devices and promotes timely, secure and managed network communication.
+
+Protocols ensure that the sending network device is transmitting data in the same format that the receiving network device is expecting, including:
+\begin{itemize}
+	\item the order of messages; and
+	\item how the information is presented within a message.
+\end{itemize}
+
+If this was not agreed before communication, the application receiving the data would be unable to decipher and display the data.
+
+
+\subsection*{Layered protocols}
+
+Due to the complexity of computer communications, internetworks are arranged in layers.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/protocol-layers.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Protocol layers.}
+	\end{minipage}}
+\end{figure}
+
+Different layers handle different aspects of the communication. As such, a \textbf{layer} refers to a group of related services that are performed in a given hierarchy.
+
+Layer protocols operate in such a way where:
+\begin{itemize}
+	\item each layer provides services to the layer immediately above;
+	\item each layer passes data and controls information to the layer immediately below;
+	\item a given layer \texttt{n} on one machine carries out a conversation with the same layer \texttt{n} on another machine;
+	\item no data are directly transferred from a given layer \texttt{n} to layer \texttt{n} on another machine, instead actual communication occurs over the physical medium; and
+	\item 
+\end{itemize}
+Each layer provides services to its upper layer.
+
+
+\subsection*{Services}
+
+A \textbf{service} is a specified set of primitives/operations available to a user or other entity (layer).
+
+\textbf{Connection-oriented} services:
+\begin{itemize}
+	\item are used for reliable transmission;
+	\item have increased overhead due to the need for acknowledgement of proper transmission for each data packet; and
+	\item are analogous to the telephone system.
+\end{itemize}
+For example, file transfers use connection-oriented services as they require reliability to ensure that files are not corrupted.
+
+\textbf{Connectionless} services:
+\begin{itemize}
+	\item are used for fast transmission;
+	\item are unreliable;
+	\item have decreased overhead as there are no requirements for data packets to be acknowledged; and
+	\item are analogous to the postal system.
+\end{itemize}
+For example, audio and video streaming use connectionless services as lost packets are not too noticeable in a audio or video stream but waiting for data package acknowledgement would be highly noticeable.
+
+
+\section*{Overview of internetworks}
+
+\textbf{Protocols} establish rules for communication by defining and providing \textbf{services}.
+
+\textbf{Internetworks} are generally organised in \textbf{layers}, each using its own protocol.
+
+A set of layers and protocols defines the \textbf{network architecture}.
+
 \end{document}
