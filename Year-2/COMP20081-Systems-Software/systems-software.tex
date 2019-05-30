@@ -8168,7 +8168,7 @@ class PassingParameters {
 \end{lstlisting}
 
 
-\chapter(Introduction to Internetworking)
+\chapter{Introduction to Internetworking}
 
 \section{Networks}
 
@@ -8350,5 +8350,400 @@ For example, audio and video streaming use connectionless services as lost packe
 \textbf{Internetworks} are generally organised in \textbf{layers}, each using its own protocol.
 
 A set of layers and protocols defines the \textbf{network architecture}.
+
+
+\section{Network architectures}
+
+\section*{Definition}
+
+\textbf{Network architecture} describes the design of a computer network. It is a framework for the specification of a network's:
+\begin{itemize}
+	\item physical components and their functional organisation and configuration;
+	\item operational principles and procedures; and
+	\item the communication protocols used.
+\end{itemize}
+
+
+\section*{Open Systems Interconnect (OSI)}
+
+\subsection*{Definition}
+
+The \textbf{Open Systems Interconnection (OSI)} model is a conceptual model that characterises and standardises the communication functions of a computing system without regard to its underlying internal structure and technology. Its goal is the interoperability of diverse communication systems with standard protocols.
+
+\subsection*{How it works}
+
+The model partitions a communication system into abstraction layers. The original version of the model defined seven layers.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/osi.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{OSI network architecture overview.}
+	\end{minipage}}
+\end{figure}
+
+However, the OSI model is not mandated for networking, yet most protocols and systems adhere to it quite closely. 
+
+
+\section*{Transmission Control Protocol / Internet Protocol (TCP/IP)}
+
+\subsection*{Definition}
+
+The \textbf{Transmission Control Protocol / Internet Protocol (TCP/IP) stack} is a set of networking protocols which work together as five connected layers and pass incoming and outgoing data packets throughout the layers during network communication. The TCP/IP stack contains layers, of software and hardware, which are designed to successfully transfer data across a network.
+
+\subsection*{How it works}
+
+Packets must travel through the layers in the TCP/IP stack.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{TCP/IP network architecture overview.}
+	\end{minipage}}
+\end{figure}
+
+As shown above, there are five connected layers through which the packet must travel.
+
+When the packet travels through the \textbf{sending host}, each layer encapsulates the data with additional information and passes it to the layer immediately below. When the packet is travels through the \textbf{receiving host}, each layer dis-encapsulates by removing the respective information and passing the remaining packet to the layer immediately above. This allows communication between respective layers on the sending and receiving hosts.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-1.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Sending host and receiving host.}
+	\end{minipage}}
+\end{figure}
+
+The TCP/IP stack must transmit a packet from the sending host to the receiving host using the five layers, where the physical layers is connected by some physical medium.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-2.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Sending host: application layer.}
+	\end{minipage}}
+\end{figure}
+
+Firstly, at the \textbf{application layer} on the \textbf{sending host}, the application prepares the data in the message.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-3.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Sending host: transport layer.}
+	\end{minipage}}
+\end{figure}
+
+When the packet arrives at the \textbf{transport layer} on the \textbf{sending host}, a TCP/UDP header is attached that contains:
+\begin{itemize}
+	\item the port number; and
+	\item error checking data.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-4.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Sending host: Internet layer.}
+	\end{minipage}}
+\end{figure}
+
+When the packet arrives at the \textbf{Internet layer} on the \textbf{sending host}, an IP header is attached that contains:
+\begin{itemize}
+	\item the source IP address; and
+	\item the destination IP address.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-4.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Sending host: data link layer.}
+	\end{minipage}}
+\end{figure}
+
+When the packet arrives at the \textbf{data link layer} on the \textbf{sending host}, an frame header and frame trailer is attached that assigns the MAC address.
+
+The packet is then sent through the physical medium to the receiving host.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-5.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Receiving host: data link layer.}
+	\end{minipage}}
+\end{figure}
+
+When the packet arrives at the \textbf{data link layer} on the \textbf{receiving host}, the MAC address is removed.
+
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-6.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Receiving host: Internet layer.}
+	\end{minipage}}
+\end{figure}
+
+When the packet arrives at the \textbf{Internet layer} on the \textbf{receiving host}, the IP header is removed providing the ability to:
+\begin{itemize}
+	\item verify the source IP address; and
+	\item verify the destination IP address.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-6.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Receiving host: transport layer.}
+	\end{minipage}}
+\end{figure}
+
+When the packet arrives at the \textbf{transport layer} on the \textbf{receiving host}, the TCP/UDP header is removed providing the ability to:
+\begin{itemize}
+	\item direct the packet to the correct application using the port number; and
+	\item perform error checking using the error checking data.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/tcpip-packet-transfer-6.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Receiving host: application layer.}
+	\end{minipage}}
+\end{figure}
+
+Finally, when the packet arrives at the \textbf{application layer} on the \textbf{receiving host}, the data is ready to be used by the application on the receiving host.
+
+
+\section*{Internet Protocol (IP)}
+
+\subsection*{Definitions}
+
+The \textbf{Internet Protocol (IP)} is responsible for end-to-end transmission. This is achieved by assigning each computer in a network (host) an IP address.
+
+An \textbf{IP address} is a numerical address that is assigned to and uniquely identifies a device on a network. The IP address indicates where a packet of data is to be sent or from where it was sent. Routers can use IP addresses to direct a packet to its destination.
+
+
+\subsection*{IPv4}
+
+\textbf{Internet Protocol v4 (IPv4)} allows each device on a network to have a unique 32-bit binary number address. The binary number is broken down into octets, which are chunks of 8 digits.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/ipv4-address.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{An IPv4 address.}
+	\end{minipage}}
+\end{figure}
+
+IPv4 can assign addresses for up to 4.3 billion computer systems. However, there are a growing number of computer systems and therefore more addresses will be required to allow all devices to be connected to the internet – IPv6 was introduced to solve this problem.
+
+
+\subsection*{IPv6}
+
+\textbf{Internet Protocol v6 (IPv6)} allows each device on a network to have a unique 128-bit binary number address. The binary number is arranged into groups of hexadecimal numbers separated by colons..
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/ipv6-address.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{An IPv6 address.}
+	\end{minipage}}
+\end{figure}
+
+IPv6 can assign addresses for up to $2^{128}$ computer systems.
+
+IPv4 and IPv6 can both coexist and therefore both be used by computer systems on the Internet.
+
+
+\subsection*{Public and private IP addresses}
+
+An IP address can be either:
+\begin{itemize}
+	\item public -- used to assign a router to the Internet and can be accessed through the Internet; or
+	\item private -- used to assign a computer system to a route and cannot be accessed directly through the internet.
+\end{itemize}
+
+
+\subsection*{Packets}
+
+A \textbf{packet}, or \textbf{datagram}, is a piece of a message transmitted over a packet-switching network.
+
+A packet can be sized between \texttt{1 byte} to \texttt{1500 bytes}.
+
+As seen before, the internet layer, adds the source and destination IP address. It is important for packets to have this information as long messages may not fit in to a single packet and therefore will be  split in to multiple packets, where each packet is routed individually.
+
+
+\newpage
+
+\subsection*{Routing}
+
+Between two communicating computers on the Internet, there are usually many networking devices.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/network-devices.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Networking devices on the Internet.}
+	\end{minipage}}
+\end{figure}
+
+Devices that interconnect networks are called \textbf{routers/gateways}.
+
+A \textbf{router} is a piece of hardware that connects to two or more networks which share the same protocols. They operate on the Internet and link layers of the TCP/IP stack. A router is responsible for:
+\begin{itemize}
+	\item accepting data coming in to a network;
+	\item sending data going out of a network;
+	\item determining where to send incoming data; and
+	\item determining where to send outgoing data.
+\end{itemize}
+
+Routers are aware of other routers to which they can send data and have a rough estimation on where is best to next send a piece of data. As such:
+\begin{itemize}
+	\item packets are routed by “hopping” between routers; a hop is the act of traversing between one router and another router across a network;
+	\item packets hop between the Internet layer and the link layer when being transmitted between routers connected to the Internet -- each time a packet “hops”, it is assigned a new MAC address for the next router to which it will be transmitted. This process continues until the packet reaches the router with the destination IP address; and
+	\item each router has a record of other close routers in a routing table and sharing this information allows an algorithm to determine the optimum next path in the route for a packet, such as Dijkstra’s Shortest Path algorithm.
+\end{itemize}
+
+This results in a very robust system as, if parts of the system go down, data can still reach its destination by alternative routes.
+
+However, the Internet is a large system and therefore:
+\begin{itemize}
+	\item data may get lost or arrive out of order;
+	\item a wire can only carry a limited amount of data and may get congested with traffic if many people are sending data through the wire; and
+	\item the capacity of wires is distributed in the best possible way, but overloading may still cause problems.
+\end{itemize}
+As a result, further protocol are required to ensure that packets are transmitted as intended.
+
+
+\section*{Transmission Control Protocol (TCP)}
+
+\subsection*{Definition}
+
+The \textbf{Transmission Control Protocol (TCP)} is built on top of IP and provides a reliable, ordered, and error-checked delivery of a stream of octets (bytes) between applications running on hosts communicating via an IP network.
+
+
+\subsection*{Use by the transport layer}
+
+The transport layer uses the TCP to:
+\begin{itemize}
+	\item perform a handshake;
+	\item to establish an end-to-end connection with the recipient computer;
+	\item split the data into packets; and
+	\item label the packet with a packet number, the total number of packets and the port number through which
+	the packet should route to ensures that the packet is handled by the correct application on the recipient
+	computer system.
+\end{itemize}
+
+A timer is incremented until a maximum value is reached, called a “time out”. When this occurs, a request for the retransmission of the lost packet is sent to the application layer. A receipt of packets received is recorded.
+
+
+\subsection*{Connection-oriented protocol}
+
+TCP can be described as a connection-oriented protocol as:
+\begin{itemize}
+	\item it adds packet ordering, sender and recipient information and a checksum;
+	\item data is guaranteed to arrive in the correct order; and
+	\item if any packet is lost, then it will be re-sent.
+\end{itemize}
+
+This means that TCP is reliable but has significant overheads.
+
+
+\subsection*{Use by applications}
+
+Applications from the application layer that use TCP include:
+\begin{itemize}
+	\item HTTP (for exchange of website files using a web browser);
+	\item FTP (for file transfer); and
+	\item SMTP (for email communications) etc.
+\end{itemize}
+
+
+\section*{User Datagram Protocol (UDP)}
+
+\subsection*{Definition}
+
+The \textbf{User Datagram Protocol (UDP)} is built on top of IP and allows computer applications to send messages to other hosts on an Internet Protocol (IP) network without prior communications
+
+
+\subsection*{Connectionless protocol}
+
+UDP can be described as a connectionless protocol as:
+\begin{itemize}
+	\item it adds packet length and a checksum to identify corrupt packets;
+	\item data is not guaranteed to arrive in the correct order; and
+	\item if any packet is lost, then it will be ignored.
+\end{itemize}
+
+This means that UDP is unreliable but has fast.
+
+
+\subsection*{Use by applications}
+
+Applications from the application layer that use UDP include:
+\begin{itemize}
+	\item VOIP (for audio calls);
+	\item streaming services; and
+	\item online gaming protocols.
+\end{itemize}
 
 \end{document}
