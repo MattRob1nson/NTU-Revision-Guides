@@ -8009,4 +8009,61 @@ System.out.println(names[0][0] + names[1][2]);  // Exception in thread "main" ja
 \end{lstlisting}
 
 
+\section{Static and non-static}
+
+\section*{Methods}
+
+\subsection*{Definitions}
+
+\textbf{Static methods} are known as \textbf{class methods} and are used when code exists that is to be shared across all instances of the same class.
+
+\textbf{Non-static methods} are known as \textbf{instance methods} and are used when code exists that depends on individual characteristics of its class, such as an attribute.
+
+
+\subsection*{Examples}
+
+\begin{lstlisting}[title={Class containing a static and non-static method.}]
+class Hello {
+	/* main method */
+	public static void main (String[] args) {
+		greetingInstance("Bob");       // illegal
+		greetingClass("Bob");          // legal
+		Hello test = new Hello();
+		test.greetingInstance("Bob");  // legal
+		Hello.greetingClass("Bob");    // legal
+	}
+	
+	/* class method */
+	static void greetingClass(String name) {
+		System.out.println("Hello " + name);
+	}
+	
+	/* instance method */
+	void greetingInstance(String name) {
+		System.out.println("Hello " + name);
+	}
+}
+\end{lstlisting}
+
+
+\section*{Attributes}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-11/static-and-non-static-methods.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Object diagram.}
+	\end{minipage}}
+\end{figure}
+
+The object diagram above shows that attributes may also be static. In this example, the \texttt{setInterest()} method is common to all instances of the class. As a result, the \texttt{interestRate} attribute may be a static attribute, as shown below.
+
+\begin{lstlisting}[title={Defining a static attribute.}]
+static int interestRate;
+\end{lstlisting}
+
 \end{document}
