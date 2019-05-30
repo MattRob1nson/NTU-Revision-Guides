@@ -299,7 +299,8 @@ The \textbf{kernel} hides the complexity of how a computer system works from use
 	\item process management;
 	\item CPU scheduling; and
 	\item handling interrupts.
-\end{itemize}
+\end{itemize}
+
 \textbf{Memory management} is responsible for allocating and deallocating memory to processes.
 
 \textbf{Input/output (I/O)} includes any interaction between the internal computer system components and peripherals.
@@ -411,7 +412,8 @@ The benefit of this abstraction can be demonstrated when comparing how computati
 			a = 1;
 			
 			b = 2;
-						c = a + b;
+			
+			c = a + b;
 	  	\end{minipage}
 	\end{longtable}
 	
@@ -432,7 +434,8 @@ In addition, it is possible that the machine code or assembly language written m
 
 By contrast, with an operating system (OS), it is possible to perform computations without interfacing directly with hardware. In the example above, variables (a, b and c) can be used to access data in memory rather than addressing memory locations. The only concern here is that the variable c is able to store the result of a + b.
 
-The operating system (OS) provides a unified environment to users to run their computations in different systems. The operating system (OS) is capable of taking high-level code and translating it in to the machine code that can be executed on a particular computer system.
+The operating system (OS) provides a unified environment to users to run their computations in different systems. The operating system (OS) is capable of taking high-level code and translating it in to the machine code that can be executed on a particular computer system.
+
 
 \section{Current operating system (OS) trends}
 
@@ -651,7 +654,8 @@ If user mode had unrestricted access to all of the machine instructions:
 	\item a program may use resources unfairly, such as holding the CPU or memory, and therefore harm the execution of other programs; and/or
 	\item sensitive machine instructions could be used improperly which may lead to kernel mode errors.
 \end{itemize}
-Kernel mode errors are catastrophic.
+
+Kernel mode errors are catastrophic.
 
 
 \begin{figure}[H]
@@ -874,7 +878,8 @@ A process, once initiated, can be in one of three main states:
 			\item waiting for an interrupt, this is a message from the hardware saying that a resource is now available to read from – such as waiting for an input/output (I/O) operation to complete; and
 			\item waiting for another process to finish accessing a shared resources – for example: a file; memory; or an external peripheral, such as a printer.
 		\end{itemize}
-\end{longtabu}
+\end{longtabu}
+
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
@@ -1111,8 +1116,10 @@ An \textbf{interrupt} is a signal sent to the processor indicating that an event
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \centering
-	A process requiring immediate attention is waiting for the processor (CPU).	
-	For example, an input/output (I/O) event occurs.	
+	A process requiring immediate attention is waiting for the processor (CPU).
+	
+	For example, an input/output (I/O) event occurs.
+	
 	$\downarrow$
 	
 	The currently running process’ execution is suspended.
@@ -1127,7 +1134,8 @@ An \textbf{interrupt} is a signal sent to the processor indicating that an event
 	
 	$\downarrow$
 	
-	The execution is diverted to the interrupt handling routine.	
+	The execution is diverted to the interrupt handling routine.
+	
 	An interrupt handling routine (ISR) contains the operations that are performed to deal with an interrupt. Different types of interrupts can have different routines.
 	
 	$\downarrow$
@@ -2005,7 +2013,8 @@ Given the following program written in a high-level language:
 	\item[] x = 1;
 	\item[] y = x + 1;
 	\item[] x = y + 2;
-\end{itemize}it is possible to see that the final values of x and y depend on the order of execution of the statements.
+\end{itemize}
+it is possible to see that the final values of x and y depend on the order of execution of the statements.
 
 
 \subsection*{System level}
@@ -2274,7 +2283,8 @@ If one user thread is blocked, all other threads in the same process are also bl
 
 Multi-threaded applications cannot take advantage of parallel execution on computer systems with a multi-core CPU or computer systems with multiple CPUs.
 
-\newpage
+
+\newpage
 
 \section*{Kernel threads}
 
@@ -2526,7 +2536,8 @@ In this example, the two threads $t_{1}$ and $t_{2}$ manipulate the same variabl
 \begin{itemize}
 	\item $t_{1}$ increments the variable $c$; and
 	\item $t_{2}$ decrements the variable $c$.
-\end{itemize}
+\end{itemize}
+
 As seen before (page 40), each statement may be compiled in to several machine instructions.
 
 The increment ($c++$) instruction is broken in to three machine instructions:
@@ -2690,7 +2701,8 @@ As mentioned before, a semaphore, denoted by $S$, is an integer that takes only 
 	&
 	If a thread/process is in its non-critical section/region and wishes to enter its critical section/region, this statement will be performed.
 
-	This means that the thread/process will be blocked until $S = 0$	evaluates to $True$.
+	This means that the thread/process will be blocked until $S = 0$
+	evaluates to $True$.
 	\\ \hline
 	$signal(s)$
 	&
@@ -3513,7 +3525,8 @@ The data is accessed using serial access; this is where a tape reader starts at 
 
 A \textbf{Solid-State Drive (SSD)} contains millions of NAND flash memory cells and a controller which manages pages and blocks of memory.
 
-Each NAND flash memory cell delivers a current along the bit and word lines to activate the flow of electrons from the source towards the drain. The current on the word line is strong enough to push a few electrons across an insulated oxide layer into a floating gate. The charge in the flowing gate is measured: if there is some charge, where there are some electrons flowing, a 1 is represented; and if there is no charge, where there are no electrons flowing, a 0 is represented.
+Each NAND flash memory cell delivers a current along the bit and word lines to activate the flow of electrons from the source towards the drain. The current on the word line is strong enough to push a few electrons across an insulated oxide layer into a floating gate. The charge in the flowing gate is measured: if there is some charge, where there are some electrons flowing, a 1 is represented; and if there is no charge, where there are no electrons flowing, a 0 is represented.
+
 \begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
     \hline
     \textbf{Size} & xx’GB and xxx’GB.
@@ -3572,7 +3585,8 @@ When the low-powered laser is shone on the surface:
 \begin{itemize}
 	\item the start or end of a pit, the light is scattered and not reflected very well –- this is used to represent a 0; and
 	\item a land, the light is not scattered and reflected normally -– this is used to represent a 1.
-\end{itemize}
+\end{itemize}
+
 \begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
     \hline
     \textbf{Size} & xxx'MB.
@@ -3588,7 +3602,8 @@ When the low-powered laser is shone on the surface:
 
 \subsection*{Description -- CD-RW}
 
-A \textbf{CD-RW (re-writable Compact Disk)} uses a laser and a magnet to heat a spot on the disk. When the spot is heated the magnetic orientation is changed to represent a 0 or a 1 before the magnet is cooled.
+A \textbf{CD-RW (re-writable Compact Disk)} uses a laser and a magnet to heat a spot on the disk. When the spot is heated the magnetic orientation is changed to represent a 0 or a 1 before the magnet is cooled.
+
 \begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
     \hline
     \textbf{Size} & xxx'MB.
@@ -3604,7 +3619,8 @@ A \textbf{CD-RW (re-writable Compact Disk)} uses a laser and a magnet to heat a 
 
 \subsection*{Description -- DVD-RW}
 
-A \textbf{DVD-RW (re-writable Digital Versatile Disc)} uses a phase changed alloy that can change between amorphous and crystalline states by changing the power of the laser beam.
+A \textbf{DVD-RW (re-writable Digital Versatile Disc)} uses a phase changed alloy that can change between amorphous and crystalline states by changing the power of the laser beam.
+
 \begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
     \hline
     \textbf{Size} & x'GB.
@@ -7341,9 +7357,12 @@ Java is a high-level programming language, developed by James Gosling in the ear
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     CMP AX,97
     
-	JL DONE	
-	CMP AX,122	
-	JG DONE	
+	JL DONE
+	
+	CMP AX,122
+	
+	JG DONE
+	
 	SUB AX,32
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
