@@ -8844,4 +8844,284 @@ This shows that a connection over a TCP/IP can be represented by a pair of socke
 
 From a programmer's perspective, a socket pair represents the mechanism to transfer data between computers. As such, a programmer must create sockets to allow their applications to communicate with one another over a network.
 
+
+\newpage
+
+\section{Implementing sockets in Java}
+
+\section*{Types of sockets}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-13/types-of-sockets.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Types of sockets.}
+	\end{minipage}}
+\end{figure}
+
+Java provides an API for two types of socket:
+\begin{itemize}
+	\item stream sockets (TCP-based); and
+	\item datagram sockets (UDP-based).
+\end{itemize}
+
+Raw sockets are typically available in routers and other network equipment.
+
+
+\section*{Stream sockets (TCP-based)}
+
+\subsection*{Characteristics}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-13/stream-sockets.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{A stream socket.}
+	\end{minipage}}
+\end{figure}
+
+A stream socket:
+\begin{itemize}
+	\item is connection-oriented;
+	\item is reliable;
+	\item has overheads;
+	\item sends ordered packets; and
+	\item is bi-directional.
+\end{itemize}
+
+
+\subsection*{TCP sockets classes}
+
+The \texttt{java.net} package API provides the \texttt{serversocket} and \texttt{socket} clesses.
+
+A TCP socket can easily be instantiated by calling the constructor of either class.
+
+To set up a TCP server socket, the \texttt{serversocket} class is used.
+
+\begin{lstlisting}[title={Server: setting up a ServerSocket and accepting client connections.}]
+int port = 9090;
+
+ServerSocket server = new ServerSocket(port);
+
+while(true) {
+	System.out.println("Waiting for client...");
+	Socket client = server.accept();
+	System.out.println("Client " + client.getInetAddress() + " connected.");
+}
+\end{lstlisting}
+
+As shown above, for a client to establish a connection to the server, the server must react by:
+\begin{itemize}
+	\item accepting the connection set up by calling the \texttt{accept()} method; and
+	\item providing a new socket for this connection.
+\end{itemize}
+
+In many cases, a server is set to endlessly wait for incoming connections. The \texttt{accept()} method blocks the program flow until a new connection request arrives within an infinite loop.
+
+After a \texttt{serversocket} is set up on the server, a client can bind to it in order to establish a connection.
+
+\begin{lstlisting}[title={Client: establishing connection to the server.}]
+int port = 9090;
+Socket server = new Socket("localhost", port);
+System.out.println("Connection to " + server.getInetAddress() + "established.");
+\end{lstlisting}
+
+In the code above both the client and server are running on the same machine, referred to in a relative fashion using the host name \texttt{localhost}. However, it is also possible to use the IP address for \texttt{localhost}, \texttt{127.0.0.1}.
+
+
+\newpage
+
+\subsection*{TCP socket methods}
+
+The \texttt{Socket} class provides the following methods:
+\begin{itemize}
+	\item \texttt{close()} with no return type; and
+	\item \texttt{getInetAddress()} with a return type of \texttt{InetAddress}.
+\end{itemize}
+
+\subsection*{TCP socket methods}
+
+The \texttt{ServerSocket} class provides the following methods:
+\begin{itemize}
+	\item \texttt{close()} with no return type;
+	\item \texttt{accept()} with no return type;
+	\item \texttt{getInetAddress()} with a return type of \texttt{InetAddress}.
+\end{itemize}
+
+
+\subsection*{TCP socket streams}
+
+To exchange data over sockets the \texttt{Socket} class uses streams:
+\begin{itemize}
+	\item \texttt{getInputStream()}; and
+	\item \texttt{getOutputStream()}.	
+\end{itemize}
+
+The \texttt{java.io} package has classes for input and output:
+\begin{itemize}
+	\item \texttt{DataInputStream}; and
+	\item \texttt{DataOutputStream}.
+\end{itemize}
+These allow:
+\begin{itemize}
+	\item different data types to be converted in to byte sequence for simple streams; and
+	\item simple streams to be converted from byte sequence to their respective data types.
+\end{itemize}
+
+For transmitting simple types such as \texttt{int}, \texttt{long} and \texttt{char}, the \texttt{DataOutputStream} class provides a write method for each of these types:
+\begin{itemize}
+	\item \texttt{writeInt()};
+	\item \texttt{writeLong()}; and
+	\item \texttt{writeChar()} etc.
+\end{itemize}
+
+For transmitting a \texttt{String}, the UTF-8 format is normally used, which transfers the characters in Unicode encoding. The \texttt{DataOutputStream} class provides the write method \texttt{writeUTF()} for this operation.
+
+Similarly, the \texttt{DataInputStream} class exists with corresponding methods:
+\begin{itemize}
+	\item \texttt{readInt()};
+	\item \texttt{readLong()};
+	\item \texttt{readChar()}; and
+	\item \texttt{readUTF()}.
+\end{itemize}
+
+
+\newpage
+
+\subsection*{Designing the server and client}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{20cm}]{images/chapter-13/server-client-setup.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Server and client set up.}
+	\end{minipage}}
+\end{figure}
+
+In order to allow the set up seen in the figure above, the server must:
+\begin{itemize}
+	\item have a \texttt{ServerSocket} set up;
+	\item listen and accept connection;
+	\item set up I/O streams; and
+	\item send data to and receive data from the client.
+\end{itemize}
+
+In addition, the client must:
+\begin{itemize}
+	\item have a \texttt{Socket} set up;
+	\item set up I/O streams; and
+	\item send data to and receive data from the server.
+\end{itemize}
+
+\newpage
+
+\begin{lstlisting}[title={TimeServer.}]
+import java.net.*;
+import java.util.*;
+import java.io.*;
+
+public class TimeServer {
+	public static void main(String[] args) throws IOException {
+		ServerSocket server = new ServerSocket(9090);
+		
+		while(true) {
+			System.out.println("Waiting...");
+			
+			// establish connection to client
+			Socket client = server.accept();
+			System.out.println("Connected to: " + client.getInetAddress());
+			
+			// create I/O streams
+			DataInputStream inFromClient = new DataInputStream(client.getInputStream());
+			DataOutputStream outToClient = new DataOutputStream(client.getOutputStream());
+			
+			// get any data from client
+			System.out.println(inFromClient.readUTF());
+			
+			// send date to client
+			Date date = new Date();
+			outToClient.writeUTF(date.toString());
+			
+			// close client connection
+			client.close()
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[title={TimeClient.}]
+import java.net.*;
+import java.uo.*;
+
+public class TimeClient {
+	public static void main(String[] args) throws IOException {
+		// establish connection to server
+		Socket server = new Socket("localhost", 9090);
+		System.out.println("Connected to: " + server.getInetAddress());
+		
+		// create I/O streams
+		DataInputStream inFromServer = new DataInputStream(server.getInputStream());
+		DataOutputStream outToServer = new DataOutputStream(server.getOutputStream());
+		
+		// send Unicode string to server
+		outToServer.writeUTF("Time");
+		
+		// read data from server
+		String data = inFromServer.readUTF();
+		System.out.println("Server response: " + data);
+		
+		// close server connection
+		server.close();
+	}
+}
+
+\end{lstlisting}
+
+
+\section*{Datagram sockets (UDP-based)}
+
+\subsection*{Characteristics}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-13/datagram-sockets.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{A datagram socket.}
+	\end{minipage}}
+\end{figure}
+
+A datagram socket:
+\begin{itemize}
+	\item is connectionless;
+	\item is unreliable;
+	\item has little overheads and makes the best effort without;
+	\item sends unordered packets; and
+	\item is uni-directional.
+\end{itemize}
+
+
+\subsection*{UDP socket classes}
+
+The \texttt{java.net} package API provides the \texttt{datagramsocket} and \texttt{datagrampacket} clesses.
+
+A TCP socket can easily be instantiated by calling the constructor of either class.
+
+
+
 \end{document}
