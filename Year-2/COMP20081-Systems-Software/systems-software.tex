@@ -8746,4 +8746,102 @@ Applications from the application layer that use UDP include:
 	\item online gaming protocols.
 \end{itemize}
 
+
+\chapter{Java Sockets}
+
+\section{Client-server model}
+
+\section*{Definitions}
+
+A \textbf{client-server model} is a network application model in which servers and clients communicate over the network.
+
+A \textbf{server} is a program that provides a number of services to a client.
+
+A \textbf{client} is a program that requests services from the server.
+
+
+\section*{How it works}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-13/client-server.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Client-server model with a single client.}
+	\end{minipage}}
+\end{figure}
+
+The server:
+\begin{itemize}
+	\item receives a request from a client;
+	\item processes the request; and
+	\item sends the results back to the client.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-13/client-server-multiple-clients.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Client-server model with multiple clients.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, servers are usually designed to handle multiple clients simultaneously, such as email and the servers on the World Wide Web (WWW).
+
+
+\section{Sockets}
+
+\section*{Definition}
+
+A \textbf{socket} acts as an endpoint instance of a communication connection between two computer processes in a two-way communication link and is identified by a tuple consisting of an IP address and a port number.
+
+
+\section*{Transferring data}
+
+The most common function in distributed client-server applications is to transfer data between computer systems (hosts).
+
+As seen before,
+\begin{itemize}
+	\item each computer system (host) in a TCP/IP network has an IP address;
+	\item the internet layer in the TCP/IP stack adds the source and destination IP address; and
+	\item routers operate on the data link layer in the TCP/IP and will use the IP addresses to forward the packets to the correct destination.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-13/transferring-data-using-sockets.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Transferring data using sockets.}
+	\end{minipage}}
+\end{figure}
+
+A socket is formed, using the IP address and port number (e.g. 81.12.23.139:80), which specifies which device the packet must be sent to and the application being used on that device.
+
+This shows that a connection over a TCP/IP can be represented by a pair of sockets (4-tuple).
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-13/creating-sockets.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Creating sockets.}
+	\end{minipage}}
+\end{figure}
+
+From a programmer's perspective, a socket pair represents the mechanism to transfer data between computers. As such, a programmer must create sockets to allow their applications to communicate with one another over a network.
+
 \end{document}
