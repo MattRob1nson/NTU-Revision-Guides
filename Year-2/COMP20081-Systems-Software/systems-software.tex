@@ -7809,4 +7809,86 @@ Java includes some special characters that can be used as escape sequences.
 	\\ \hline
 \end{longtabu}
 
+
+\section{Strings}
+
+\section*{Definition}
+
+A \textbf{\texttt{String}} is a sequence of alphanumeric characters.
+
+
+\section*{Importing String class}
+
+A \texttt{String} is not a primitive data type, but is instead a class that makes use of an implicit array of characters with operators as methods.
+
+The \texttt{String} class is provided by the \texttt{java.lang} package.
+
+\begin{lstlisting}[title={Importing the entire java.lang package.}]
+import java.lang.*;
+\end{lstlisting}
+
+As shown above, the entire \texttt{java.lang} package can be imported.
+
+\begin{lstlisting}[title={Importing the String class from the java.lang package.}]
+import java.lang.String;
+\end{lstlisting}
+
+Alternatively, as shown above, the \texttt{String} class can be imported on its own from the \texttt{java.lang} package.
+
+
+\section*{Using the String class}
+
+\subsection*{Assignment and methods}
+
+\begin{lstlisting}[title={Importing the String class from the java.lang package.}]
+String str1 = "espresso";
+String str2 = "espresso";
+System.out.println(str1.equals(str2));       // true
+System.out.println(str1.toUpperCase());      // ESPRESSO
+System.out.println(str1.substring(0,2));     // es
+System.out.println(str1.startsWith("o"));    // false
+System.out.println(str1.endsWith("o"));      // true
+System.out.println(str1.replace('e', 'E'));  // ExprEsso
+\end{lstlisting}
+
+
+\subsection*{Concatenation}
+The \texttt{String} concatenation operator is \texttt{+}.
+
+It is capable of appending:
+\begin{itemize}
+	\item one \texttt{String} to another; and
+	\item other data types to a \texttt{String}.
+\end{itemize}
+
+\begin{lstlisting}[title={Conatenating Strings.}]
+String name = "Nottingham Trent University ";
+int year = 2018;
+
+/*part one*/
+System.out.println(name);
+System.out.println("Nottingham " + "Trent " + "Univeristy");
+/*part two*/
+System.out.println("Nottingham\n" + "Trent\n" + "Univeristy\n");
+/*part three*/
+System.out.println("Nottingham Trent University " + year);
+System.out.println(name + year);
+System.out.println("Nottingham Trent University " + 2018);
+\end{lstlisting}
+
+Java distinguishes between the concatenation operator and addition operator through \textbf{operand context}, as shown in the examples below.
+
+\begin{lstlisting}[title={Conatenating integers}]
+System.out.println(5 + 5);  // 10
+\end{lstlisting}
+
+\begin{lstlisting}[title={Conatenating integers and Strings}]
+System.out.println("5 plus 5 equals " + 5 + 5);  // 5 plus 5 equals 55
+\end{lstlisting}
+
+
+\begin{lstlisting}[title={Conatenating integers and Strings}]
+System.out.println("5 plus 5 equals " + (5 + 5));  // 5 plus 5 equals 10
+\end{lstlisting}
+
 \end{document}
