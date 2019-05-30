@@ -7685,4 +7685,108 @@ Instantiating the Student object, as shown above, allows access to the public me
 
 \end{lstlisting}
 
+
+\section{Primitive data types}
+
+\section*{Definition}
+
+A \textbf{primitive data type} is a data type that is predefined by the language and is named by a reserved keyword.
+
+
+\section*{Java's primitive data types}
+
+\subsection*{Overview}
+
+Java supports eight primitive data types and uses the same collection of primitive data types as C++, including:
+\begin{itemize}
+	\item integer types;
+	\item floating point types;
+	\item Boolean type; and
+	\item characters.
+\end{itemize}
+
+Similarly to C++, Java is a \textbf{strictly typed language} and therefore literals must be specifically cast when not using the default type.
+
+However, there are important differences in their operation.
+
+
+\subsection*{Integer types}
+
+\begin{longtabu} to \textwidth {| X[0.4,l] | X[0.5,l] | X[1,l] |}
+	\hline
+	\textbf{Type} & \textbf{Description} & \textbf{Bounds}
+	\\ \hline
+	\texttt{byte} & An 8-bit integer. &
+	$-2^{-7}$ to $2^{7}-1$ (-128 to 127)
+	\\ \hline
+	\texttt{short} & A 16-bit integer. &
+	$-2^{15}$ to $2^{15}-1$ (-32768 to 32767)
+	\\ \hline
+	\texttt{int} (default) & A 32-bit integer. &
+	$-2^{31}$ to $2^{31}-1$ (-2147483648 to 2147483647)
+	\\ \hline
+	\texttt{long} & A 64-bit integer &
+	$-2^{63}$ to $2^{63}-1$ (-9.223372e+18 to 9.223372e+18-1)
+	\\ \hline
+\end{longtabu}
+
+\begin{lstlisting}[title={Using integer types.}]
+byte eight = 8;        // valid
+short sixteen = 16;    // valid
+int thirtytwo = 32;    // valid
+long sixtyfour = 64L;  // valid
+long sixtyfour = 64;   // invalid
+\end{lstlisting}
+
+
+\subsection*{Floating point types}
+
+\begin{longtabu} to \textwidth {| X[0.4,l] | X[1,l] |}
+	\hline
+	\textbf{Type} & \textbf{Description}
+	\\ \hline
+	\texttt{float} & An 32-bit floating point (saves memory).
+	\\ \hline
+	\texttt{double} (default) & A 64-bit floating point.
+	\\ \hline
+\end{longtabu}
+
+\begin{lstlisting}[title={Using integer types.}]
+float thirtytwo = 32.0f;   // valid
+float thirtytwo = 32.0;    // invalid
+double sixtyfour = 64.0;   // valid
+double sixtyfour = 64.0d;  // valid
+\end{lstlisting}
+
+
+\newpage
+
+\subsection*{Boolean type}
+
+A \texttt{Boolean} is an 8-bit value, which can only represent \texttt{true} or \texttt{false}.
+
+\begin{lstlisting}[title={Using the Boolean type.}]
+boolean flag = 1;     // invalid
+boolean flag = true;  // valid
+bool flag = true;     // invalid
+
+boolean flag = 0;      // invalid
+boolean flag = false;  // valid
+bool flag = false;     // invalid
+\end{lstlisting}
+
+
+\subsection*{Characters}
+
+A \texttt{char} is a 16-bit Unicode character. Unicode is a computing standard for encoding, representing and handling text in most writing systems.
+
+\begin{lstlisting}[title={Using the Boolean type.}]
+char letterU = U;    // invalid
+char letterJ = 'J';  // valid
+char letterB = "B";  // invalid
+char letterA = 'A';  // valid
+char digit1 = '1';   // valid
+char digit0 = '0';   // valid
+\end{lstlisting}
+
 \end{document}
