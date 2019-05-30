@@ -8066,4 +8066,35 @@ The object diagram above shows that attributes may also be static. In this examp
 static int interestRate;
 \end{lstlisting}
 
+
+\section{Constants}
+
+\section*{Definition}
+
+A \textbf{constant} is a value that cannot be altered by the program once initialised. A compilation error would be thrown should an attempt be made to change the value of a constant.
+
+
+\section*{Using constants}
+
+In Java, constants are defined by using the \texttt{final} keyword, as shown below.
+
+\begin{lstlisting}[title={Defining a constant.}]
+final int interestRate = 15;
+\end{lstlisting}
+
+A constant can also be static, as shown below.
+
+\begin{lstlisting}[title={Defining a static constant.}]
+final static int interestRate = 15;
+\end{lstlisting}
+
+
+\section*{Why are constants useful?}
+
+Constants are useful because:
+\begin{itemize}
+	\item they avoid the "magic number" problem by providing meaning to otherwise unclear literal values, such as using a constant named \texttt{MAX\_LINES} for defining how many lines can be read from a file; and
+	\item if a constant is used in multiple places, its value need only be modified in one location therefore improving consistency and maintainability.
+\end{itemize}
+
 \end{document}
