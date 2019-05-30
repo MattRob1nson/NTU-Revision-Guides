@@ -7946,4 +7946,67 @@ System.out.println("5 plus 5 equals " + (5 + 5));  // 5 plus 5 equals 10
 	\\ \hline
 \end{longtabu}
 
+
+\newpage
+
+\section{Arrays}
+
+\section*{Definition}
+
+An \textbf{array} is a data structure consisting of a collection of elements (values or variables), each identified by at least one array index or key.
+
+
+\section*{Using arrays}
+
+Java arrays are considered as a special kind of default objects.
+
+There are two different ways of defining an array, as shown below.
+
+\begin{lstlisting}[title={Defining an array in one line.}]
+int[] anArray {1, 2, 3, 4};
+\end{lstlisting}
+
+\begin{lstlisting}[title={Defining an array using index values.}]
+int[] anArray = new int[4];  // or int anArray[] = new int[4];
+
+int anArray[0] = 1;
+int anArray[1] = 2;
+int anArray[2] = 3;
+int anArray[3] = 4;
+\end{lstlisting}
+
+Arrays have a \texttt{length} attribute that can be accessed using \texttt{.length}, as shown below.
+
+\begin{lstlisting}[title={Using the array length attribute.}]
+int len = anArray.length;
+\end{lstlisting}
+
+
+\section*{Multi-dimensional arrays}
+
+A \textbf{multi-dimensional array} is an array with more than one level or dimension.
+
+\begin{lstlisting}[title={Defining a multi-dimensional.}]
+String[][] names = new String[4][7];
+\end{lstlisting}
+
+The \texttt{length} attribute can also be used on multi-dimensional arrays, as shown below.
+
+\begin{lstlisting}[title={Defining a multi-dimensional array.}]
+System.out.println(names.length);    // 4
+System.out.println(names[0].length)  // 7
+\end{lstlisting}
+
+It is important to ensure that the elements in a multi-dimensional array are accessed properly, as shown below.
+
+\begin{lstlisting}[title={Accessing elements in a multi-dimensional array.}]
+String[][] names = {{"Dr. " , "Mr. " , "Ms. "} , {"Smith" , "Jones"}};
+
+System.out.println(names[0][0] + names[1][0]);  // Dr. Smith
+System.out.println(names[0][1] + names[1][0]);  // Mr. Smith
+System.out.println(names[0][2] + names[1][1]);  // Ms. Jones
+System.out.println(names[0][0] + names[1][2]);  // Exception in thread "main" java.lang.arrayindexoutofboundsexception: 2
+\end{lstlisting}
+
+
 \end{document}
