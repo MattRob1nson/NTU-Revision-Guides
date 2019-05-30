@@ -8167,4 +8167,93 @@ class PassingParameters {
 }
 \end{lstlisting}
 
+
+\chapter(Introduction to Internetworking)
+
+\section{Networks}
+
+\section*{What are computer networks?}
+
+A \textbf{computer network} is a collection of interconnected autonomous computer systems.
+
+Computer systems are said to be interconnected if they can exchange information. They can be connected using a number of different types of physical connections:
+\begin{itemize}
+	\item copper;
+	\item fiber optic; and
+	\item infrared etc.
+\end{itemize}
+
+
+\section*{Classification}
+
+There are two main classification criteria for computer networks:
+\begin{itemize}
+	\item topology/communication; and
+	\item scale.
+\end{itemize}
+
+
+\subsection*{Topology/communication}
+
+\textbf{Broadcast networks} have a single communication channel shared by all machines.
+
+\textbf{Point-to-point networks} consist of many connections between pairs of machines.
+
+
+\newpage
+
+\subsection*{Scale}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+	\hline
+	\textbf{Network} & \textbf{Scale}
+	\\ \hline
+	Personal area networks. & Up to one meter.
+	\\ \hline
+	Local Area Networks (LANs). & Room, building, campus etc.
+	\\ \hline
+	Metropolitan area networks (MANs). & City
+	\\ \hline
+	Wide Area Networks (WANs). & Country, continent.
+	\\ \hline
+	Internetworks & Any size.
+	\\ \hline
+\end{longtabu}
+
+
+\section*{Distributed systems}
+
+\subsection*{Definition}
+
+\textbf{Distributed systems} are a special case of a computer network-based system.
+
+
+\subsection*{How they work}
+
+In general, applications in networks are aware of other computers connected to the device on which they are running. In distributed systems:
+\begin{itemize}
+	\item the fact that several computers exist in the network is masked by the OS, making the system transparent and coherent; and
+	\item the OS can automatically allocate jobs to processors and move files among variable computers without explicit user intervention.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/distributed-system.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{A distributed system on a network.}
+	\end{minipage}}
+\end{figure}
+
+In the figure above, \texttt{Machine A}, \texttt{Machine B} and \texttt{Machine C}:
+\begin{itemize}
+	\item are connected via a network;
+	\item share some distributed applications;
+	\item share some middleware services (computer software that provides services to software applications beyond those available from the operating system); and
+	\item each have their own network OS services and kernel.
+\end{itemize}
+
 \end{document}
