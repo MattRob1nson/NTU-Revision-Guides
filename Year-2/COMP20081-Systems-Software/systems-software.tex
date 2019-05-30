@@ -7712,7 +7712,7 @@ However, there are important differences in their operation.
 
 \subsection*{Integer types}
 
-\begin{longtabu} to \textwidth {| X[0.4,l] | X[0.5,l] | X[1,l] |}
+\begin{longtabu} to \textwidth {| X[0.4,l] | X[0.4,l] | X[1,l] |}
 	\hline
 	\textbf{Type} & \textbf{Description} & \textbf{Bounds}
 	\\ \hline
@@ -7788,5 +7788,25 @@ char letterA = 'A';  // valid
 char digit1 = '1';   // valid
 char digit0 = '0';   // valid
 \end{lstlisting}
+
+Java includes some special characters that can be used as escape sequences.
+
+\begin{longtabu} to \textwidth {| X[0.4,l] | X[1,l] |}
+	\hline
+	\textbf{Escape sequence} & \textbf{Meaning}
+	\\ \hline
+	\texttt{\textbackslash b} & Backspace.
+	\\ \hline
+	\texttt{\textbackslash t} & Tab.
+	\\ \hline
+	\texttt{\textbackslash n} & New line.
+	\\ \hline
+	\texttt{\textbackslash "} & Double quote.
+	\\ \hline
+	\texttt{\textbackslash '} & Single quote.
+	\\ \hline
+	\texttt{\textbackslash \textbackslash} & Backslash.
+	\\ \hline
+\end{longtabu}
 
 \end{document}
