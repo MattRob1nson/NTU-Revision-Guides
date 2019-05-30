@@ -8097,4 +8097,74 @@ Constants are useful because:
 	\item if a constant is used in multiple places, its value need only be modified in one location therefore improving consistency and maintainability.
 \end{itemize}
 
+
+\section{Parameter passing}
+
+\section*{By value/reference}
+
+When passing a parameter \textbf{by value}, a copy of the value is taken such that any changes made to tbe value inside the method are not reflected in the outer program.
+
+When passing a paramter \textbf{by reference}, the memory address that points to the value is taken such that any changes made to the value inside the method are reflected in the outer program.
+
+In Java:
+\begin{itemize}
+	\item for standalone data primitive types, only values are passed; and
+	\item only objects are passed by reference.
+\end{itemize}
+
+When standalone primitive data types, such as integer, are passed as parameters, the changes made by the method to the values are not reflected in the outer program. For this to happen, the primitive data types must first be wrapped within an object so that they are passed by reference instead.
+
+
+\newpage
+
+\section*{Examples}
+
+\begin{lstlisting}[title={Passing a primitive data type.}]
+class PassingParameters {	
+	static void increase(int n) {
+		// Number before increase: 10
+		System.out.println("Number before increase: " + n);
+		
+		n++;
+		
+		// Number before increase: 11
+		System.out.println("Number after increase: " + n);
+	}
+	
+	public static void main (String[] args) {
+		int number = 10;
+		
+		increase(number);
+		
+		// Number in main method: 10
+		System.out.println("Number in main method: " + number);
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[title={Passing a primitive data type and returning the changed value.}]
+class PassingParameters {
+	static int increase(int n) {
+		// Number before increase: 10
+		System.out.println("Number before increase: " + n);
+		
+		n++;
+		
+		// Number before increase: 11
+		System.out.println("Number after increase: " + n);
+
+		return n;
+	}
+
+	public static void main (String[] args) {
+		int number = 10;
+		
+		number = increase(number);
+		
+		// Number in main method: 11
+		System.out.println("Number in main method: " + number);
+	}
+}
+\end{lstlisting}
+
 \end{document}
