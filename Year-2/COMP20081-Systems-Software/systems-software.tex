@@ -9066,7 +9066,7 @@ public class TimeServer {
 
 \begin{lstlisting}[title={TimeClient class.}]
 import java.net.*;
-import java.uo.*;
+import java.io.*;
 
 public class TimeClient {
 	public static void main(String[] args) throws IOException {
@@ -9769,5 +9769,42 @@ GUIs are used because they:
 \end{figure}
 
 As seen in the figure above, the NetBeans IDE allows components such as buttons, sliders and text to be "dragged" on to the window. Subsequently, the properties of these components can be changed by right-clicking the components.
+
+
+\section{Importing Java GUI libraries}
+
+\textbf{\texttt{swing}} is a package available to efficiently design and develop Java applications with a GUI.
+
+The \texttt{swing} package is built on top of the abstract window toolkit (\texttt{awt}). Therefore, some components in the \texttt{swing} package still use some properties from the \texttt{awt}.
+
+\begin{lstlisting}[title={Importing the entire javax.swing package.}]
+import javax.swing.*;
+\end{lstlisting}
+
+As shown above, the entire \texttt{javax.swing} package can be imported.
+
+\begin{lstlisting}[title={Importing the JFrame and SwingUtilities components from the javax.swing package.}]
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+\end{lstlisting}
+
+Alternatively, as shown above, the \texttt{JFrame} and/or \texttt{SwingUtilities} components can be imported on their own from the \texttt{javax.swing} package.
+
+In addition, most listeners are used from the \texttt{awt} and therefore these must be imported alongside \texttt{swing}.
+
+\begin{lstlisting}[title={Importing the entire java.awt.event package.}]
+import java.awt.event.*;
+\end{lstlisting}
+
+As shown above, the entire \texttt{java.awt.event} package can be imported.
+
+\begin{lstlisting}[title={Importing the ActionEvent and ActionListener components from the java.awt.event package.}]
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+\end{lstlisting}
+
+Alternatively, as shown above, the \texttt{ActionEvent} and/or \texttt{ActionListener} components can be imported on their own from the \texttt{java.awt.event} package.
+
+For more complex GUIs, other components of \texttt{java.awt} and \texttt{javax.swing} may also be required to be imported.
 
 \end{document}
