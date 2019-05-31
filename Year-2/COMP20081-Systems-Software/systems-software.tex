@@ -9450,4 +9450,121 @@ Both methods allow threads to be created and have the same resulting behaviour.
 	\\ \hline
 \end{longtabu}
 
+
+\section{Synchronisation and mutual exclusion in Java}
+
+Synchronisation and mutual exclusion in Java can be demonstrated by considering the passenger problem.
+
+\section*{Description of the passenger problem}
+
+This problem considers an air plane with two doors, one at the front and one at the rear.
+
+The passenger problem considers:
+\begin{itemize}
+	\item a air plane with two doors;
+	\item one door is located at the front of the air plane; and
+	\item another door is located at the rear of the air plane.
+\end{itemize}
+
+This problem has the following requirements:
+\begin{itemize}
+	\item passengers can enter the air plane;
+	\item passengers may not leave the air plane; and
+	\item to determine the number of passengers in the air plane at any time, a concurrent system is implemented which is connected with some sensors at each door.
+\end{itemize}
+
+
+\section*{Implementation of the passenger problem}
+
+\subsection*{Simplifying the problem}
+
+In the implementation of this problem:
+\begin{itemize}
+	\item each door is handled by a concurrent thread;
+	\item a global variable is used to represent the current number of passengers in the air plane; and
+	\item the global variable is updated by a door thread when a passenger enters the front or rear door.
+\end{itemize}
+
+The problem can be simplified for this implementation where:
+\begin{itemize}
+	\item 200 passengers are expected;
+	\item 100 passengers are simulated to enter the front door; and
+	\item 100 passengers are simulated to enter the rear door.
+\end{itemize}
+
+As a result, when the experiment finishes, the system should show that there are 200 passengers in the air plane.
+
+
+\subsection*{Code}
+
+\begin{lstlisting}[title={Door class.}]
+public class Door implements Runnable {
+	Airplane ap;
+	
+	Door(Airplane _ap) {
+		ap = _ap;
+	}
+	
+	public void run() {
+		for(int i = 1; i <= 100; i++) {
+			try {
+				ap.increment();
+				
+				// cease execution of the thread for 0.5sec on every arrival
+				Thread.sleep(500);
+			} catch (InterruptedExecption e) {} // do nothing
+		}
+	}
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[title={Airplane class.}]
+public class Airplane {
+	public int count = 0;
+	
+	void increment() {
+		count = count + 1;
+		System.out.println("There are " + count + " passengers");
+	}
+	
+	public static void main(String[] args) {
+		Airplane ap = new Airplane();
+		
+		Door front = new Door(ap);
+		Door read = new Door(ap);
+		
+		Thread t1 = new Thread(front);
+		Thread t2 = new Thread(rear);
+		
+		t1.start();
+		t2.start();
+	}
+}
+\end{lstlisting}
+
+
+\subsection*{Concurrent execution issue}
+
+The code above has a concurrent execution issue as the two doors behave in parallel and the order of their events is unpredictable. For example, an situation may arise where both threads are competing for the same resource.
+
+Synchronisation and mutual exclusion must be implemented to prevent this situation.
+
+A shared object, typically data items, can be accessed by multiple threads. When threads access shared data, they can:
+\begin{itemize}
+	\item perform read operations;
+	\item perform write operations; and
+	\item perform read+write operations.
+\end{itemize}
+
+It is necessary to synchronise the shared object to ensure that the two threads are not competing for access to the shared resource. Java uses the \texttt{synchronized} keyword in the definition of the shared method that accesses the shared resource, as shown below.
+
+\begin{lstlisting}[title={Revised increment() method in the Airplane class.}]
+synchronized void increment() {
+	count = count + 1;
+	System.out.println("There are " + count + " passengers");
+}
+\end{lstlisting}
+
 \end{document}
