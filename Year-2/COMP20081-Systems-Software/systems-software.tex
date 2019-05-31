@@ -8900,11 +8900,11 @@ A stream socket:
 
 \subsection*{TCP sockets classes}
 
-The \texttt{java.net} package API provides the \texttt{serversocket} and \texttt{socket} clesses.
+The \texttt{java.net} package API provides the \texttt{ServerSocket} and \texttt{Socket} classes.
 
 A TCP socket can easily be instantiated by calling the constructor of either class.
 
-To set up a TCP server socket, the \texttt{serversocket} class is used.
+To set up a TCP server socket, the \texttt{ServerSocket} class is used.
 
 \begin{lstlisting}[title={Server: setting up a ServerSocket and accepting client connections.}]
 int port = 9090;
@@ -8926,7 +8926,7 @@ As shown above, for a client to establish a connection to the server, the server
 
 In many cases, a server is set to endlessly wait for incoming connections. The \texttt{accept()} method blocks the program flow until a new connection request arrives within an infinite loop.
 
-After a \texttt{serversocket} is set up on the server, a client can bind to it in order to establish a connection.
+After a \texttt{ServerSocket} is set up on the server, a client can bind to it in order to establish a connection.
 
 \begin{lstlisting}[title={Client: establishing connection to the server.}]
 int port = 9090;
@@ -8946,8 +8946,6 @@ The \texttt{Socket} class provides the following methods:
 	\item \texttt{close()} with no return type; and
 	\item \texttt{getInetAddress()} with a return type of \texttt{InetAddress}.
 \end{itemize}
-
-\subsection*{TCP socket methods}
 
 The \texttt{ServerSocket} class provides the following methods:
 \begin{itemize}
@@ -9002,11 +9000,11 @@ Similarly, the \texttt{DataInputStream} class exists with corresponding methods:
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\centering
-			\includegraphics[max size={\textwidth}{20cm}]{images/chapter-13/server-client-setup.png}
+			\includegraphics[max size={\textwidth}{20cm}]{images/chapter-13/tcp-server-client-setup.png}
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
-			\caption{Server and client set up.}
+			\caption{Server and client set up using TCP sockets.}
 	\end{minipage}}
 \end{figure}
 
@@ -9118,9 +9116,130 @@ A datagram socket:
 
 \subsection*{UDP socket classes}
 
-The \texttt{java.net} package API provides the \texttt{datagramsocket} and \texttt{datagrampacket} clesses.
+The \texttt{java.net} package API provides the \texttt{DatagramSocket} and \texttt{DatagramPackets} classes.
 
-A TCP socket can easily be instantiated by calling the constructor of either class.
+A UDP socket can easily be instantiated by calling the constructor of either class.
+
+To set up a UDP socket, the \texttt{DatagramSocket} class is used and to accept packets the \texttt{DatagramPackets} class is used.
+
+
+\subsection*{UDP socket methods}
+
+The \texttt{DatagramSocket} class provides the following methods:
+\begin{itemize}
+	\item \texttt{connect(InetAddress a, int port)} with no return type;
+	\item \texttt{close()} with no return type;
+	\item \texttt{recieve(DatagramPacket p)} with no return type; and
+	\item \texttt{send(DatagramPacket p)} with no return type.
+\end{itemize}
+
+The \texttt{DatagramPacket} class provides the following methods:
+\begin{itemize}
+	\item \texttt{getData()} with a return type of \texttt{byte[]}; and
+	\item \texttt{setAddress(InetAddress a)} with no return type;
+	\item \texttt{setPort(int port)} with no return type; and
+	\item \texttt{getAddress()} with a return type of \texttt{int}.
+\end{itemize}
+
+
+\subsection*{Converting bytes to data}
+
+UDP packets do not have input/output stream support as seen with TCP packets. This means that data must be converted to and from byte arrays.
+
+\begin{lstlisting}[title={Client: sending a DatagramPacket.}]
+String message = "Some message;
+byte[] data = message.getBytes();
+DatagramPacket sendPacket = new DatagramPacket(data, data.length);
+/* send DatagramPacket via DatagramSocket */
+\end{lstlisting}
+
+\begin{lstlisting}[title={Server: receiving a DatagramPacket.}]
+byte[] data = new byte[1024];
+DatagramPacket recievedPacket = new DatagramPacket(data, data.length);
+/* recieve DatagramPacket via DatagramSocket */
+data = recievedPacket.getData();
+String message = new String(data);
+\end{lstlisting}
+
+
+\subsection*{Designing the server and client}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{20cm}]{images/chapter-13/udp-server-client-setup.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Server and client set up using TCP sockets.}
+	\end{minipage}}
+\end{figure}
+
+In order to allow the set up seen in the figure above, the server must:
+\begin{itemize}
+	\item have a \texttt{DatagramSocket} set up;
+	\item create an empty byte array; and
+	\item fill the array with the \texttt{DatagramPacket} recieved from the client.
+\end{itemize}
+It is also possible for the server to send packets back to the client using information regarding the client from the packet.
+
+In addition, the client must:
+\begin{itemize}
+	\item have a \texttt{DatagramSocket} set up;
+	\item create byte data and \texttt{DatagramPacket};
+	\item add server address and port to the \texttt{DatagramPacket}; and
+	\item send the \texttt{DatagramPacket} to the server.
+\end{itemize}
+
+
+\begin{lstlisting}[title={Server: setting up a DatagramSocket and accepting packets.}]
+int port = 9090;
+DatagramSocket = new DatagramSocket(port);
+
+while(true) {
+	System.out.println("Waiting for packets...");
+	
+	// create an empty byte array and fill it
+	byte[] data = new byte[1024];
+	DatagramPacket recievedPacket = new DatagramPacket(data, data.length);
+	socket.recieve(recievedPacket);
+	
+	// get data from packet
+	String message = new String(recievedPacket.getData());
+	System.out.println("Recieved from client " + recievedPacket.getAddress() + ", the message: " + message);
+}
+\end{lstlisting}
+
+As shown above, for a server to receive packets from a client, the server must by:
+\begin{itemize}
+	\item have a \texttt{DatagramSocket} set up; and
+	\item recieve packets from the socket using the \texttt{recieve()} method.
+\end{itemize}
+
+In many cases, a server is set to endlessly wait for incoming connections. The \texttt{receive()} method blocks the program flow until a new connection request arrives within an infinite loop.
+
+After a \texttt{DatagramSocket} is set up on the server, a client can send a \texttt{DatagramPacket} to the server without establishing a connection.
+
+\begin{lstlisting}[title={Client: sending a DatagramPacket to the server.}]
+DatagramSocket socket = new DatagramSocket();
+
+// convert a string to bytes
+byte[] data = "This is the message".getBytes();
+
+// put byte array in to a packet
+DatagramPacket packet = new DatagramPacket(data, data.length);
+
+// get IP address from hostname
+InetAddress dest = InetAddress.getByName("localhost");
+int port = 9090;
+
+packet.setAddress(dest); // add IP address
+packet.setPort(port);    // add port
+
+socket.send(packet)      // send the UDP datagram
+socket.close();          // close socket
+\end{lstlisting}
 
 
 
