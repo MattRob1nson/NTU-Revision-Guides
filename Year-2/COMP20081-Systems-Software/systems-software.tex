@@ -10348,4 +10348,202 @@ boolean checked = myJCheckBox.isSelected();
 boolean selected = myJRadioButton.isSelected();
 \end{lstlisting}
 
+
+\section{Dialogs}
+
+The most important dialogs include:
+\begin{itemize}
+	\item message dialogs;
+	\item confirm dialogs;
+	\item input dialogs;
+	\item load file dialogs; and
+	\item save file dialogs.
+\end{itemize}
+
+
+\section*{Message dialog}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/message-dialog.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Message dialog.}
+	\end{minipage}}
+\end{figure}
+
+\begin{lstlisting}[title={Creating a message dialog.}]
+JOptionPane.showMessageDialog(getContentPane(), "This is a \" message \" dialog.");
+\end{lstlisting}
+
+As shown in the code above:
+\begin{itemize}
+	\item \texttt{showMessageDialog} is a static method of \texttt{JOptionPane}; and
+	\item the first argument for the \texttt{showMessageDialog} method is the container (leaving this \texttt{null} would cause the message to be displayed outside of the window); and
+	\item the first argument for the \texttt{showMessageDialog} method is the text to be displayed as the message.
+\end{itemize}
+
+Message dialogs are often used to inform the user of an occurring process or error.
+
+
+
+\section*{Confirm dialog}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/confirm-dialog.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Confirm dialog.}
+	\end{minipage}}
+\end{figure}
+
+\begin{lstlisting}[title={Creating a confirm dialog.}]
+int YesNo = JOptionPane.showConfirmDialog(getContentPanel(), "Do you really want to proceed?");
+\end{lstlisting}
+
+As shown in the code above:
+\begin{itemize}
+	\item \texttt{showConfirmDialog} is a static method of \texttt{JOptionPane}; and
+	\item the first argument for the \texttt{showConfirmDialog} method is the container (leaving this \texttt{null} would cause the message to be displayed outside of the window); and
+	\item the first argument for the \texttt{showConfirmDialog} method is the text to be displayed as the accompanying message to the options.
+\end{itemize}
+
+In addition, the \texttt{showConfirmDialog} returns:
+\begin{itemize}
+	\item \texttt{0} if \texttt{Yes} is clicked; and
+	\item \texttt{1} in any other case.
+\end{itemize}
+
+This means that subsequent control of execution can be informed by the returned value from the \texttt{showConfirmDialog} method, as shown below.
+
+\begin{lstlisting}[title={Using return value from showConfirmDialog.}]
+if (YesNo == JOptionPane.YES_OPTION)
+{
+	// code to execute if user clicked 'Yes'
+} else {
+	// code to execute if user did not click 'Yes'
+}
+\end{lstlisting}
+
+Confirm dialogs are often used to inform the user of an occurring process or error and ask if they wish to proceed.
+
+
+\section*{Input dialog}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/input-dialog.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Input dialog.}
+	\end{minipage}}
+\end{figure}
+
+\begin{lstlisting}[title={Creating an input dialog.}]
+String userName = JOptionPane.showInputDialog(getContentPanel(), "What is your username?");
+\end{lstlisting}
+
+As shown in the code above:
+\begin{itemize}
+	\item \texttt{showInputDialog} is a static method of \texttt{JOptionPane}; and
+	\item the first argument for the \texttt{showInputDialog} method is the container (leaving this \texttt{null} would cause the message to be displayed outside of the window); and
+	\item the first argument for the \texttt{showInputDialog} method is the text to be displayed as the accompanying message to the input box.
+\end{itemize}
+
+In addition, the \texttt{showInputDialog} returns a \texttt{String} containing the user's input.
+
+Input dialogs are used to obtain input data, such as a username, from a user.
+
+
+\section*{Load file dialog}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/load-file-dialog.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Load file dialog.}
+	\end{minipage}}
+\end{figure}
+
+\begin{lstlisting}[title={Creating a load file dialog.}]
+JFileChooser ch = new JFileChooser();
+ch.setDialogTitle("Browse File to Load");
+
+int result = ch.showOpenDialog(getContentPane());
+
+if (result == JFileChooser.APPROVE_OPTION) {
+	File file = ch.getSelectedFile();
+	
+	String fileName = file.getName();
+	String filePath = file.getPath();
+	
+	// Code to load the file
+}
+\end{lstlisting}
+
+As shown in the code above:
+\begin{itemize}
+	\item the \texttt{JFileChooser} component is used to create a load file dialog;
+	\item the \texttt{showOpenDialog} is used to create a load file dialog using the file chooser dialog;
+	\item the \texttt{getSelectedFile()} method returns a \texttt{File} object; and
+	\item the \texttt{File} object has methods such as \texttt{getName()} and \texttt{getPath()} etc.
+\end{itemize}
+
+File open dialogs are often used to allow the user to select a local file to be opened later in the code.
+
+
+\section*{Save file dialog}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/save-file-dialog.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Save file dialog.}
+	\end{minipage}}
+\end{figure}
+
+\begin{lstlisting}[title={Creating a save file dialog.}]
+JFileChooser ch = new JFileChooser();
+ch.setDialogTitle("Save File As");
+
+int result = ch.showSaveDialog(getContentPane());
+
+if (result == JFileChooser.APPROVE_OPTION) {
+	File file = ch.getSelectedFile();
+
+	String fileName = file.getName();
+	String filePath = file.getPath();
+
+	// Code to save to the file
+}
+\end{lstlisting}
+
+As shown in the code above:
+\begin{itemize}
+	\item the \texttt{JFileChooser} component is used to create a file chooser dialog;
+	\item the \texttt{showSaveDialog} is used to create a save file dialog using the file chooser dialog;
+	\item the \texttt{getSelectedFile()} method returns a \texttt{File} object; and
+	\item the \texttt{File} object has methods such as \texttt{getName()} and \texttt{getPath()} etc.
+\end{itemize}
+
+File open dialogs are often used to allow the user to select a local file to be opened later in the code.
+
 \end{document}
