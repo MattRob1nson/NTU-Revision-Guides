@@ -1686,6 +1686,7 @@ The queues in a multi-level queueing system may differ between operating system 
 
 
 \chapter{Threads and Concurrency}
+\label{chap:3}
 
 \section{What are threads?}
 
@@ -2497,6 +2498,7 @@ Many user threads multiplex to an equal or smaller number of kernel threads.
 
 
 \chapter{Synchronisation and Mutual Exclusion}
+\label{chap:4}
 
 \section{Race condition}
 
@@ -9242,5 +9244,22 @@ socket.close();          // close socket
 \end{lstlisting}
 
 
+\chapter{Java Support for Multithreading}
+
+\section{Recap}
+
+As seen in \hyperref[chap:3]{Chapter 3: Threads and Concurrency}:
+\begin{itemize}
+	\item threads allow for concurrent execution;
+	\item sequential execution involves total ordering; and
+	\item concurrent execution allows flexibility and introduces complexity.
+\end{itemize}
+In addition, concurrent programming is used in:
+\begin{itemize}
+	\item single-processor multi-tasking systems using interleaving; and
+	\item multi-processor/multi-core systems allowing maximum parallelism using overlapping.
+\end{itemize}
+
+As seen in \hyperref[chap:4]{Chapter 4: Synchronisation and Mutual Exclusion}, semaphores and mutexes were used to solve the Producer-Consumer and Dining Philosophers problems.
 
 \end{document}
