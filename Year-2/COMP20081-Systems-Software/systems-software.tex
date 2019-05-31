@@ -10026,4 +10026,252 @@ setType(Type.UTILITY);
 setDefaultCloseOperation(EXIT_ON_CLOSE);
 \end{lstlisting}
 
+
+\section{Layout managers}
+
+The most important layout managers include:
+\begin{itemize}
+	\item \texttt{BorderLayout};
+	\item \texttt{FlowLayout};
+	\item \texttt{GridLayout}; and
+	\item \texttt{BoxLayout}.
+\end{itemize}
+
+\section*{\texttt{BorderLayout}}
+
+\subsection*{Characteristics}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-15/border-layout.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{BorderLayout} example.}
+	\end{minipage}}
+\end{figure}
+
+The \texttt{BorderLayout} layout manager:
+\begin{itemize}
+	\item provides five areas where components can be added; and
+	\item is the default layout manager for a \texttt{JFrame}.
+\end{itemize}
+
+
+\subsection*{Code}
+
+\begin{lstlisting}[title={A BorderLayout class.}]
+public class BorderLayoutExample extends JFrame {
+	public BorderLayoutExample() {
+		setLayout(new BorderLayout());
+		
+		add(new JButton("One"), BorderLayout.NORTH);
+		add(new JButton("Two"), BorderLayout.WEST);
+		add(new JButton("Three"), BorderLayout.CENTER);
+		add(new JButton("Four"), BorderLayout.EAST);
+		add(new JButton("Five"), BorderLayout.SOUTH);
+	}
+}
+\end{lstlisting}
+
+
+\section*{\texttt{FlowLayout}}
+
+\subsection*{Characteristics}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-15/flow-layout.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{FlowLayout} example.}
+	\end{minipage}}
+\end{figure}
+
+The \texttt{FlowLayout} layout manager allows components to be added to left to right and top to bottom.
+
+
+\subsection*{Code}
+
+\begin{lstlisting}[title={A FlowLayout class.}]
+public class FlowLayoutExample extends JFrame {
+	public FlowLayoutExample() {
+		setLayout(new FlowLayout(FlowLayout.CENTER));
+		
+		add(new JButton("One"));
+		add(new JButton("Two"));
+		add(new JButton("Three"));
+		add(new JButton("Four"));
+		add(new JButton("Five"));
+	}
+}
+\end{lstlisting}
+
+
+\section*{\texttt{GridLayout}}
+
+\subsection*{Characteristics}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-15/grid-layout.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{GridLayout} example.}
+	\end{minipage}}
+\end{figure}
+
+The \texttt{GridLayout} layout manager:
+\begin{itemize}
+	\item allows components to be added in a rectangular grid;
+	\item has areas of all the same size and shape.
+\end{itemize}
+
+
+\subsection*{Code}
+
+\begin{lstlisting}[title={A GridLayout class.}]
+public class GridLayoutExample extends JFrame {
+	public GridLayoutExample() {
+		setLayout(new GridLayout(3, 2));
+		
+		add(new JButton("One"));
+		add(new JButton("Two"));
+		add(new JButton("Three"));
+		add(new JButton("Four"));
+		add(new JButton("Five"));
+	}
+}
+\end{lstlisting}
+
+
+\section*{\texttt{BoxLayout}}
+
+\subsection*{Characteristics}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-15/box-layout.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{BoxLayout} example.}
+	\end{minipage}}
+\end{figure}
+
+The \texttt{BoxLayout} layout manager allows a horizontal row or vertical column of components to be created.
+
+
+\subsection*{Code}
+
+\begin{lstlisting}[title={A BoxLayout class.}]
+public class BoxLayoutExample extends JFrame {
+	public BoxLayoutExample() {
+		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
+		add(new JButton("One"));
+		add(new JButton("Two"));
+		add(new JButton("Three"));
+		add(new JButton("Four"));
+		add(new JButton("Five"));
+	}
+}
+\end{lstlisting}
+
+
+\section*{Nested layouts using \texttt{JPanel}s}
+
+\subsection*{How are \texttt{JPanel}s used?}
+
+A \textbf{\texttt{JPanel}} is both a container and component:
+\begin{itemize}
+	\item as it is a container, other components can be placed within; and
+	\item as it is a component, other containers can be placed within.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-15/jpanel-example.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{JPanel} example.}
+	\end{minipage}}
+\end{figure}
+
+Most Java GUIs are built by:
+\begin{itemize}
+	\item creating several \texttt{JPanel}s;
+	\item arranging the \texttt{JPanel}s; and
+	\item adding components to the \texttt{JPanel}s.
+\end{itemize}
+
+The \texttt{JPanel}s are then added in to the \texttt{JFrame} (container).
+
+As shown in the code below, each \texttt{JPanel} may have a different layout manager.
+
+\begin{lstlisting}[title={A class that uses nested layouts.}]
+public class NestedLayoutExample extends JFrame {
+	public NestedLayoutExample() {
+		// JPanel using the BorderLayout layout manager
+		JPanel p1 = new JPanel();
+		p1.setLayout(new BorderLayout());
+		p1.add(new JButton("A"), BorderLayout.NORTH);
+		// code for more buttons B, C, D, E
+		
+		// JPanel using the GridLayout layout manager
+		JPanel p2 = new JPanel();
+		p2.setLayout(new GridLayout(3,2));
+		p2.add(new JButton("F"));
+		// code for more buttons G, H, I, J, K
+		
+		// JPanel using the BoxLayout layout manager
+		JPanel p3 = new JPanel();
+		p3.setLayout(new BoxLayout(p3,BoxLayout.Y_AXIS));
+		p3.add(new JButton("L"));
+		// code for more buttons M, N, O, P
+		
+		// Add each JPanel to the JFrame
+		setLayout(new BorderLayout());
+		add(p1, BorderLayout.CENTER);
+		add(p2, BorderLayout.SOUTH);
+		add(p3, BorderLayout.EAST);
+	}
+}
+\end{lstlisting}
+
+\newpage
+
+The code above is able to produce a GUI with:
+\begin{itemize}
+	\item a \texttt{JFrame} that contains multiple \texttt{JPanel}s; and
+	\item multiple \texttt{JPanel}s each with a different layout manager.
+\end{itemize}
+
+The resulting GUI produced by this code is shown below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-15/nested-layout-example.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{JPanel} example.}
+	\end{minipage}}
+\end{figure}
+
 \end{document}
