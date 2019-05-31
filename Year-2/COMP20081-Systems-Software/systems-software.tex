@@ -8850,6 +8850,7 @@ From a programmer's perspective, a socket pair represents the mechanism to trans
 \newpage
 
 \section{Implementing sockets in Java}
+\label{chap:13}
 
 \section*{Types of sockets}
 
@@ -9027,7 +9028,7 @@ In addition, the client must:
 
 \newpage
 
-\begin{lstlisting}[title={TimeServer.}]
+\begin{lstlisting}[title={TimeServer class.}]
 import java.net.*;
 import java.util.*;
 import java.io.*;
@@ -9044,8 +9045,10 @@ public class TimeServer {
 			System.out.println("Connected to: " + client.getInetAddress());
 			
 			// create I/O streams
-			DataInputStream inFromClient = new DataInputStream(client.getInputStream());
-			DataOutputStream outToClient = new DataOutputStream(client.getOutputStream());
+			DataInputStream inFromClient =
+				new DataInputStream(client.getInputStream());
+			DataOutputStream outToClient =
+				new DataOutputStream(client.getOutputStream());
 			
 			// get any data from client
 			System.out.println(inFromClient.readUTF());
@@ -9061,7 +9064,7 @@ public class TimeServer {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[title={TimeClient.}]
+\begin{lstlisting}[title={TimeClient class.}]
 import java.net.*;
 import java.uo.*;
 
@@ -9566,5 +9569,166 @@ synchronized void increment() {
 	System.out.println("There are " + count + " passengers");
 }
 \end{lstlisting}
+
+
+\newpage
+
+\section{Concurrent client-server model in Java}
+
+\section*{Premise}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-14/client-server-multiple-clients.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Client-server model with multiple clients.}
+	\end{minipage}}
+\end{figure}
+
+When a server is required to server many clients, as shown in the figure above, an architecture is required that does not simply serve one client while making other clients wait their turn.
+
+Instead, the server should:
+\begin{itemize}
+	\item already remain available; and
+	\item accept several clients in parallel.
+\end{itemize}
+
+
+\section*{Handlers}
+
+\subsection*{Creating a \texttt{Handler} class}
+
+In order to construct the concurrent client-server model, the server does not need to perform its tasks on its own. Instead, the tasks should be delegated to a thread, typically defined as the \texttt{Handler} class, as shown below.
+
+\begin{lstlisting}[title={Handler class.}]
+public class Handler implements Runnable {
+	public Handler(Socket client) {
+		// ...
+	}
+	
+	public void run() {
+		// an entire task can be implemented here
+	}
+}
+}
+\end{lstlisting}
+
+Each new client can then be assigned to a thread, as shown below.
+
+\begin{lstlisting}[title={MultiThreadedServer class.}]
+public class MultiThreadedServer {
+	public static void main(String[] args) {
+		// set up server
+		ServerSocket server = new ServerSocket(9090);
+		
+		while(true) {
+			System.out.println("Waiting...");
+			
+			// accept client connections
+			Socket client = server.accept();
+			System.out.println("Connected " + client.getInetAddress());
+			
+			// assign each client to a thread
+			Handler t = new Handler(client);
+			Thread th = new Thread(t);
+			th.start();
+		}
+	}
+}
+\end{lstlisting}
+
+
+\subsection*{Revising the \texttt{TimeServer} class}
+
+\begin{lstlisting}[title={TimeServer class.}]
+import java.net.*;
+import java.util.*;
+import java.io.*;
+
+public class TimeServer {
+	public static void main(String[] args) throws IOException {
+		ServerSocket server = new ServerSocket(9090);
+
+		while(true) {
+			System.out.println("Waiting...");
+
+			// establish connection to client
+			Socket client = server.accept();
+			System.out.println("Connected to: " + client.getInetAddress());
+
+			DataOutputStream outToClient =
+				new DataOutputStream(client.getOutputStream());
+
+			// send date to client
+			Date date = new Date();
+			outToClient.writeUTF(date.toString());
+		}
+	}
+}
+\end{lstlisting}
+
+The code above shows the original output stream capability of the \texttt{TimeServer} class explored in \hyperref[chap:13]{Chapter 13: Java Sockets}.
+
+Handlers can be used to revise this \texttt{TimeServer} class, as shown below, in order to allow multiple clients concurrently.
+
+\begin{lstlisting}[title={Revised TimeServer class.}]
+import java.net.*;
+import java.util.*;
+import java.io.*;
+
+public class TimeServer {
+	public static void main(String[] args) throws IOException {
+		ServerSocket server = new ServerSocket(9090);
+
+		while(true) {
+			System.out.println("Waiting...");
+
+			// establish connection to client
+			Socket client = server.accept();
+			System.out.println("Connected to: " + client.getInetAddress());
+
+			// assign the client to a handler
+			TimeHandler th = new TimeHandler(client);
+			Thread t = new Thread(th);
+			t.start();
+		}
+	}
+}
+\end{lstlisting}
+
+\newpage
+
+The revised \texttt{TimeServer} shown above requires the \texttt{TimeHandler} class shown below.
+
+\begin{lstlisting}[title={TimeHandler class.}]
+import java.net.*;
+import java.util.*;
+import java.io.*;
+
+public class TimeHandler implements Runnable {
+	Socket client;
+	DataOutputStream outToClient;
+	
+	public TimeHandler(Socket _client) throws IOException {
+		client = _client;
+		outToClient = new DataOutputStream(client.getOutputStream());
+	}
+	
+	public void run() {
+		try {
+			// return date
+			Date data = new Date();
+			outToClient.writeUTF(date.toString());  // send date to client
+		} catch (IOException e) ()  // do nothing
+	}
+}
+\end{lstlisting}
+
+As seen above, the \texttt{DataOutputStream} has been moved from the \texttt{TimeServer} class to the \texttt{TimeHandler} class to allow each client to have its own output stream and therefore prevent any client from waiting for another client.
+
 
 \end{document}
