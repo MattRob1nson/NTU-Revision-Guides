@@ -9907,7 +9907,7 @@ Alternatively, the \texttt{pack()} method can be called to auto-resize the \text
 
 \subsection*{Window type}
 
-Call the \texttt{setType(Window.Type type)} method with the parameter \texttt{NORMAL} or \texttt{UTILITY} to set the buttons in the title bar.
+Call the \texttt{setType(Window.Type type)} method with the parameter \texttt{Type.NORMAL} or \texttt{Type.UTILITY} to set the buttons in the title bar.
 
 \begin{figure}[H]
 	\lineskip=-\fboxrule
@@ -9959,5 +9959,71 @@ Call the \texttt{getContentPane()} method to return the current \texttt{JFrame} 
 \subsection*{Refresh}
 
 Call the \texttt{validate()} method to refresh the layout should it be modified.
+
+
+\newpage
+
+\section{Creating and adding components}
+
+\section*{Creating components}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-15/available-components.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Available components.}
+	\end{minipage}}
+\end{figure}
+
+The figure above shows some of the available components when building a GUI that can be created using the code below.
+
+\begin{lstlisting}[title={Creating components}]
+JButton button = new JButton("Click me!");
+JLabel label = new JLabel("This is a JLabel");
+JTextField textField1 = new JTextField("This is the initial text");
+JTextArea textArea1 = new JTextArea("This is the \n initial text");
+JCheckBox checkbox = new JCheckBox("Label for checkbox");
+JRadioButton radioButton1 = new JRadioButton("Label for button");
+\end{lstlisting}
+
+
+\section*{Adding components}
+
+Once components have been created, they must be added to the \texttt{JFrame} to be visible.
+
+As seen before, a \texttt{JFrame} can be incorporating the \texttt{JFrame} in to a Java program by:
+\begin{itemize}
+	\item creating the \texttt{JFrame} in a class; or
+	\item extending the class to \texttt{JFrame}.
+\end{itemize}
+
+There are slight differences in the methods for adding components based on how the \texttt{JFrame} was incorporated.
+
+\newpage
+
+\begin{lstlisting}[title={Adding a button component in a class where the JFrame was created.}]
+JFrame jf = new JFrame();
+JButton b = new JButton("OK");
+
+jf.add(b);
+jf.setSize(300, 300);
+jf.setVisible(true);
+jf.setType(Type.UTILITY);
+jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+\end{lstlisting}
+
+\begin{lstlisting}[title={Adding a button component in a class that extends from JFrame.}]
+JButton b = new JButton("OK");
+
+add(b);
+setSize(300, 300);
+setVisible(true);
+setType(Type.UTILITY);
+setDefaultCloseOperation(EXIT_ON_CLOSE);
+\end{lstlisting}
 
 \end{document}
