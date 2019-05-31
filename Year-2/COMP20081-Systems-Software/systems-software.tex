@@ -9262,4 +9262,192 @@ In addition, concurrent programming is used in:
 
 As seen in \hyperref[chap:4]{Chapter 4: Synchronisation and Mutual Exclusion}, semaphores and mutexes were used to solve the Producer-Consumer and Dining Philosophers problems.
 
+
+\section{Concurrency in Java}
+
+\section*{JVM and package support}
+
+The JVM allows an application to have multiple threads running concurrently.
+
+There is a \texttt{Thread} class provided in the \texttt{java.lang} package and there are two ways to create a new thread:
+\begin{itemize}
+	\item by \textbf{extending} the \texttt{Thread} class; or
+	\item by \textbf{implementing} the \texttt{Runnable} interface.
+\end{itemize}
+
+When extending from a class:
+\begin{itemize}
+	\item a subclass extends a base class;
+	\item the subclass type "\textit{is a}" base class type; and
+	\item the behaviour of an established method in the base class can be redefined by overriding.
+\end{itemize}
+
+When implementing an interface:
+\begin{itemize}
+	\item a class implements an interface;
+	\item the class type implementing the interface "\textit{has a}" of the interface type; and
+	\item the class implements the methods present as abstract methods in the interface.
+\end{itemize}
+
+
+\section*{Methods for creating threads}
+
+\subsection*{Extending the \texttt{Thread} class}
+
+The \texttt{thread} class includes the following methods:
+\begin{itemize}
+	\item \texttt{start()} -- causes the thread to begin execution as the JVM will call the \texttt{run()} method of the thread;
+	\item \texttt{run()} -- call the run method of the thread directly;
+	\item \texttt{sleep(long ms)} -- cease the execution of the current thread for \texttt{ms} milliseconds;
+	\item \texttt{wait()} -- blocks the thread's execution; and
+	\item \texttt{notify()} -- notifies other threads to unblock.
+\end{itemize}
+
+\begin{lstlisting}[title={ExampleThread class extending the Thread class.}]
+public class ExampleThread extends Thread {
+	int parameter;
+	
+	ExampleThread(int p) {
+		parameter = p;
+	}
+	
+	public void run() {
+		// what should the thread do?
+	}
+}
+\end{lstlisting}
+
+As shown above, the \texttt{ExampleThread} class is a subclass of \texttt{Thread}, therefore inheriting the attributes and methods from the \texttt{Thread} class.
+
+The \texttt{ExampleThread} class overrides the \texttt{run()} method from the \texttt{Thread} class as this must contain the code unique to a particular thread's behaviour.
+
+The \texttt{ExampleThread} class can then be started by creating an object.
+
+\begin{lstlisting}[title={Creating an instance of ExampleThread.}]
+ExampleThread t = new ExampleThread(10);
+t.start();
+\end{lstlisting}
+
+As shown above, once an \texttt{ExampleThread} object has been created, the \texttt{start()} method (inherited from \texttt{Thread}) can be called to begin the thread's execution.
+
+\newpage
+
+\begin{lstlisting}[title={Example of extending the Thread class.}]
+public class ThreadID extends Thread {
+	int id;
+	
+	ThreadID (int _id) {
+		id = _id;
+	}
+	
+	public void run() {
+		System.out.println("This is thread " + id);
+	}
+}
+
+public static void main(String[] args) {
+	System.out.println("Main thread starts");
+	
+	ThreadID t1 = new ThreadID(1);
+	ThreadID t2 = new ThreadID(2);
+	ThreadID t3 = new ThreadID(3);
+	
+	t1.start();
+	t2.start();
+	t3.start();
+	
+	System.out.println("Main thread ends");
+}
+\end{lstlisting}
+
+
+\newpage
+
+\subsection*{Implementing the \texttt{Runnable} interface}
+
+\begin{lstlisting}[title={ExampleThread class implementing the Runnable interface.}]
+public class ExampleThread implements Runnable {
+	int paramter;
+	
+	ExampleThread(int p) {
+		parameter = p;
+	}
+	
+	public void run() {
+		// what should the thread do?
+	}
+}
+\end{lstlisting}
+
+As shown above, the \texttt{ExampleThread} class implements the \texttt{Runnable} class, therefore inheriting the abstract methods from the \texttt{Runnable} interface.
+
+The \texttt{ExampleThread} class implements the \texttt{run()} method from the \texttt{Runnable} interface as this must contain the code unique to a particular thread's behaviour.
+
+The \texttt{ExampleThread} class can then be started by creating a \texttt{Thread} object using the \texttt{ExampleThread}.
+
+\begin{lstlisting}[title={Creating an instance of a Thread by using ExampleThread.}]
+ExampleThread r = ExampleThread(10);
+Thread t = new Thread(r);
+t.start();
+\end{lstlisting}
+
+As shown above, once an \texttt{ExampleThread} object has been created and the \texttt{Thread} object uses the \texttt{ExampleThread} object as a parameter in its constructor, the \texttt{start()} method can be called to begin the thread's execution.
+
+\newpage
+
+\begin{lstlisting}[title={Example of implementing the Runnable interface.}]
+public class ThreadID implements Runnable {
+	int id;
+	
+	ThreadID (int _id) {
+		id = _id;
+	}
+	
+	public void run() {
+		System.out.println("This is thread " + id);
+	}
+}
+
+public static void main(String[] args) {
+	System.out.println("Main thread starts");
+	
+	ThreadID t1 = new ThreadID(1);
+	ThreadID t2 = new ThreadID(2);
+	ThreadID t3 = new ThreadID(3);
+	
+	Thread thr1 = new Thread(t1);
+	Thread thr2 = new Thread(t2);
+	Thread thr3 = new Thread(t3);
+	
+	thr1.start();
+	thr2.start();
+	thr3.start();
+	
+	System.out.println("Main thread ends");
+}
+\end{lstlisting}
+
+
+\newpage
+
+\section*{Comparison of methods for creating threads}
+
+Both methods allow threads to be created and have the same resulting behaviour.
+
+\begin{longtabu} to \textwidth {|X[0.85,c]|X[2,l]|X[2,l]|}
+	\hline
+	\textbf{Method} & \textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\multirow{1}{*}{\shortstack[l]{Extending \\ \texttt{Thread}}}
+	& \textbf{Less overhead when setting up threads} as the class that extends \texttt{Thread} can be instantiated as an object that acts as a thread straight away.
+	& \textbf{May be less convenient} as Java (JDK $<$ v1.8) does not permit multiple inheritance and therefore the class extending \texttt{Thread} cannot extend any other class.
+	\\ \hline
+	\multirow{2}{*}{\shortstack[l]{Implementing \\ \texttt{Runnable}}}
+	& \textbf{More overhead when setting up threads} as the class that implements \texttt{Runnable} must be instantiated as an object and then passes as a parameter to the \texttt{Thread} constructor. &
+	\\
+	\cline{2-3}
+	& \textbf{May be more convenient} as it allows the restriction where Java (JDK $<$ v1.8) does not permit multiple inheritance to be mitigated as the class that implements \texttt{Runnable} can extend another class. &
+	\\ \hline
+\end{longtabu}
+
 \end{document}
