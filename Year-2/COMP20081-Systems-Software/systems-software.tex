@@ -10274,4 +10274,78 @@ The resulting GUI produced by this code is shown below.
 	\end{minipage}}
 \end{figure}
 
+
+\section{Action listeners}
+
+\subsection*{Creating action listeners}
+
+Action listeners are supported from the \texttt{java.awt.event} package.
+
+Creating and attaching action listeners to the components allows actions to be performed after user interaction with the GUI. They react to events from the components.
+
+There are two methods of creating an action listener:
+\begin{itemize}
+	\item creating a class that implements the \texttt{ActionListener} interface; or
+	\item creating an anonymous inner class.
+\end{itemize}
+
+Once the action listener has been created, it must be added to the component using the \texttt{addActionListener} method.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/window-layout.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{JFrame} with the \texttt{Count} button.}
+	\end{minipage}}
+\end{figure}
+
+\begin{lstlisting}[title={Creating an action listener by creating a class that implements the ActionListener interface.}]
+class MyCountListener implements ActionListener{
+	public void actionPerformed(ActionEvent event) {
+		// some code to handle countButton click
+	}
+}
+
+JButton countButton = new JButton("Count");
+countButton.addActionListener(new MyCountListener());
+\end{lstlisting}
+
+\begin{lstlisting}[title={Creating an action listener by creating an anonymous inner class.}]
+JButton countButton = new JButton("Count");
+countButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent event) {
+			// some code to handle countButton click
+		}
+	}
+)
+\end{lstlisting}
+
+
+\subsection*{Setting and getting values}
+
+Some user actions simple set values or options that will be used later, such as:
+\begin{itemize}
+	\item entering text;
+	\item setting a checkbox; and
+	\item setting a radio button.
+\end{itemize}
+
+It is possible to read these values out of the components by using the component's methods, as shown in the code below.
+
+\begin{lstlisting}[title={Reading value from a text field.}]
+String myText = myJTextField.getText();
+\end{lstlisting}
+
+\begin{lstlisting}[title={Reading value from a checkbox.}]
+boolean checked = myJCheckBox.isSelected();
+\end{lstlisting}
+
+\begin{lstlisting}[title={Reading value from a radio button.}]
+boolean selected = myJRadioButton.isSelected();
+\end{lstlisting}
+
 \end{document}
