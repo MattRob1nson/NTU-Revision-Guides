@@ -9807,4 +9807,157 @@ Alternatively, as shown above, the \texttt{ActionEvent} and/or \texttt{ActionLis
 
 For more complex GUIs, other components of \texttt{java.awt} and \texttt{javax.swing} may also be required to be imported.
 
+
+\section{\texttt{JComponent}}
+
+\section*{Overview}
+
+The \texttt{javax.swing} package provides \texttt{JComponent} for a variety of components to be used in GUI building.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/jcomponent-class-diagram.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{JComponent} class diagram.}
+	\end{minipage}}
+\end{figure}
+
+The figure above shows a class diagram containing the components available from \texttt{JComponent}.
+
+
+\newpage
+
+\section*{Construction}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/window-layout.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Window layout.}
+	\end{minipage}}
+\end{figure}
+
+When creating a GUI:
+\begin{itemize}
+	\item a top-level container (window) must be created to display components, usually a\textbf{ \texttt{JFrame}};
+	\item the \texttt{setLayout(LayoutManager m)} method is used to specify a layout for the \texttt{JFrame};
+	\item some \textbf{components} are created, such as buttons, text fields and check boxes; and
+	\item the components are added to the display area according to the selected \textbf{layout manager}.
+\end{itemize}
+
+Next, \textbf{listeners} must be written and attached to the components to enable interaction with components. A listener gets a message when an event occurs and executes some code.
+
+Finally, the \texttt{JFrame} must be displayed by using \texttt{setVisible(true)}.
+
+
+\section{\texttt{JFrame}}
+
+\section*{Incorporating the \texttt{JFrame}}
+
+As seen before, the top-level container is typically of a \texttt{JFrame} type.
+
+There are two methods of incorporating the \texttt{JFrame} with a Java program:
+\begin{itemize}
+	\item creating the \texttt{JFrame} in a class; or
+	\item extending the class to \texttt{JFrame}.
+\end{itemize}
+
+\begin{lstlisting}[title={Creating a JFrame in a class.}]
+class GUIclassExample {
+	JFrame jf = new JFrame();
+	jf.setTitle("Text to put in the title bar");
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[title={Extending a class to JFrame.}]
+class GUIclassExample extends JFrame {
+	setTitle("Text to put in the title bar");
+}
+\end{lstlisting}
+
+
+\section*{\texttt{JFrame} methods}
+
+\subsection*{Visibility}
+
+Call the \texttt{setVisible(true)} method to make the generated \texttt{JFrame} appear on the screen.
+
+
+\subsection*{Close}
+
+Call the \texttt{setDefaultCloseOperation(int operation)} method with the parameter value \texttt{EXIT\_ON\_CLOSE} to ensure that the application exits using the \texttt{System exit} method when the window is closed.
+
+
+\subsection*{Size}
+
+Call the \texttt{setSize(int width, int height)} method to give a fixed size to the \texttt{JFrame}.
+
+Alternatively, the \texttt{pack()} method can be called to auto-resize the \texttt{JFrame} under control from the frame layout manager by adjusting the size to platform dependencies and other factors that affect component size.
+
+
+\subsection*{Window type}
+
+Call the \texttt{setType(Window.Type type)} method with the parameter \texttt{NORMAL} or \texttt{UTILITY} to set the buttons in the title bar.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/window-type-normal.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{NORMAL} window type.}
+	\end{minipage}}
+\end{figure}
+
+The \texttt{NORMAL} window type contains the minimise, maximise and close buttons is generally used for main application windows.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/window-type-utility.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{UTILITY} window type.}
+	\end{minipage}}
+\end{figure}
+
+The \texttt{UTILITY} window type contains only a close button is generally used for dialogue boxes.
+
+\newpage
+
+\subsection*{Content pane}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-15/jframe-content-pane.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{JFrame} content pane.}
+	\end{minipage}}
+\end{figure}
+
+Call the \texttt{getContentPane()} method to return the current \texttt{JFrame} object. This is useful with dialogs because they generally close after being used.
+
+
+\subsection*{Refresh}
+
+Call the \texttt{validate()} method to refresh the layout should it be modified.
+
 \end{document}
