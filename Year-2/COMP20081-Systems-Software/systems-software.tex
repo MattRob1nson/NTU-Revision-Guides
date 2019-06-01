@@ -11917,4 +11917,155 @@ These services offer functions such as:
 	\item internetwork routing (as seen in \hyperref[chap:17]{Chapter 12: Introduction to Internetworking}, routers store the topology of the area they cover in a routing table and compute the shortest paths for packets).
 \end{itemize}
 
+
+\newpage
+
+\section{Sending datagrams}
+
+A \textbf{datagram}, or \textbf{packet}, is a piece of a message transmitted over a packet-switching network.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-1.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Data stream at the transport layer in the sending host.}
+	\end{minipage}}
+\end{figure}
+
+Firstly, the transport layer:
+\begin{itemize}
+	\item takes data streams;
+	\item breaks the data streams in to datagrams (typically \texttt{1500 bytes)}; and
+	\item sends the datagrams to the Internet layer.
+\end{itemize}
+
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-2.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram at the Internet layer in the sending host.}
+	\end{minipage}}
+\end{figure}
+
+The Internet layer transmits the datagrams across the Internet, via the data link and physical layers, orchestrated by routing as seen in \hyperref[chap:17]{Chapter 12: Introduction to Internetworking}.
+
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-3.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram at the data link and physical layers in the sending host.}
+	\end{minipage}}
+\end{figure}
+
+The physical medium that composes the Internet transmits the signals representing the datagrams.
+
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-4.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram at the data link and physical layers in some router(s).}
+	\end{minipage}}
+\end{figure}
+
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-5.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram at the Internet layer in some router(s).}
+	\end{minipage}}
+\end{figure}
+
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-6.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram at the data link layer in some router(s).}
+	\end{minipage}}
+\end{figure}
+
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-7.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram at the physical layer in some router(s).}
+	\end{minipage}}
+\end{figure}
+
+Each datagram may be fragmented, possibly by a router, if an intermediate network can only handle a smaller packet size therefore causing the datagram to be split.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-8.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram at the physical layer at the receiving host.}
+	\end{minipage}}
+\end{figure}
+
+Each datagram is reassembled at the destination.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-9.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram passed from data link layer to Internet layer at the receiving host.}
+	\end{minipage}}
+\end{figure}
+
+The datagrams are passed to the transport layer, which reassembles them in to a data stream for the application.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/datagram-communication-10.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Datagram passed from Internet layer to the transport layer at the receiving host.}
+	\end{minipage}}
+\end{figure}
+
+
 \end{document}
