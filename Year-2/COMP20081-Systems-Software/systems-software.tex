@@ -10580,4 +10580,196 @@ Different protocols exist, such as DNS, HTTP, FTP, SMTP and TELNET, to support d
 
 Most protocols resort to the client-server model.
 
+
+\section{Domain Name System (DNS)}
+
+\section*{Definition}
+
+A \textbf{Domain Name System (DNS)} provides the rules for assigning domains names to IP addresses by structuring the domain names into a hierarchy of smaller domains, the smaller domains are written as a string and separated by full stops.
+
+
+\section*{URLs}
+
+\subsection*{Definition}
+
+A \textbf{Uniform Resource Locator (URL)} is the complete address of an Internet resource.
+
+
+\subsection*{Structure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-16/url-structure.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{URL structure}
+	\end{minipage}}
+\end{figure}
+
+The figure above shows that a URL is composed of a:
+\begin{itemize}
+	\item method -- the protocol used to connect;
+	\item host -- the resources that are being used;
+	\item location -- the specific resource being requested; and
+	\item element -- a portion of the requested resource.
+\end{itemize}
+
+
+\subsection*{Why are URLs useful?}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-16/human-readable-url.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Human-readable URL.}
+	\end{minipage}}
+\end{figure}
+
+Networks refer to hosts by IP addresses, such as \texttt{198.133.219.25}. However, users would rather use ASCII strings.
+
+
+\subsection*{Internet registrars}
+
+An \textbf{Internet registrar} holds records of all existing website names and the details of those domains that are available to purchase. They act as resellers for domain names and must be accredited by their governing registry.
+
+
+\subsection*{Internet registries}
+
+\textbf{Internet registries} are five global organisations which are governed by the Internet Corporation for Assigned Names and Numbers (ICANN) which host worldwide databases containing the records of all the domain names currently issued to individuals and companies and the individual’s or company’s details.
+
+The details kept by internet registries include:
+\begin{itemize}
+	\item name;
+	\item type –- individual or company;
+	\item registered mailing address;
+	\item registrar which sold the domain; and
+	\item date of registry.
+\end{itemize}
+
+Internet registries also allocate IP addresses and keep records of which address or addresses a domain name is associated with as part of their DNS.
+
+
+\section*{How it works}
+
+\subsection*{Aim}
+
+DNS aims to convert URLs to IP addresses. (This can be seen by performing \texttt{nslookup} on a command line.)
+
+
+\subsection*{Hierarchy}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-16/dns-hierarchy.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{DNS hierarchy.}
+	\end{minipage}}
+\end{figure}
+
+As seen in the figure above, the DNS name space is hierarchical; forming a tree of domains.
+
+At the top level, there are two types of domains:
+\begin{itemize}
+	\item generic; and
+	\item international.
+\end{itemize}
+
+Generic domains include:
+\begin{itemize}
+	\item \texttt{com} (commercial);
+	\item \texttt{edu} (educational);
+	\item \texttt{gov} (U.S government);
+	\item \texttt{mil} (U.S military);
+	\item \texttt{org} (non-profit organisations); and
+	\item \texttt{net} (network providers) etc.
+\end{itemize}
+
+International domains include:
+\begin{itemize}
+	\item \texttt{uk};
+	\item \texttt{gr}; and
+	\item \texttt{jp} etc.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-16/dns-zones.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{DNS hierarchy zones.}
+	\end{minipage}}
+\end{figure}
+
+As seen in the figure above, the DNS name space is divided in to zones. Each zone covers part of the tree and is associated with name servers.
+
+
+\subsection*{Name servers}
+
+A \textbf{name server} contains a database of corresponding domain names and IP addresses.
+
+Each domain name has one or more equivalent IP addresses. A DNS server must then retrieve the correct corresponding IP address.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-16/domain-name-structure.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Domain name structure.}
+	\end{minipage}}
+\end{figure}
+
+A \textbf{resolver} is a library procedure used to map a DNS name to an IP address.
+
+When an DNS name is used:
+\begin{itemize}
+	\item the application calls the resolver with the DNS name as a parameter;
+	\item the resolver sends a packet to a name server;
+	\item the name server looks up the name and returns the IP address to the resolver;
+	\item the resolver returns the IP address to the application; and
+	\item the application can then use the IP address for communication.
+\end{itemize}
+
+This can be applied to requesting a web page, as seen in the figure below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{0.4935\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{\textheight}]{images/chapter-16/requesting-a-web-page.png}
+		\end{minipage}
+	\begin{minipage}{0.5\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+		\centering
+		\begin{itemize}
+			\item Client inputs a domain name into their web browser.
+			\item Web browser cache is checked for matching web page.
+			\item If web page is not in the cache, domain is transferred to the recursive name server, which is owned by the Internet Service Provider (ISP) and contains the domain names and corresponding IP addresses for web pages previously requested.
+			\item If the web page is not in the recursive name server, the recursive name server will perform queries on the root, 2LD name server, 3LD name server and the web host’s name server until a match is found and the domain has been resolved.
+			\item When the domain has been resolved, the name server containing the domain will return the IP address to the recursive name server that returns the IP address to the client’s web browser.
+			\item The client’s web browser makes a data request to the web host server, if the page is found, the web elements, such as: HTML; CSS; and JavaScript, will be transmitted back to the client’s web browser and displayed to the client.
+		\end{itemize}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Requesting a web page at www.websitename.co.uk.}
+	\end{minipage}}
+\end{figure}
+
+
 \end{document}
