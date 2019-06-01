@@ -11433,7 +11433,7 @@ As shown in the figure above, clients and servers both use ports to distinguish 
 
 \begin{longtabu} to \textwidth {| X[1,l] | X[1,l] | X[4,l] |}
 	\hline
-	\textbf{Port} & \textbf{Protocol} & \textbf{Use}
+	\textbf{Port number(s)} & \textbf{Protocol} & \textbf{Use}
 	\\ \hline
 	\texttt{20}, \texttt{21} & FTP & File transfer.
 	\\ \hline
@@ -11458,5 +11458,76 @@ As shown in the figure above, clients and servers both use ports to distinguish 
 	\texttt{443} & HTTPS & Secure World Wide Web (WWW).
 	\\ \hline
 \end{longtabu}
+
+
+\section{Transport layer headers}
+
+TCP and UDP each have their own respective packet headers.
+
+
+\section*{TCP header}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-17/tcp-header.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{TCP header.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, the TCP header contains the following fields:
+\begin{itemize}
+	\item \textbf{source port} -- the port number of the local machine;
+	\item \textbf{destination port} -- the port number of the remote machine;
+	\item \textbf{sequence number} -- defines the first byte of a segment in a sequence, used to determine the position of the packet in the series of packets;
+	\item \textbf{acknowledgement number} -- defines the byte number that the receiver of the segment is expecting to receive, this is the sequence number of the next byte the sender expects to receive and therefore provides an acknowledgement of receiving all bytes prior to that;
+	\item \textbf{TCP header length} -- defines the length of the segment, including the header and options (if any);
+	\item \textbf{options fields} -- provide a methods for adding extra facilities not satisfied in the regular header, followed by \textbf{padding} which is located after the options fields to identify the end of the header;
+	\item \textbf{reserved} -- 4 bits reserved for future use should the TCP protocol be extended;
+	\item \textbf{window size} -- shows how many bytes may be sent starting at the byte acknowledged;
+	\item \textbf{checksum} -- allows error-checking to be performed on the TCP header and the data; and
+	\item \textbf{urgent pointer} -- used to indicate a byte offset from the current sequence number. 
+\end{itemize}
+
+In addition, the TCP header also contains the following bits:
+\begin{itemize}
+	\item \textbf{CWR bit} -- signals to a TCP receiver that the sender has slowed down the transfer rate;
+	\item \textbf{ECE bit} -- signals to a TCP sender to slow down the transfer rate;
+	\item \textbf{URG bit} -- enables the \textit{urgent pointer} field;
+	\item \textbf{ACK bit} -- indicates that the acknowledgement number is valid;
+	\item \textbf{PSH bit} -- indicates that the receiver requested to deliver the data to the application unbuffered;
+	\item \textbf{RST bit} -- used to reset a connection that has become confused to due a crash on the host;
+	\item \textbf{SYN bit} -- used to establish a connection; and
+	\item \textbf{FIN bit} -- used to release a connection.
+\end{itemize}
+
+
+\section*{UDP header}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-17/udp-header.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{UDP header.}
+	\end{minipage}}
+\end{figure}
+
+\newpage
+
+As shown in the figure above, the UDP header contains the following fields:
+\begin{itemize}
+	\item \textbf{source port} -- the port number of the local machine;
+	\item \textbf{destination port} -- the port number of the remote machine;
+	\item \textbf{UDP length} -- the number of bytes of the segment, including the header and data; and
+	\item \textbf{UDP checksum} -- used to verify possible data corruption.
+\end{itemize}
 
 \end{document}
