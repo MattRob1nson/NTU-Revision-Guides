@@ -8171,6 +8171,7 @@ class PassingParameters {
 
 
 \chapter{Introduction to Internetworking}
+\label{chap:12}
 
 \section{Networks}
 
@@ -11349,6 +11350,7 @@ Users can create a folder hierarchy on the server to organise and store mail. Th
 
 
 \chapter{Transport Layer Protocols}
+\label{chap:17}
 
 \section{Introduction}
 
@@ -11896,5 +11898,23 @@ As seen in the figure above:
 \end{itemize}
 
 A later improvement on the Internet Congestion Algorithm introduced fast recovery in which the congestion window (CW) is not decreased as much.
+
+
+\chapter{Internet Protocol}
+
+\section{Introduction}
+
+The \textbf{Internet Protocol} resides in the \textbf{Internet} layer of the TCP/IP stack.
+
+The \textbf{Internet layer} is the third layer in the TCP/IP stack and uses protocol to transmit packets from source hosts to destination hosts irrespectively of whether the hosts machines are on the same network.
+
+These services are UDP (connectionless best-effort). The TCP services in the transport layer (seen in \hyperref[chap:17]{Chapter 17: Transport Layer Protocols}) remain responsible for ensuring that TCP connections remain connection-oriented despite the data being transferred using UDP at the Internet layer.
+
+These services offer functions such as:
+\begin{itemize}
+	\item universal addressing;
+	\item fragmentation/re-assembly of packets; and
+	\item internetwork routing (as seen in \hyperref[chap:17]{Chapter 12: Introduction to Internetworking}, routers store the topology of the area they cover in a routing table and compute the shortest paths for packets).
+\end{itemize}
 
 \end{document}
