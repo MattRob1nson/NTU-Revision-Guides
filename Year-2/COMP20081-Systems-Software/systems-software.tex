@@ -12198,30 +12198,53 @@ IP addresses are hierarchical and the IPv4 address space consists of two parts, 
 
 As shown in the figure above, IPv4 has five classes. These are described below.
 
-\begin{longtabu} to \textwidth {| X[0.25,l] | X[1,l] | X[1,l] | X[1,l] |}
-	\hline
-	\textbf{Class} & \textbf{Maximum number of networks} & \textbf{Maximum number of hosts} & \textbf{Prefix}
-	\\ \hline
-	\texttt{A} & 128 & 16 million & \texttt{0}
-	\\ \hline
-	\texttt{B} & 16,384 & 65536 & \texttt{10}
-	\\ \hline
-	\texttt{C} & 2 million & 256 & \texttt{110}
-	\\ \hline
-\end{longtabu}
-
-Class \texttt{D} is not defined as it is reserved for multicasting (a multicast is group communication where data transmission is addressed to a group of destination computers simultaneously). Class \texttt{D} has the prefix \texttt{1110}.
-
-\newpage
-
-Class \texttt{E} is not defined as it is reserved for:
+IPv4 addresses with class \texttt{A}:
 \begin{itemize}
-	\item future use, should the IPv4 protocol be extended; and
-	\item experimental purposes
+	\item have 120 \textbf{maximum networks};
+	\item have 16 million \textbf{maximum hosts};
+	\item are \textbf{prefixed} by \texttt{0} in their binary (8-bit) notation;
+	\item contain the \textbf{network ID} in bits \texttt{1-8} in their binary (8-bit) notation; and
+	\item contain the \textbf{host ID} in bits \texttt{9-32} in their binary (8-bit) notation.
 \end{itemize}
-Class \texttt{E} has the prefix \texttt{1111}.
 
-It is possible to determine the class of an IPv4 address, as shown below.
+IPv4 addresses with class \texttt{B}:
+\begin{itemize}
+	\item have 16384 \textbf{maximum networks};
+	\item have 65536 \textbf{maximum hosts}; and
+	\item are \textbf{prefixed} by \texttt{10} in their binary (8-bit) notation;
+	\item contain the \textbf{network ID} in bits \texttt{2-16} in their binary (8-bit) notation; and
+	\item contain the \textbf{host ID} in bits \texttt{17-32} in their binary (8-bit) notation.
+\end{itemize}
+
+IPv4 addresses with class \texttt{C}:
+\begin{itemize}
+	\item have 2 million \textbf{maximum networks};
+	\item have 256 \textbf{maximum hosts}; and
+	\item are \textbf{prefixed} by \texttt{110} in their binary (8-bit) notation;
+	\item contain the \textbf{network ID} in bits \texttt{3-24} in their binary (8-bit) notation; and
+	\item contain the \textbf{host ID} in bits \texttt{25-32} in their binary (8-bit) notation.
+\end{itemize}
+
+Class \texttt{D}:
+\begin{itemize}
+	\item is \textbf{not defined} as it is reserved for multicasting (a multicast is group communication where data transmission is addressed to a group of destination computers simultaneously);
+	\item would have IPv4 addresses that are \textbf{prefixed} by \texttt{1110} in their binary (8-bit) notation.
+\end{itemize}
+
+Class \texttt{E}:
+\begin{itemize}
+	\item is \textbf{not defined} as it is reserved for future use, should the IPv4 protocol be extended, and experimental purposes;
+	\item would have IPv4 addresses that are \textbf{prefixed} by \texttt{1111} in their binary (8-bit) notation.
+\end{itemize}
+
+It is possible to:
+\begin{itemize}
+	\item determine the \textbf{class} of a valid IPv4 address;
+	\item determine the \textbf{network ID} of a valid IPv4 address with class \texttt{A}, \texttt{B} or \textbf{C}; and
+	\item determine the \textbf{host ID} of a valid IPv4 address with class \texttt{A}, \texttt{B} or \textbf{C}.
+\end{itemize}
+
+This process is shown in the examples below.
 
 \begin{figure}[H]
 	\lineskip=-\fboxrule
@@ -12231,6 +12254,10 @@ It is possible to determine the class of an IPv4 address, as shown below.
 					& \text{00000001 00001011 00001011 11101111} \\
 					& \text{starts with a 0} \\
 					& \therefore \text{00000001 00001011 00001011 11101111 has class A} \\
+					& Network ID contained in bits 1-8 \\
+					& \therefore \text{Network ID} = 00000001 = 1 \\
+					& Host ID contained in bits 9-32 \\
+					& \therefore \text{Host ID} = 00001011 00001011 11101111 = 11.11.239 \\
 				\end{aligned}
 			\end{equation*}
 	\end{minipage}}
@@ -12248,6 +12275,10 @@ It is possible to determine the class of an IPv4 address, as shown below.
 					& \text{11000001 10000011 00011011 11111111} \\
 					& \text{starts with 110} \\
 					& \therefore \text{11000001 10000011 00011011 11111111 has class C} \\
+					& Network ID contained in bits 3-24 \\
+					& \therefore \text{Network ID} = 00001100 00011000 110111 = 12.24.220 \\
+					& Host ID contained in bits 25-32 \\
+					& \therefore \text{Host ID} = 01111111 = 127 \\
 				\end{aligned}
 			\end{equation*}
 	\end{minipage}}
@@ -12270,6 +12301,10 @@ It is possible to determine the class of an IPv4 address, as shown below.
 					& \therefore \text{14.23.120.8} = \text{00001110 00010111 01111000 00001000} \\
 					& \text{starts with 0} \\
 					& \therefore \text{14.23.120.8 has class A} \\
+					& Network ID contained in bits 1-8 \\
+					& \therefore \text{Network ID} = 00001110 = 14 \\
+					& Host ID contained in bits 9-32 \\
+					& \therefore \text{Host ID} = 00010111 01111000 00001000 = 23.120.8 \\
 				\end{aligned}
 			\end{equation*}
 	\end{minipage}}
@@ -12300,6 +12335,13 @@ It is possible to determine the class of an IPv4 address, as shown below.
 			\caption{Example determination of a class from an IPv4 address.}
 	\end{minipage}}
 \end{figure}
+
+As shown in the examples above, when determining the network and host IDs, it is important to:
+\begin{itemize}
+	\item re-split the result in to groups of 8 bits;
+	\item backfill where necessary to ensure that each group is 8 bits; and
+	\item maintain the correct place values when backfilling.
+\end{itemize}
 
 
 \subsection*{Special addresses}
@@ -12354,14 +12396,14 @@ As shown above, the IPv4 header contains the following fields:
 	\item \textbf{total length} -- indicates the length of the packet, including the header and data;
 	\item \textbf{identification} -- determines to which packet a fragment belongs;
 	\item \textbf{reserved} -- 1-bit empty for future use, should the IPv4 protocol be extended;
-	\item \textbf{DF} control flag -- "Don't Fragment", when an IP datagram has its DF flag set to one \texttt{1}, intermediate devices are not allowed to fragment it so if it needs to travel across a network with a Maximum Transmission Unit (MTU) smaller that datagram length the datagram will have to be dropped (normally, a "ICMP Destination Unreachable message" is generated and sent back to the sender);
-	\item \textbf{MF} control flag -- "More Fragments", set to indicate the receiver that the current datagram is a fragment of some larger datagram (when set to zero (\texttt{0}), it indicates that the current datagram is either the last fragment in the set or that it is the only fragment);
+	\item \textbf{DF control flag} -- "Don't Fragment", when an IP datagram has its DF flag set to one \texttt{1}, intermediate devices are not allowed to fragment it so if it needs to travel across a network with a Maximum Transmission Unit (MTU) smaller that datagram length the datagram will have to be dropped (normally, a "ICMP Destination Unreachable message" is generated and sent back to the sender);
+	\item \textbf{MF control flag} -- "More Fragments", set to indicate the receiver that the current datagram is a fragment of some larger datagram (when set to zero (\texttt{0}), it indicates that the current datagram is either the last fragment in the set or that it is the only fragment);
 	\item \textbf{fragment offset} -- where in the current packet this fragment belongs;
 	\item \textbf{time to live} -- counter used to limit packet lifetimes such that, once the counter expires, the packet is discarded or revalidated;
 	\item \textbf{protocol} -- indicates which transport service to use (TCP/UDP);
 	\item \textbf{header checksum} -- allows error-checking to be performed;
-	\item \textbf{source Address} -- indicates the IP address of the source network interface;
-	\item \textbf{destination Address} -- indicates the IP address of the destination network interface;
+	\item \textbf{source address} -- indicates the IP address of the source network interface;
+	\item \textbf{destination address} -- indicates the IP address of the destination network interface;
 	\item \textbf{options} -- allows for additional, non-standard options not covered in the other fields.
 \end{itemize}
 
@@ -12370,6 +12412,8 @@ As shown above, the IPv4 header contains the following fields:
 
 IPv4 can assign addresses for up to 4.3 billion computer systems. However, there are a growing number of computer systems and therefore more addresses will be required to allow all devices to be connected to the internet – IPv6 was introduced to solve this problem.
 
+
+\newpage
 
 \section{IP fragmentation}
 
@@ -12409,6 +12453,8 @@ This means that the input to the router(s) (output from the sending host) would 
 	\item \textbf{MF flag} = 0; and
 	\item \textbf{fragment offset} = 0.
 \end{itemize}
+
+\newpage
 
 It is important to note that the \textbf{fragment offset} field:
 \begin{itemize}
@@ -12466,11 +12512,12 @@ The \textbf{total length} is:
 	\end{equation*}
 	where
 	\begin{equation*}
-	\text{bytes left over} = \text{total length of the one large datagram} - \text{sum of all previous fragment total lengths}
+		\begin{aligned}
+			& \text{bytes left over} \\
+			& = \text{total length of the one large datagram} - \text{sum of all previous fragment total lengths} \\
+		\end{aligned}
 	\end{equation*}
 \end{itemize}
-
-In this example, the \texttt{bytes left over} can be calculated by 
 
 The \textbf{fragment offset} for a fragment \texttt{n} is calculated by:
 \begin{equation*}
@@ -12478,6 +12525,8 @@ The \textbf{fragment offset} for a fragment \texttt{n} is calculated by:
 \end{equation*}
 The division by eight is requested as it has been previously determined the that fragment offset must be a multiple of eight.
 
+
+\newpage
 
 \section*{IPv6}
 
