@@ -11153,4 +11153,214 @@ The TELNET protocol specifics several NVT characters to control the details of t
 
 The figure above shows the available control commands provided by NVT characters. It must be noted that all commands must be preceded by the Interpret as Command (IAC) character.
 
+
+\newpage
+
+\section{Email protocols}
+
+\section*{Email clients and servers}
+
+Email servers communicate with other mail servers to transport messages from one domain to another.
+
+Email clients do not communicate directly when sending emails.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{10cm}]{images/chapter-16/email-clients-and-servers.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Email clients and servers.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, email relies on three separate protocols for operations:
+\begin{itemize}
+	\item sending -- SMTP;
+	\item receiving -- POP or IMAP.
+\end{itemize}
+
+
+\newpage
+
+\section*{SMTP}
+
+\subsection*{Definition}
+
+\textbf{Simple Mail Transfer Protocol (SMTP)} is used by the mail server to send and receive emails from other mail servers. When a client is sending an email, the email is transferred from the email client’s computer system to the mail server. An outgoing email is transferred from one mail server to another.
+
+
+\subsection*{How it works}
+
+A SMTP message format requires:
+\begin{itemize}
+	\item a message header -- must have a properly formatted recipient email address and a sender email address; and
+	\item a body -- can contain any amount of text.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{10cm}]{images/chapter-16/email-smtp.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Sending an email using SMTP.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, an SMTP client connects to a SMTP server to send an email message. This process is outlined in the figure below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			The SMTP client establishes a TCP connection to the SMTP server on port \texttt{25}.
+			
+			$\downarrow$
+			
+			The SMTP server receives the message and stores it in a local mailbox or relays the message to another mail server.
+			
+			$\downarrow$
+			
+			Users use email clients to retrieve messages stored on the server.
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Process for sending an email using SMTP.}
+	\end{minipage}}
+\end{figure}
+
+The email clients discussed in the figure above commonly use either the IMAP or POP protocol to retrieve messages.
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+	\hline
+	\textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Simple for the email client} since the only required inputs is the recipient’s email address. &
+	\textbf{Little security} because SMTP is text-based and any text can be spoofed, therefore it may be necessary to setup and maintain firewalls.
+	\\ \hline
+	\textbf{Quick email delivery} because SMTP is developed from a simple platform. &
+	\\ \hline
+	\textbf{Reliable} because if an email fails to be delivered successfully, the email will be marked as temporarily failed and the send operation will be repeated until there is a success or time out. &
+	\\ \hline
+\end{longtabu}
+
+
+\section*{POP}
+
+\subsection*{Definition}
+
+\textbf{Post Office Protocol v3 (POP3)} allows emails from a mail server to be downloaded, deleted or viewed offline by an email client. When an email is received, they are transferred to a local computer system and deleted from the server.
+
+
+\subsection*{How it works}
+
+POP allows for email messages to be downloaded to the client's device and removed from the server.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{10cm}]{images/chapter-16/email-pop.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Receiving an email using POP.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, there is no centralised location where email messages are kept. Instead, a downloaded email message resides on the device that triggered the download. This process is outlined in the figure below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			The POP server listens on TCP port \texttt{110} for client requests.
+			
+			$\downarrow$
+			
+			Email clients direct their POP requests to mail servers on TCP port \texttt{110}.
+			
+			$\downarrow$
+			
+			The POP client and server exchange commands and responses until the TCP connection is closed or aborted.
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Process for receiving an email using POP.}
+	\end{minipage}}
+\end{figure}
+
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+	\hline
+	\textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Emails can be viewed offline} because they are downloaded locally once received. &
+	\textbf{Can only manage one mailbox}.
+	\\ \hline
+	\textbf{Size limit only determined by the size of the computer system’s secondary storage} since there is no reliance on web-based storage. & \textbf{Emails are not synchronised across multiple devices} because they are removed once downloaded.
+	\\ \hline
+	& \textbf{Does not support complex searching} of emails on the server.
+	\\ \hline
+\end{longtabu}
+
+
+\section*{IMAP}
+
+\subsection*{Definition}
+
+\textbf{Internet Message Access Protocol (IMAP)} allows emails from a mail server to be downloaded, deleted or viewed offline by an email client. When an email is received, they are transferred to a local computer system but also remain on the mail server.
+
+
+\subsection*{How it works}
+
+POP allows for email messages to be displayed to the user rather than downloaded.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{10cm}]{images/chapter-16/email-imap.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Receiving an email using IMAP.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, the original email messages reside on the IMAP server until manually deleted by the user and the user views copies of the messages in their email client software.
+
+Users can create a folder hierarchy on the server to organise and store mail. That file structure is displayed on the email client. When a user decides to delete a message, the server synchronises that action and deletes the message from the server.
+
+
+\newpage
+
+\subsection*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+	\hline
+	\textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Can manage more than one mailbox}. &
+	\textbf{Size limit determined by secondary storage on the mail server}.
+	\\ \hline
+	\textbf{Emails are synchronised across multiple devices} because they are kept on the mail server and flags are set based on email status, such as read or deleted. & \textbf{Difficult to maintain} because it requires use of the host’s secondary storage space, storage quotas may be needed to restrict email client’s storage usage.
+	\\ \hline
+	\textbf{Email clients can choose to download} headers, full body or attachments. &
+	\\ \hline
+	\textbf{Supports complex searching}, such as criteria matching headers, full body or attachments. &
+	\\ \hline
+\end{longtabu}
+
+
 \end{document}
