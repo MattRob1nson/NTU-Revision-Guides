@@ -11873,6 +11873,7 @@ These services offer functions such as:
 \newpage
 
 \section{Sending datagrams}
+\label{sec:sending_datagrams}
 
 A \textbf{datagram}, or \textbf{packet}, is a piece of a message transmitted over a packet-switching network.
 
@@ -12291,6 +12292,114 @@ As shown above, the IPv4 header contains the following fields:
 IPv4 can assign addresses for up to 4.3 billion computer systems. However, there are a growing number of computer systems and therefore more addresses will be required to allow all devices to be connected to the internet – IPv6 was introduced to solve this problem.
 
 
+\section{IP fragmentation}
+
+\section*{Explanation}
+
+An IP datagram with size \texttt{n} bytes must be fragmented according to the \textbf{Maximum Transmission Limit (MTL)}. For Ethernet networks, the MTL is \texttt{1500 bytes}.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-18/ip-fragmentation.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{IP fragmentation.}
+	\end{minipage}}
+\end{figure}
+
+As seen before in the \hyperref[sec:sending_datagrams]{Sending datagrams} section, in between the data link, physical and Internet layers, each datagram may be fragmented, possibly by a router, if an intermediate network can only handle a smaller packet size therefore causing the datagram to be split.
+
+
+\section*{Example}
+
+The following example assumes that:
+\begin{itemize}
+	\item the IP datagram being transmitted has size \texttt{4400 bytes}; and
+	\item the MTL is \texttt{1500 bytes}.
+\end{itemize}
+
+This means that the input to the router(s) (output from the sending host) would be \textit{one large datagram} with:
+\begin{itemize}
+	\item \textbf{header length} = 20;
+	\item \textbf{total length} = 4400;
+	\item \textbf{identification} = 19;
+	\item \textbf{DF flag} = 0;
+	\item \textbf{MF flag} = 0; and
+	\item \textbf{fragment offset} = 0.
+\end{itemize}
+
+It is important to note that the \textbf{fragment offset} field:
+\begin{itemize}
+	\item must be a multiple of eight; and
+	\item is 16-bit but when a datagram is fragmented, it only has 13 bits to represent the offset (although if the data is <\texttt{64KB}, this is sufficient).
+\end{itemize}
+
+As a result, this means that the output from the router(s) (input to the receiving host) would be split, causing \textit{three smaller datagrams} knowns as \textbf{fragments}:
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] | X[1,l] |}
+	\hline
+	\textbf{Fragment 1} with:
+	\begin{itemize}
+		\item \textbf{header length} = 20;
+		\item \textbf{total length} = 1500;
+		\item \textbf{identification} = 19;
+		\item \textbf{DF flag} = 0;
+		\item \textbf{MF flag} = 1; and
+		\item \textbf{fragment offset} = 0.
+	\end{itemize}
+	&
+	\textbf{Fragment 2} with:
+	\begin{itemize}
+		\item \textbf{header length} = 20;
+		\item \textbf{total length} = 1500;
+		\item \textbf{identification} = 19;
+		\item \textbf{DF flag} = 0;
+		\item \textbf{MF flag} = 1; and
+		\item \textbf{fragment offset} = (1500-20)/8 = 185.
+	\end{itemize}
+	&
+	\textbf{Fragment 3} with:
+	\begin{itemize}
+		\item \textbf{header length} = 20;
+		\item \textbf{total length} = 20+20+1400 = 1440;
+		\item \textbf{identification} = 19;
+		\item \textbf{DF flag} = 0;
+		\item \textbf{MF flag} = 0; and
+		\item \textbf{fragment offset} = ((1500-20) + (1500-20)) / 8 = 370.
+	\end{itemize}
+	\\ \hline
+\end{longtabu}
+
+The \textbf{MF flag} is:
+\begin{itemize}
+	\item set to zero (\texttt{1}) on the first two fragments as subsequent fragments are to follow; and
+	\item set to (\texttt{0}) on the third fragment as this is the last fragment.
+\end{itemize}
+
+The \textbf{total length} is:
+\begin{itemize}
+	\item set to the MTL (1500 bytes) for the first two fragments as this is the maximum allowed size, this maximum size is used as to use the least number of fragments possible without exceeding the MTL; and
+	\item calculated by the following formula for the last fragment:
+	\begin{equation*}
+	\text{total length} = \text{sum of all previous fragment header lengths} + \text{bytes left over}
+	\end{equation*}
+	where
+	\begin{equation*}
+	\text{bytes left over} = \text{total length of the one large datagram} - \text{sum of all previous fragment total lengths}
+	\end{equation*}
+\end{itemize}
+
+In this example, the \texttt{bytes left over} can be calculated by 
+
+The \textbf{fragment offset} for a fragment \texttt{n} is calculated by:
+\begin{equation*}
+\text{fragment offset} = \dfrac{\text{total length} - \text{header length}}{8} 
+\end{equation*}
+The division by eight is requested as it has been previously determined the that fragment offset must be a multiple of eight.
+
+
 \section*{IPv6}
 
 \subsection*{Definition}
@@ -12324,15 +12433,6 @@ IPv6 aims to fix a number of shortcomings presented by IPv4 by:
 \end{figure}
 
 
-\subsection*{Assignment capabilities}
-
-IPv6 can assign addresses for up to $2^{128}$ computer systems.
-
-IPv4 and IPv6 can both coexist and therefore both be used by computer systems on the Internet.
-
-
-\newpage
-
 \subsection*{Header}
 
 An IPv6 header has:
@@ -12350,7 +12450,7 @@ An IPv6 header has:
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
-			\caption{An IPv4 header.}
+			\caption{An IPv6 header.}
 	\end{minipage}}
 \end{figure}
 
@@ -12363,6 +12463,13 @@ As shown above, the IPv6 header contains the following fields:
 	\item \textbf{source address} -- same as in IPv4, indicates the IP address of the source network interface; and
 	\item \textbf{destination address} -- same as in IPv4, indicates the IP address of the destination network interface;
 \end{itemize}
+
+
+\subsection*{Assignment capabilities}
+
+IPv6 can assign addresses for up to $2^{128}$ computer systems.
+
+IPv4 and IPv6 can both coexist and therefore both be used by computer systems on the Internet.
 
 
 \newpage
