@@ -12505,4 +12505,29 @@ As shown in the figure above:
 	\item a router in an AS uses an \textbf{Exterior Gateway Protocol} to exchange information with a router from another AS, where \textbf{boundary routers} are linked together.
 \end{itemize}
 
+
+\section{Tunneling}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/tunneling.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example of tunneling.}
+	\end{minipage}}
+\end{figure}
+
+The figure above shows a scenario where a company uses IPv6 networks in both Paris and London.
+
+In this scenario the two locations in Paris and London both sending and receiving IPv6 packets. However, the router infrastructure in the data link and physical layers between the two locations can only accommodate for IPv4 packets. In order to circumvent this limitation, the IPv6 packets can be:
+\begin{itemize}
+	\item encapsulated inside an IPv4 packet when it has arrived at the boundary router, in the data link and physical layers, from the sending host; and
+	\item de-encapsulated from the IPv4 packet when it has arrived at the boundary router, in the data link and physical layers, to be sent to the receiving host.
+\end{itemize}
+
+The routers themselves are responsible for this encapsulation.
+
 \end{document}
