@@ -11742,4 +11742,159 @@ If packet loss occurs, the affected packets are retransmitted. Retransmission is
 	\item error-free.
 \end{itemize}
 
+
+\section{Limits on data rate in TCP connection}
+
+A limit may be placed on the rate of data transmission in a TCP connection should there be a low:
+\begin{itemize}
+	\item receiver capacity; or
+	\item network capacity.
+\end{itemize}
+
+
+\section*{Low receiver capacity}
+
+\subsection*{When does this occur?}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{8cm}]{images/chapter-17/receiver-capacity.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Low receiver capacity.}
+	\end{minipage}}
+\end{figure}
+
+The \textbf{receiver capacity} causes a bottleneck, shown circled in the figure above, if a fast network is feeding a low-capacity receiver.
+
+
+\subsection*{Limiting solution}
+
+In the case of a low receiver capacity, the data rate must be limited by \textbf{flow control}.
+
+In flow control, buffers are used where the receiver advertises how must data it can receive such that data loss is prevented.
+
+Flow control is managed using the concept of a \textbf{sliding window}, in which:
+\begin{itemize}
+	\item the receiver informs the sender how much free buffer size it has available, known as the \textbf{advertised window} where the window is the amount of buffer space available at any time; and
+	\item when the window is \texttt{0}, the sender is blocked and may not normally send segments unless the \texttt{URG} flag is on and the running process on the receiver's machine has to be killed.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-17/flow-control.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Flow control.}
+	\end{minipage}}
+\end{figure}
+
+The example in the figure above shows the sliding window where the receiver has a buffer size of \texttt{4K}.
+
+
+\section*{Low network capacity}
+
+\subsection*{When does this occur?}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{8cm}]{images/chapter-17/network-capacity.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Low network capacity.}
+	\end{minipage}}
+\end{figure}
+
+The \textbf{network capacity} causes a bottleneck, shown circled in the figure above, if a slow network is feeding a high-capacity receiver.
+
+
+\subsection*{Limiting solution}
+
+In the case of a low network capacity, the data rate must be limited by \textbf{congestion control}.
+
+In congestion control, the sender must control the rate at which it sends the data such that overloading is prevented.
+
+Timeouts caused by packet loss may occur if:
+\begin{itemize}
+	\item there is noise on the transmission line; or
+	\item the packet is discarded at a congested route.
+\end{itemize}
+
+However, as modern long-haul lines are very reliable, if a TCP connection times out, it is assumed that the cause was congestion and therefore the data rate must be reduced. This is achieved by using the \textbf{Internet Congestion Algorithm}.
+
+The Internet Congestion Algorithm has the following pre-requisites:
+\begin{itemize}
+	\item the sender maintains a \textbf{receiver window} and \textbf{congestion window (CW)};
+	\item \textbf{the maximum segment size} (number of bytes to send) corresponds to the size of the smallest window; and
+	\item a third parameter, known as the \textbf{threshold} is used, which is initially \textbf{32KB}.
+\end{itemize}
+
+Given these pre-requisites, the Internet Congestion Algorithm follows the process outlined in the figure below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			When a connection is set up, the sender sets the \textbf{congestion window (CW)} to the maximum segment size.
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+		
+			The sender transmits data at a size of the maximum segment size.
+		
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			\begin{itemize}
+				\item If a transmission is successful and the congestion window (CW) is smaller than the threshold, it is doubled on each transmission.
+				\item If a transmission is successful and the congestion window (CW) is larger than the threshold, it is increased by one maximum segment size per transmission.
+				\item If a timeout occurs, the threshold is set to half the current congestion window (CW) and the congestion window (CW) is reset to one maximum segment size.
+			\end{itemize}
+		
+			\begin{center}
+				$\downarrow$
+			\end{center}
+		
+			This process repeats by the sender transmitting more data at a size of the maximum segment size until the connection is released.
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Process for the Internet Congestion Algorithm.}
+	\end{minipage}}
+\end{figure}
+
+The process outlined in the figure above shows that the congestion window (CW) can grow and shrink depending on the success the transmissions.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-17/congestion-window-growth.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Congestion window (CW) growth in the Internet Congestion Algorithm.}
+	\end{minipage}}
+\end{figure}
+
+As seen in the figure above:
+\begin{itemize}
+	\item the growth of the congestion window (CW) starts slow;
+	\item the congestion window (CW) begins to grow exponentially;
+	\item when the threshold is reached, the congestion window (CW) continues to grow linearly; and
+	\item when a timeout occurs, the threshold is decreased and the growth pattern of the congestion window (CW) already observed repeats itself.
+\end{itemize}
+
+A later improvement on the Internet Congestion Algorithm introduced fast recovery in which the congestion window (CW) is not decreased as much.
+
 \end{document}
