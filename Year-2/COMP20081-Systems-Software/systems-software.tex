@@ -11376,4 +11376,87 @@ These services can be TCP (connection-oriented) or UDP (connectionless) and offe
 	\item flow and congestion control.
 \end{itemize}
 
+
+\section{Ports}
+
+\section*{Definition}
+
+A \textbf{port} is a 16-bit number that represents a location where data can be sent.
+
+
+\section*{How they work}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{10cm}]{images/chapter-17/ports-client-server.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Ports in client-server configuration.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, clients and servers both use ports to distinguish between the processes transferred data area associated with.
+
+
+\section*{Types of ports}
+
+\subsection*{Source/Destination}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] | X[2,l] | X[2, l] |}
+	\hline
+	\textbf{Port type} & \textbf{Location} & \textbf{Nature} & \textbf{Range}
+	\\ \hline
+	\textbf{Destination ports} & Server machine. &
+	Pre-determined and known to the client. &
+	\texttt{0-1023} are reserved for well-known services defined by the Internet Assigned Numbers Authority (IANA).
+	\\ \hline
+	\textbf{Source ports} & Client machine. &
+	Determined dynamically. &
+	Typically a random number greater than \texttt{1023}.
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{Registered/Private/Dynamic}
+
+\textbf{Registered ports} range from \texttt{1024} to \texttt{49151}.
+
+\textbf{Private or dynamic ports} range from \texttt{49152} to \texttt{65535}.
+
+
+\newpage
+
+\subsection*{IANA reserved destination ports}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] | X[4,l] |}
+	\hline
+	\textbf{Port} & \textbf{Protocol} & \textbf{Use}
+	\\ \hline
+	\texttt{20}, \texttt{21} & FTP & File transfer.
+	\\ \hline
+	\texttt{22} & SSH & Remote login.
+	\\ \hline
+	\texttt{23} & TELNET & Remote login.
+	\\ \hline
+	\texttt{25} & SMTP & Send an email.
+	\\ \hline
+	\texttt{53} & DNS & Domain name mapping.
+	\\ \hline
+	\texttt{69} & TFTP & File transfer.
+	\\ \hline
+	\texttt{80} & HTTP & World Wide Web (WWW).
+	\\ \hline
+	\texttt{110} & POP & Remote email access.
+	\\ \hline
+	\texttt{123} & NTP & Clock synchronisation
+	\\ \hline
+	\texttt{143} & IMAP & Remote email access.
+	\\ \hline
+	\texttt{443} & HTTPS & Secure World Wide Web (WWW).
+	\\ \hline
+\end{longtabu}
+
 \end{document}
