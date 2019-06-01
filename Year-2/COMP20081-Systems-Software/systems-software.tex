@@ -12331,6 +12331,8 @@ IPv6 can assign addresses for up to $2^{128}$ computer systems.
 IPv4 and IPv6 can both coexist and therefore both be used by computer systems on the Internet.
 
 
+\newpage
+
 \subsection*{Header}
 
 An IPv6 header has:
@@ -12363,12 +12365,37 @@ As shown above, the IPv6 header contains the following fields:
 \end{itemize}
 
 
+\newpage
+
 \section*{Public and private IP addresses}
 
 An IP address can be either:
 \begin{itemize}
 	\item public -- used to assign a router to the Internet and can be accessed through the Internet; or
 	\item private -- used to assign a computer system to a route and cannot be accessed directly through the internet.
+\end{itemize}
+
+
+\section{Internet routing}
+
+The Internet consists of a large number of independent networks, called \textbf{Autonomous Systems (AS)}.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/internet-routing.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Internet routing.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above:
+\begin{itemize}
+	\item routers within an AS use an \textbf{Interior Gateway Protocol} to exchange routing information, where a \textbf{backbone area} connects all other areas; and
+	\item a router in an AS uses an \textbf{Exterior Gateway Protocol} to exchange information with a router from another AS, where \textbf{boundary routers} are linked together.
 \end{itemize}
 
 \end{document}
