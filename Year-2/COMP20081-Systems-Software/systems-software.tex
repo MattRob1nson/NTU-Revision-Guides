@@ -10902,7 +10902,7 @@ The server's response will include a status line, and optional lines such as the
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
-			\caption{HTTP status codes}
+			\caption{HTTP status codes.}
 	\end{minipage}}
 \end{figure}
 
@@ -11018,5 +11018,139 @@ Websites using HTTPS have a URL beginning with "\texttt{https://}".
 
 Modern web servers have more features such as authentication and access control, provided by HTTPS.
 
+
+\section{TELNET}
+
+\section*{Definition}
+
+\textbf{TELNET} is a protocol that provides a bidirectional interactive text-oriented communication facility using a virtual terminal connection.
+
+
+\section*{How it works}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{6cm}]{images/chapter-16/telnet.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{TELNET client-server connection.}
+	\end{minipage}}
+\end{figure}
+
+TELNET provides a remote desktop feature that often requires a username and password, as shown in the figure above.
+
+Remote login applications are general-purpose client-server applications that allow operations such as:
+\begin{itemize}
+	\item transferring files; and
+	\item sending messages.
+\end{itemize}
+
+
+\section*{Using TELNET}
+
+Windows has a program called \texttt{telnet} that supports the TELNET protocol.
+
+Connecting to a remote host using the \texttt{telnet} program can be achieved by:
+\begin{itemize}
+	\item using the domain name -- \texttt{telnet <domain name>}; or
+	\item using the IP address -- \texttt{telnet <IP address}.
+\end{itemize}
+
+
+\section*{Evaluation}
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
+	\hline
+	\textbf{Advantages} & \textbf{Disadvantages}
+	\\ \hline
+	\textbf{Remote access to software} that is only available on the remote host. &
+	\textbf{Insecure} over an open network such as the Internet.
+	\\ \hline
+	\textbf{Remote access to hardware} that is only available on the remote host. &
+	\\ \hline
+\end{longtabu}
+
+
+\section*{Network Virtual Terminal (NVT)}
+
+A \textbf{Network Virtual Terminal (NVT)} is a communications concept describing a variety of data terminal equipment (DTE), with different data rates, protocols, codes and formats, accommodated in the same network.
+
+For example, each OS on the computer systems may accept different keystrokes to perform actions, such as the EOF action:
+\begin{itemize}
+	\item \texttt{Ctrl+Z} in MS-DOS; and
+	\item \texttt{Ctrl+D} in Unix-based OSs.
+\end{itemize}
+
+TELNET implements an NVT. This means that when keystrokes are sent by the user, they are first converted to a standard format, as seen in the figure below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			The user sends keystrokes to the terminal where the local operating system accepts the characters but does not interpret them.
+			
+			$\downarrow$
+			
+			The characters are sent to the TELNET client.
+			
+			$\downarrow$
+			
+			The TELNET client transforms the characters to a universal character set called \textbf{NVT characters}.
+			
+			$\downarrow$
+			
+			A TCP connection is established on port \texttt{23} between the TELNET client and TELNET server.
+			
+			$\downarrow$
+			
+			The stream of characters is sent from the TELNET client to the TELNET server.
+			
+			$\downarrow$
+			
+			The remote host's OS receives the characters and sends them to the TELNET server.
+			
+			$\downarrow$
+			
+			NVT formats the characters to the correct characters that can be understood by the OS.
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Process converting keystrokes to a standard format.}
+	\end{minipage}}
+\end{figure}
+
+The TELNET protocol specifics several NVT characters to control the details of the interaction between the TELNET client and TELNET server.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+		\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] | X[2,l] |}
+			\hline
+			\textbf{Name} & \textbf{Decimal code} & \textbf{Meaning}
+			\\ \hline
+			Interpret as Command (IAC) & \texttt{255} & Precedes any other command to inform the system that the character should be treated as a command.
+			\\ \hline
+			Interrupt Process (IP) & \texttt{244} & Abort the process to which the NVT is connected.
+			\\ \hline
+			Abort Output (AO) & \texttt{245} & Allows the current process to run to completion but do no send its output to the client.
+			\\ \hline
+			Are You There (AYT) & \texttt{246} & Check to see if the system is still running.
+			\\ \hline
+			Erase Character (EC) & \texttt{247} & The receiver should delete the last character sent.
+			\\ \hline
+			Erase Line (EL) & \texttt{248} & Delete all characters in the current line.
+			\\ \hline
+		\end{longtabu}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{NVT characters for control commands.}
+	\end{minipage}}
+\end{figure}
+
+The figure above shows the available control commands provided by NVT characters. It must be noted that all commands must be preceded by the Interpret as Command (IAC) character.
 
 \end{document}
