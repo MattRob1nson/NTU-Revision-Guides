@@ -7,6 +7,7 @@
 \usepackage[document]{ragged2e}
 \usepackage[parfill]{parskip}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{graphicx,wrapfig,lipsum}
 \usepackage{listings}
 \usepackage{hyperref}
@@ -8590,55 +8591,6 @@ The \textbf{Internet Protocol (IP)} is responsible for end-to-end transmission. 
 An \textbf{IP address} is a numerical address that is assigned to and uniquely identifies a device on a network. The IP address indicates where a packet of data is to be sent or from where it was sent. Routers can use IP addresses to direct a packet to its destination.
 
 
-\subsection*{IPv4}
-
-\textbf{Internet Protocol v4 (IPv4)} allows each device on a network to have a unique 32-bit binary number address. The binary number is broken down into octets, which are chunks of 8 digits.
-
-\begin{figure}[H]
-	\lineskip=-\fboxrule
-	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\centering
-			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/ipv4-address.png}
-	\end{minipage}}
-	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\abovecaptionskip=0pt
-			\caption{An IPv4 address.}
-	\end{minipage}}
-\end{figure}
-
-IPv4 can assign addresses for up to 4.3 billion computer systems. However, there are a growing number of computer systems and therefore more addresses will be required to allow all devices to be connected to the internet – IPv6 was introduced to solve this problem.
-
-
-\subsection*{IPv6}
-
-\textbf{Internet Protocol v6 (IPv6)} allows each device on a network to have a unique 128-bit binary number address. The binary number is arranged into groups of hexadecimal numbers separated by colons..
-
-\begin{figure}[H]
-	\lineskip=-\fboxrule
-	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\centering
-			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/ipv6-address.png}
-	\end{minipage}}
-	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\abovecaptionskip=0pt
-			\caption{An IPv6 address.}
-	\end{minipage}}
-\end{figure}
-
-IPv6 can assign addresses for up to $2^{128}$ computer systems.
-
-IPv4 and IPv6 can both coexist and therefore both be used by computer systems on the Internet.
-
-
-\subsection*{Public and private IP addresses}
-
-An IP address can be either:
-\begin{itemize}
-	\item public -- used to assign a router to the Internet and can be accessed through the Internet; or
-	\item private -- used to assign a computer system to a route and cannot be accessed directly through the internet.
-\end{itemize}
-
-
 \subsection*{Packets}
 
 A \textbf{packet}, or \textbf{datagram}, is a piece of a message transmitted over a packet-switching network.
@@ -12067,5 +12019,172 @@ The datagrams are passed to the transport layer, which reassembles them in to a 
 	\end{minipage}}
 \end{figure}
 
+
+\newpage
+
+\section{IP addresses}
+
+\section*{Definition}
+
+An \textbf{IP address} is a universal numerical address that is assigned to and uniquely identifies a device on a network. The IP address indicates where a packet of data is to be sent or from where it was sent. Routers can use IP addresses to direct a packet to its destination.
+
+An IP address does not refer to a host directly but to a network interface. As such, if a host is on two networks, it must have two IP addresses.
+
+IP addresses are managed by the Internet Corporation for Assigned Names and Numbers (ICANN).
+
+
+\section*{IPv4}
+
+\subsection*{Definition}
+
+\textbf{Internet Protocol v4 (IPv4)} allows each device on a network to have a unique 32-bit binary number address. The binary number is broken down into octets, which are chunks of 8 digits.
+
+
+\subsection*{Representation}
+
+Each block in an IPv4 address can range from 0 to 255 (0 to $2^{8}-1$),
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/ipv4-address.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{An IPv4 address.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, IPv4 addresses are often represented using two prevalent notations:
+\begin{itemize}
+	\item dotted-decimal notation -- for example, \texttt{89.145.77.102}; and
+	\item binary (8-bit) notation -- for example, \texttt{01011001 10010001 01001101 01100110}.
+\end{itemize}
+
+Conversions between these notations can be seen in the examples below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+		\begin{equation*}
+			\begin{aligned}
+				& \text{10000001 00001011 00001011 11101111} \\
+				& \text{10000001} = 129 \\
+				& \text{00001011} = 11 \\
+				& \text{00001011} = 11 \\
+				& \text{11101111} = 239 \\
+				& \therefore \text{10000001 00001011 00001011 11101111} = \text{129.11.11.239} \\
+			\end{aligned}
+		\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example IPv4 conversion from dotted-decimal notation to binary (8-bit) notation.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{11000001 10000011 00011011 11111111} \\
+			& \text{11000001} = 193 \\
+			& \text{10000011} = 131 \\
+			& \text{00011011} = 27 \\
+			& \text{11111111} = 255 \\
+			& \therefore \text{11000001 10000011 00011011 11111111} = \text{193.131.27.255} \\
+			\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example IPv4 conversion from dotted-decimal notation to binary (8-bit) notation.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{111.56.45.78} \\
+			& \text{111} = 01101111 \\
+			& \text{56} = 00111000 \\
+			& \text{45} = 00101101 \\
+			& \text{78} = 01001110 \\
+			& \therefore \text{111.56.45.78} = \text{01101111 00111000 00101101 01001110} \\
+			\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example IPv4 conversion from binary (8-bit) notation to dotted-decimal notation.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{221.34.7.82} \\
+			& \text{221} = 11011101 \\
+			& \text{34} = 00100010 \\
+			& \text{7} = 00000111 \\
+			& \text{82} = 01010010 \\
+			& \therefore \text{111.56.45.78} = \text{11011101 00100010 00000111 01010010} \\
+			\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example IPv4 conversion from binary (8-bit) notation to dotted-decimal notation.}
+	\end{minipage}}
+\end{figure}
+
+
+\subsection*{Assignment capabilities}
+
+IPv4 can assign addresses for up to 4.3 billion computer systems. However, there are a growing number of computer systems and therefore more addresses will be required to allow all devices to be connected to the internet – IPv6 was introduced to solve this problem.
+
+
+\section*{IPv6}
+
+\subsection*{Definition}
+
+\textbf{Internet Protocol v6 (IPv6)} allows each device on a network to have a unique 128-bit binary number address. The binary number is arranged into groups of hexadecimal numbers separated by colons..
+
+
+\subsection*{Representation}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/ipv6-address.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{An IPv6 address.}
+	\end{minipage}}
+\end{figure}
+
+
+\subsection*{Assignment capabilities}
+
+IPv6 can assign addresses for up to $2^{128}$ computer systems.
+
+IPv4 and IPv6 can both coexist and therefore both be used by computer systems on the Internet.
+
+
+\section*{Public and private IP addresses}
+
+An IP address can be either:
+\begin{itemize}
+	\item public -- used to assign a router to the Internet and can be accessed through the Internet; or
+	\item private -- used to assign a computer system to a route and cannot be accessed directly through the internet.
+\end{itemize}
 
 \end{document}
