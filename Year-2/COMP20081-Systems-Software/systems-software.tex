@@ -12198,19 +12198,19 @@ IP addresses are hierarchical and the IPv4 address space consists of two parts, 
 
 As shown in the figure above, IPv4 has five classes. These are described below.
 
-\begin{longtabu} to \textwidth {| X[0.25,l] | X[1,l] | X[2,l] |}
+\begin{longtabu} to \textwidth {| X[0.25,l] | X[1,l] | X[1,l] | X[1,l] |}
 	\hline
-	\textbf{Class} & \textbf{Maximum number of networks} & \textbf{Maximum number of hosts}
+	\textbf{Class} & \textbf{Maximum number of networks} & \textbf{Maximum number of hosts} & \textbf{Prefix}
 	\\ \hline
-	\texttt{A} & 128 & 16 million
+	\texttt{A} & 128 & 16 million & \texttt{0}
 	\\ \hline
-	\texttt{B} & 16,384 & 65536
+	\texttt{B} & 16,384 & 65536 & \texttt{10}
 	\\ \hline
-	\texttt{C} & 2 million & 256
+	\texttt{C} & 2 million & 256 & \texttt{110}
 	\\ \hline
 \end{longtabu}
 
-Class \texttt{D} is not defined as it is reserved for multicasting (a multicast is group communication where data transmission is addressed to a group of destination computers simultaneously).
+Class \texttt{D} is not defined as it is reserved for multicasting (a multicast is group communication where data transmission is addressed to a group of destination computers simultaneously). Class \texttt{D} has the prefix \texttt{1110}.
 
 \newpage
 
@@ -12219,8 +12219,87 @@ Class \texttt{E} is not defined as it is reserved for:
 	\item future use, should the IPv4 protocol be extended; and
 	\item experimental purposes
 \end{itemize}
+Class \texttt{E} has the prefix \texttt{1111}.
 
 It is possible to determine the class of an IPv4 address, as shown below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+				\begin{aligned}
+					& \text{00000001 00001011 00001011 11101111} \\
+					& \text{starts with a 0} \\
+					& \therefore \text{00000001 00001011 00001011 11101111 has class A} \\
+				\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of a class from an IPv4 address.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+				\begin{aligned}
+					& \text{11000001 10000011 00011011 11111111} \\
+					& \text{starts with 110} \\
+					& \therefore \text{11000001 10000011 00011011 11111111 has class C} \\
+				\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of a class from an IPv4 address.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+				\begin{aligned}
+					& \text{14.23.120.8} \\
+					& \text{14} = 00001110 \\
+					& \text{23} = 00010111 \\
+					& \text{120} = 01111000 \\
+					& \text{8} = 00001000 \\
+					& \therefore \text{14.23.120.8} = \text{00001110 00010111 01111000 00001000} \\
+					& \text{starts with 0} \\
+					& \therefore \text{14.23.120.8 has class A} \\
+				\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of a class from an IPv4 address.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+				\begin{aligned}
+					& \text{252.5.15.111} \\
+					& \text{252} = 11111100 \\
+					& \text{5} = 00000101 \\
+					& \text{15} = 00001111 \\
+					& \text{111} = 01101111 \\
+					& \therefore \text{252.5.15.111} = \text{11111100 00000101 00001111 01101111} \\
+					& \text{starts with 1111} \\
+					& \therefore \text{252.5.15.111 has class E} \\
+				\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of a class from an IPv4 address.}
+	\end{minipage}}
+\end{figure}
 
 
 \subsection*{Special addresses}
