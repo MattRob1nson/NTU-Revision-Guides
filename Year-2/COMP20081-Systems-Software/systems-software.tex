@@ -10727,7 +10727,7 @@ Each domain name has one or more equivalent IP addresses. A DNS server must then
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\centering
-			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-16/domain-name-structure.png}
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-16/domain-name-structure.png}
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -10805,5 +10805,218 @@ Current widespread browsers include:
 	\item Firefox; and
 	\item Safari.
 \end{itemize}
+
+
+\newpage
+
+\section{HyperText Transfer Protocol (HTTP)}
+
+\section*{Definitions}
+
+\textbf{HyperText Transfer Protocol (HTTP)} defines how messages are formatted and transmitted, and what actions web servers and browsers should take in response to various commands.
+
+Websites using HTTP have a URL beginning with "\texttt{http://}".
+
+\textbf{HyperText Markup Language (HTML)} is a markup language which uses tags to define elements and how the elements are presented on a web page, such as text, images and hyperlinks.
+
+
+\section*{Features of HTTP}
+
+Browsers interpret the content of web documents and display the results to the user. Web documents are written in HTML.
+
+HTTP has two main features:
+\begin{itemize}
+	\item markup commands -- describe how the text should appear on the user's screen, for example \texttt{<b>Hello World</b>} would display the text "Hello World" in a bold font; and
+	\item hyperlinks -- when a user clicks on the corresponding test, the browser will follow the link, for example \texttt{<a href="http://www.ntu.ac.uk">NTU</a>} will produce the text "NTU" and clicking on this will cause the browser to load the web page http://www.ntu.ac.uk/.
+\end{itemize}
+
+
+\section*{Process for requesting a web page}
+
+As seen before, URLs are entered by users or present in links and reference a web server. The URL allows the web browser to establish a connection to the web server.
+
+Given the URL \texttt{http://cisco.com/index.html}, its parts can be determined:
+\begin{itemize}
+	\item the protocol or scheme -- \texttt{http};
+	\item the server name -- \texttt{www.cisco.com}; and
+	\item the specific file name requested -- \texttt{index.html}.
+\end{itemize}
+
+The process for requesting this web page in a browser using HTTP is as follows.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{6cm}]{images/chapter-16/requesting-web-page-1.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Translate URL to IP address.}
+	\end{minipage}}
+\end{figure}
+
+As seen before, using DNS, the server name portion of the URL is translated to the associated IP address before the server can be contacted.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{6cm}]{images/chapter-16/requesting-web-page-2.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{GET} request.}
+	\end{minipage}}
+\end{figure}
+
+Next, the browser must establish a TCP connection to port \texttt{80} on the server. Once the connection has been established, the browser and server can then exchange data. Commands from the browser include:
+\begin{itemize}
+	\item \texttt{GET} -- requests to read a web page;
+	\item \texttt{HEAD} -- requests to read a web page's header; and
+	\item \texttt{PUT} -- requests to store a web page.
+\end{itemize}
+
+The server's response will include a status line, and optional lines such as the requested page itself. The status lines can include various codes, as shown below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+		\begin{longtabu} to \textwidth {| X[0.6,l] | X[1,l] | X[2,l] |}
+			\hline
+			\textbf{Status Code} & \textbf{Message} & \textbf{Explanation}
+			\\ \hline
+			\texttt{200} & OK & Successful request, the webpage exists.
+			\\ \hline
+			\texttt{400} & Bad request. &
+			\\ \hline
+			\texttt{401} & Unauthorised. & Unauthorised request, authentication required.
+			\\ \hline
+			\texttt{403} & Forbidden & Access to this page or directory is not permitted.
+			\\ \hline
+			\texttt{404} & Not found. & Page does not exist.
+			\\ \hline
+			\texttt{500} & Internal server error. & Often caused by an incorrect server configuration.
+			\\ \hline
+		\end{longtabu}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{HTTP status codes}
+	\end{minipage}}
+\end{figure}
+
+The browser sends a \texttt{GET} request to the server's IP address and requests the \texttt{index.html} file that was specified in the URL.
+
+If the request was successful (status code \texttt{200}), the server then sends the requested file to the client, this contains the HTML code for this web page.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{6cm}]{images/chapter-16/requesting-web-page-3.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{\texttt{GET} request.}
+	\end{minipage}}
+\end{figure}
+
+Lastly, the browser processes the HTML code and formats the web page for the browser window based on the code in the file.
+
+
+\newpage
+
+\subsection*{HTTP request}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{6cm}]{images/chapter-16/http-request.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{HTTP request.}
+	\end{minipage}}
+\end{figure}
+
+A HTTP request is composed of:
+\begin{itemize}
+	\item a request-line;
+	\item headers;
+	\item a blank line; and
+	\item the content.
+\end{itemize}
+
+\begin{lstlisting}[title={Example HTTP request.}]
+<method><SP><resource id><SP><HTTP version><crlf>
+[<Header> : <value>] <crlf>
+// ...
+[<Header> : <value>] <crlf>
+				blank line <crlf>
+				
+				
+[Entity body]
+
+GET /path/file.html HTTP/1.0
+Accept: text/html
+User-Agent Mozilla/40
+\end{lstlisting}
+
+
+\subsection*{HTTP response}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{6cm}]{images/chapter-16/http-response.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{HTTP response.}
+	\end{minipage}}
+\end{figure}
+
+A HTTP response is composed of:
+\begin{itemize}
+	\item a status-line;
+	\item headers;
+	\item a blank line; and
+	\item the content.
+\end{itemize}
+
+\begin{lstlisting}[title={Example HTTP response.}]
+<HTTP Version><SP><result code><SP><explanation><clrf>
+[<Header> : <value>] <crlf>
+// ...
+[<Header> : <value>] <crlf>
+				blank line <crlf>
+				
+
+[Entity body]
+			
+HTTP/1.0 200 OK
+Server: Apache/1.17
+Content-Type: text/html
+Content-Length :2000
+
+<HTML>
+	// ...
+</HTML>	
+\end{lstlisting}
+
+
+\newpage
+
+\section*{HTTPS}
+
+\textbf{HyperText Transfer Protocol Secure (HTTPS)} is defines how messages are formatted and transmitted in a \textbf{secure connection}, and what actions web servers and browsers should take in response to various commands.
+
+Websites using HTTPS have a URL beginning with "\texttt{https://}".
+
+Modern web servers have more features such as authentication and access control, provided by HTTPS.
+
 
 \end{document}
