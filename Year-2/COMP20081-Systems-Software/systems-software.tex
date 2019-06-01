@@ -12042,13 +12042,11 @@ IP addresses are managed by the Internet Corporation for Assigned Names and Numb
 
 \subsection*{Representation}
 
-Each block in an IPv4 address can range from 0 to 255 (0 to $2^{8}-1$),
-
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\centering
-			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/ipv4-address.png}
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-18/ipv4-address.png}
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -12060,6 +12058,12 @@ As shown in the figure above, IPv4 addresses are often represented using two pre
 \begin{itemize}
 	\item dotted-decimal notation -- for example, \texttt{89.145.77.102}; and
 	\item binary (8-bit) notation -- for example, \texttt{01011001 10010001 01001101 01100110}.
+\end{itemize}
+
+Each block in an IPv4 address:
+\begin{itemize}
+	\item can range from 0 to 255 (0 to $2^{8}-1$); and
+	\item must not have a leading zero if represented in binary notation.
 \end{itemize}
 
 Conversions between these notations can be seen in the examples below.
@@ -12144,6 +12148,143 @@ Conversions between these notations can be seen in the examples below.
 	\end{minipage}}
 \end{figure}
 
+It is important to note that IPv4 addresses must follow all of the representation standards in order to be valid, as seen below.
+
+\newpage
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[0.5,l] | X[2,l] |}
+	\hline
+	\textbf{IP address} & \textbf{Validity} & \textbf{Explanation}
+	\\ \hline
+	11100010.23.14.45 & Invalid. & Mixes binary and dotted-decimal notation.
+	\\ \hline
+	221.34.5.6.70 & Invalid. & There can be no more than four blocks of numbers.
+	\\ \hline
+	111.56.041.76 & Invalid. & There can be no leading zero in any of the blocks.
+	\\ \hline
+	75.45.301.14 & Invalid. & All blocks must be in the range 0 to 255 (0 to $2^{8}-1$).
+	\\ \hline
+	240.65.75.0 & Valid. & Conforms to all of the representation standards.
+	\\ \hline
+\end{longtabu}
+
+
+\subsection*{Classes}
+
+IP addresses are hierarchical and the IPv4 address space consists of two parts, as shown in the table below.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] | X[2,l] |}
+	\hline
+	\textbf{Part} & \textbf{Contents} & \textbf{Location}
+	\\ \hline
+	Prefix & Network ID. & Most Significant Bits (MSBs).
+	\\ \hline
+	Suffix & Host ID. & Least Significant Bits (LSBs).
+	\\ \hline
+\end{longtabu}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/ipv4-classes.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{IPv4 classes.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, IPv4 has five classes. These are described below.
+
+\begin{longtabu} to \textwidth {| X[0.25,l] | X[1,l] | X[2,l] |}
+	\hline
+	\textbf{Class} & \textbf{Maximum number of networks} & \textbf{Maximum number of hosts}
+	\\ \hline
+	\texttt{A} & 128 & 16 million
+	\\ \hline
+	\texttt{B} & 16,384 & 65536
+	\\ \hline
+	\texttt{C} & 2 million & 256
+	\\ \hline
+\end{longtabu}
+
+Class \texttt{D} is not defined as it is reserved for multicasting (a multicast is group communication where data transmission is addressed to a group of destination computers simultaneously).
+
+\newpage
+
+Class \texttt{E} is not defined as it is reserved for:
+\begin{itemize}
+	\item future use, should the IPv4 protocol be extended; and
+	\item experimental purposes
+\end{itemize}
+
+It is possible to determine the class of an IPv4 address, as shown below.
+
+
+\subsection*{Special addresses}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/ipv4-special-addresses.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{IPv4 special addresses.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, an IPv4 addresses:
+\begin{itemize}
+	\item containing all zeros (\texttt{0}s) identifies the host of origin;
+	\item containing all ones (\texttt{1}s) allows broadcasting on the local network (i.e. "send to all neighbours");
+	\item beginning with \texttt{127} are reserved for loopback (i.e. send from node to itself), often used for network testing;
+	\item with a network ID containing all zeros (\texttt{0}s) identifies a host; and
+	\item with a host ID containing all ones (\texttt{1}s) allows broadcasts on a distant network.
+\end{itemize}
+
+
+\subsection*{Header}
+
+An IPv4 header has:
+\begin{itemize}
+	\item a 20-byte fixed part; and
+	\item a variable-length \texttt{Options field}.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/ipv4-special-addresses.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{An IPv4 header.}
+	\end{minipage}}
+\end{figure}
+
+As shown above, the IPv4 header contains the following fields:
+\begin{itemize}
+	\item \textbf{version} -- keeps track of the version of IP (IPv4/IPv6) to which the packet belongs;
+	\item \textbf{IHL} (Internet Header Length) -- indicates the length of the header;
+	\item \textbf{differentiated services} -- identifies the quality of service;
+	\item \textbf{total length} -- indicates the length of the packet, including the header and data;
+	\item \textbf{identification} -- determines to which packet a fragment belongs;
+	\item \textbf{reserved} -- 1-bit empty for future use, should the IPv4 protocol be extended;
+	\item \textbf{DF} control flag -- "Don't Fragment", when an IP datagram has its DF flag set to one \texttt{1}, intermediate devices are not allowed to fragment it so if it needs to travel across a network with a Maximum Transmission Unit (MTU) smaller that datagram length the datagram will have to be dropped (normally, a "ICMP Destination Unreachable message" is generated and sent back to the sender);
+	\item \textbf{MF} control flag -- "More Fragments", set to indicate the receiver that the current datagram is a fragment of some larger datagram (when set to zero (\texttt{0}), it indicates that the current datagram is either the last fragment in the set or that it is the only fragment);
+	\item \textbf{fragment offset} -- where in the current packet this fragment belongs;
+	\item \textbf{time to live} -- counter used to limit packet lifetimes such that, once the counter expires, the packet is discarded or revalidated;
+	\item \textbf{protocol} -- indicates which transport service to use (TCP/UDP);
+	\item \textbf{header checksum} -- allows error-checking to be performed;
+	\item \textbf{source Address} -- indicates the IP address of the source network interface;
+	\item \textbf{destination Address} -- indicates the IP address of the destination network interface;
+	\item \textbf{options} -- allows for additional, non-standard options not covered in the other fields.
+\end{itemize}
+
 
 \subsection*{Assignment capabilities}
 
@@ -12157,13 +12298,24 @@ IPv4 can assign addresses for up to 4.3 billion computer systems. However, there
 \textbf{Internet Protocol v6 (IPv6)} allows each device on a network to have a unique 128-bit binary number address. The binary number is arranged into groups of hexadecimal numbers separated by colons..
 
 
+\subsection*{Why does IPv6 exist?}
+
+IPv6 aims to fix a number of shortcomings presented by IPv4 by:
+\begin{itemize}
+	\item using 16-byte addresses;
+	\item paying more attention to different types of services used, such as streaming media;
+	\item adding the possibility to support mobile hosts, by allowing portable computers to obtain the same IP address wherever they are connected; and
+	\item simplifying headers for routers, by using less fields and removing checksums, as to allow faster processing.
+\end{itemize}
+
+
 \subsection*{Representation}
 
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\centering
-			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-12/ipv6-address.png}
+			\includegraphics[max size={\textwidth}{5cm}]{images/chapter-18/ipv6-address.png}
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -12177,6 +12329,38 @@ IPv4 can assign addresses for up to 4.3 billion computer systems. However, there
 IPv6 can assign addresses for up to $2^{128}$ computer systems.
 
 IPv4 and IPv6 can both coexist and therefore both be used by computer systems on the Internet.
+
+
+\subsection*{Header}
+
+An IPv6 header has:
+\begin{itemize}
+	\item a fixed-size header;
+	\item a 16-byte source address; and
+	\item a 16-byte destination address.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-18/ipv6-header.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{An IPv4 header.}
+	\end{minipage}}
+\end{figure}
+
+As shown above, the IPv6 header contains the following fields:
+\begin{itemize}
+	\item \textbf{flow label} -- maintains the flow and order of packets that belong to the same communication;
+	\item \textbf{payload length} -- indicates how many bytes follow the header;
+	\item \textbf{next header} -- indicates whether additional extension headers are used;
+	\item \textbf{hop limit} -- similar to "time to live" in IPv4, however the lifetime of a packet is limited by the number of hops it can make between routers because it must be discarded or revalidated;
+	\item \textbf{source address} -- same as in IPv4, indicates the IP address of the source network interface; and
+	\item \textbf{destination address} -- same as in IPv4, indicates the IP address of the destination network interface;
+\end{itemize}
 
 
 \section*{Public and private IP addresses}
