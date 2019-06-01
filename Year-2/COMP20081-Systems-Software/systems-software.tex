@@ -8700,21 +8700,6 @@ As a result, further protocol are required to ensure that packets are transmitte
 The \textbf{Transmission Control Protocol (TCP)} is built on top of IP and provides a reliable, ordered, and error-checked delivery of a stream of octets (bytes) between applications running on hosts communicating via an IP network.
 
 
-\subsection*{Use by the transport layer}
-
-The transport layer uses the TCP to:
-\begin{itemize}
-	\item perform a handshake;
-	\item to establish an end-to-end connection with the recipient computer;
-	\item split the data into packets; and
-	\item label the packet with a packet number, the total number of packets and the port number through which
-	the packet should route to ensures that the packet is handled by the correct application on the recipient
-	computer system.
-\end{itemize}
-
-A timer is incremented until a maximum value is reached, called a “time out”. When this occurs, a request for the retransmission of the lost packet is sent to the application layer. A receipt of packets received is recorded.
-
-
 \subsection*{Connection-oriented protocol}
 
 TCP can be described as a connection-oriented protocol as:
@@ -11528,6 +11513,233 @@ As shown in the figure above, the UDP header contains the following fields:
 	\item \textbf{destination port} -- the port number of the remote machine;
 	\item \textbf{UDP length} -- the number of bytes of the segment, including the header and data; and
 	\item \textbf{UDP checksum} -- used to verify possible data corruption.
+\end{itemize}
+
+
+\section{TCP connection sequence}
+
+\section*{Establishing a connection}
+
+Establishing a TCP connection requires a \textbf{three-way handshake}. A handshake is an automated process that sets the parameters for communication between two communicating computer systems before packets are transferred.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{8cm}]{images/chapter-17/tcp-establishing-connection.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Establishing a connection in TCP.}
+	\end{minipage}}
+\end{figure}
+
+A three-way handshake between \texttt{Host 1} and \texttt{Host 2} can be seen in the figure above. This process is outlined in the figure below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			Assume that \texttt{Host 1} wishes to cease communication with \texttt{Host 2}.
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			\texttt{Host 1} sends a connection request (\texttt{CR}) to \texttt{Host 2}:
+			\begin{itemize}
+				\item implying that the \texttt{SYN} bit is \texttt{1}; and
+				\item given that the sequence number for \texttt{Host 1} is \texttt{Host 1}'s initial sequence number.
+			\end{itemize}
+			
+			Given these conditions, it is observed that:
+			
+			\texttt{CR -> SYN=1, SEQ=ISN}
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			\texttt{Host 2} sends an acknowledgement to \texttt{Host 1}:
+			\begin{itemize}
+				\item implying that the \texttt{SYN} bit is \texttt{1};
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 1} is now \texttt{x+1}; and
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 2} is now \texttt{y}.
+			\end{itemize}
+			
+			Given these conditions, it is observed that:
+			
+			\texttt{CR -> SYN=1, SEQ = y, ACK = x + 1}
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			\texttt{Host 1} sends its first data to \texttt{Host 2}:
+			\begin{itemize}
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 1} is now \texttt{x+1}; and
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 2} is now \texttt{y+1}.
+			\end{itemize}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Process for establishing a TCP connection.}
+	\end{minipage}}
+\end{figure}
+
+The process described in the figure above is guaranteed to create a synchronised connection as the \texttt{SYN} bit is used to ensure that both \texttt{Host 1} and \texttt{Host 2} are ready to communicate before any actual data is sent.
+
+As a result, should a delayed packet send a connection request (\texttt{CR}), the initial sequence numbers (\texttt{ISNs}) will most probably not match and therefore the request will be rejected.
+
+
+
+\section*{Releasing a connection}
+
+A TCP connection can not be released until both hosts have ceased their transmission of data.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{8cm}]{images/chapter-17/tcp-releasing-connection.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Releasing a connection in TCP.}
+	\end{minipage}}
+\end{figure}
+
+The release of a connection initiated by \texttt{Host 1} can be seen in the figure above. This process is outlined in the figure below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			Assume that \texttt{Host 1} wishes to cease communication with \texttt{Host 2}.
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			\texttt{Host 1} sends a disconnect request (\texttt{DR}) to \texttt{Host 2}:
+			\begin{itemize}
+				\item implying that the \texttt{FIN} bit is \texttt{1}; and
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 1} is \texttt{x}.
+			\end{itemize}
+		
+			Given these conditions, it is observed that:
+			
+			\texttt{DR -> FIN=1, SEQ = x}
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+		
+			\texttt{Host 1} starts a timer.
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+		
+			\texttt{Host 2} acknowledges the disconnect request (\texttt{DR}) (\texttt{DR}):
+			\begin{itemize}
+				\item implying that the \texttt{FIN} bit is \texttt{1};
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 1} is now \texttt{x+1}; and
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 2} is now \texttt{y}.
+			\end{itemize}
+		
+			Given these conditions, it is observed that:
+			
+			\texttt{FIN+ACK -> SEQ=y, ACK=x+1}
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			\texttt{Host 2} also starts a timer.
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			\texttt{Host 1} sends an acknowledgement to \texttt{Host 2}:
+			\begin{itemize}
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 1} is now \texttt{x+1}; and
+				\item given that the sequence number (\texttt{SEQ}) for \texttt{Host 2} is now \texttt{y+1}.
+			\end{itemize}
+			
+			Given these conditions, it is observed that:
+			
+			\texttt{SEQ=x+1, ACK=y+1}
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+		
+			The sequence number (\texttt{SEQ}) and acknowledgement number (\texttt{ACK}) are now both incremented and therefore the connection can be released.
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Process for releasing a TCP connection.}
+	\end{minipage}}
+\end{figure}
+
+The process described in the figure above is guaranteed to release a synchronised connection as \texttt{Host 1} and \texttt{Host 2} both use individual timers to ensure that both \texttt{Host 1} and \texttt{Host 2} are able to release the connection in a timely manner.
+
+As a result, should a segment get lost:
+\begin{itemize}
+	\item if \texttt{Host 1} does not receive an acknowledgement from \texttt{Host 2} for its disconnect request (\texttt{DR}), then \texttt{Host 1} will timeout and resend the disconnect request (\texttt{DR});
+	\item if \texttt{Host 1} observes multiple timeouts while waiting for acknowledgement from \texttt{Host 2}, the connection will be dropped; and
+	\item if \texttt{Host 2} does not receive an acknowledgement from \texttt{Host 1}, then \texttt{Host 2} will timeout and release the connection.
+\end{itemize}
+
+
+\section*{Communication in TCP connection}
+
+The following example assumes that:
+\begin{itemize}
+	\item the three-way handshake has already been completed and therefore the TCP connection has been established; and
+	\item the TCP connection is between a client and server.
+\end{itemize}
+
+\begin{lstlisting}[title={Example TCP communication between a client and server.}]
+// Begin communication.
+
+Client: SEQ: 8001, ACK: 15001, Length: 72bytes
+Server: SEQ: 15001, ACK: 8001+72=8073, Length: 60bytes
+Client: SEQ: 8073, ACK: 15001+60=15061, Length: 156bytes
+Server: SEQ: 15061, ACK: 8073+156=8229, Length: 152bytes
+
+// ...
+
+// Release communication.
+\end{lstlisting}
+
+As seen above, the client and server relay messages to one another. Each message contains:
+\begin{itemize}
+	\item the sequence number \texttt{SEQ};
+	\item the acknowledgement number \texttt{ACK}; and
+	\item the length of the message.	
+\end{itemize}
+
+The acknowledgement number \texttt{ACK} returned is calculated by:
+\begin{equation*}
+\text{ACK} = \text{SEQ} + \text{length}
+\end{equation*}
+
+This allows both the client and the server to ensure that no packet loss has occurred.
+
+\textbf{Packet loss} occurs when one or more packets of data travelling across a computer network fail to reach their destination. Packet loss is can be caused by:
+\begin{itemize}
+	\item errors in data transmission;
+	\item patchy wireless connections; and
+	\item network congestion.
+\end{itemize}
+
+Checking for this packet loss is important as many mobile devices, such as laptop and smartphones, are likely to use less-reliable wireless connections such as 3G/4G and Wi-Fi. In addition, this is also important because network congestion is common on the Internet.
+
+If packet loss occurs, the affected packets are retransmitted. Retransmission is implemented using timers and ensures that the data transfer is:
+\begin{itemize}
+	\item ordered; and
+	\item error-free.
 \end{itemize}
 
 \end{document}
