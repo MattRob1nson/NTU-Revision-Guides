@@ -12658,6 +12658,9 @@ The routers themselves are responsible for this encapsulation.
 
 \section{Addressing with classes}
 
+Addressing with classes is implemented using subnet masks.
+
+
 \section*{Recap}
 
 As seen before, IP addresses are hierarchical and the IPv4 address space consists of two parts, as shown in the table below.
@@ -12732,10 +12735,12 @@ Class \texttt{E}:
 
 \subsection*{Definition}
 
-A \textbf{subnet mark} identifies the length of an IP address.
+A \textbf{subnet mask} identifies the length of an IP address.
 
 
 \subsection*{How it works}
+
+A subnet mask is 32 bits in length, the same as an IP address.
 
 \begin{figure}[H]
 	\lineskip=-\fboxrule
@@ -12745,7 +12750,7 @@ A \textbf{subnet mark} identifies the length of an IP address.
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
-			\caption{Subnet mark.}
+			\caption{Subnet mask.}
 	\end{minipage}}
 \end{figure}
 
@@ -12755,19 +12760,19 @@ The subnet mask can be used to extract information for an IP address:
 	\item the IP address is bitwise \texttt{AND}ed with an inverted version of the subnet mask to extract the host ID (inverting the subnet mask involves flipping all of the bits).
 \end{itemize}
 
-The subnet mark for a class \texttt{A} IP address is \texttt{255.0.0.0} as:
+The subnet mask for a class \texttt{A} IP address is \texttt{255.0.0.0} as:
 \begin{itemize}
 	\item the first byte contains the network ID; and
 	\item the last three bytes contain the host ID.
 \end{itemize}
 
-The subnet mark for a class \texttt{B} IP address is \texttt{255.255.0.0} as:
+The subnet mask for a class \texttt{B} IP address is \texttt{255.255.0.0} as:
 \begin{itemize}
 	\item the first two bytes contain the network ID; and
 	\item the last two bytes contain the host ID.
 \end{itemize}
 
-The subnet mark for a class \texttt{C} IP address is \texttt{255.255.255.0} as:
+The subnet mask for a class \texttt{C} IP address is \texttt{255.255.255.0} as:
 \begin{itemize}
 	\item the first three bytes contain the network ID; and
 	\item the last byte contains the host ID.
@@ -12940,7 +12945,171 @@ This shows that addressing with classes is:
 	\item not flexible.
 \end{itemize}
 
+Addressing with classes can be said to be not flexible because, depending on the class used, there may be:
+\begin{itemize}
+	\item too many network IDs and not enough host IDs; or
+	\item too many host IDs and not enough network IDs. 
+\end{itemize}
+
 Alternatively, classless addressing can be used.
 
+
+\section{Classless addressing}
+
+Classless addressing is implemented using subnetting.
+
+
+\section*{Subnetting}
+
+\subsection*{Definition}
+
+\textbf{Subnetting} is a method used in classless addressing.
+
+
+\subsection*{How it works}
+
+In subnetting, the subnet number is added which provides a third level of the hierarchy. This allows the block of addresses to be split \textbf{subnets}. These are several parts that are designed for internal use, such as multiple networks, but continue to act as a single network to the "outside world".
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-19/subnetting.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Subnetting for class \texttt{B}.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, for a class \texttt{B} IP address, the default subnet mask contains a network prefix. However, when using subnetting:
+\begin{itemize}
+	\item the network prefix is extended by five bits;
+	\item these five bits are flipped (changed from \texttt{0} to \texttt{1});
+	\item these five bits now become part of an extended network prefix and therefore can be used to represent the subnet mark within the internal network.
+\end{itemize}
+
+It is important to note that:
+\begin{itemize}
+	\item the number of subnets must always be a power of \texttt{2}; and
+	\item the number of hosts will always be a power of \texttt{2}.
+\end{itemize}
+
+The number of subnets available can be calculated by:
+\begin{equation*}
+\text{subnets available} = 
+\text{number of bits in extended network prefix} - \text{number of bits in network prefix in default subnet mask}
+\end{equation*}
+
+This is implemented using CIDR, discussed in the next section.
+
+
+\section*{Classless Inter-Domain Routing (CIDR)}
+
+\subsection*{Definition}
+
+Classless inter-domain routing (CIDR) is a set of Internet protocol (IP) standards that is used to implemented subnetting when using classless addressing.
+
+
+\subsection*{How it works}
+
+The CIDR notation extends the dotted-decimal notation by adding a forward-slash (\texttt{/}) followed by the number of ones (\texttt{1}s) in a subnet mask.
+
+When using the original default subnet masks in addressing with classes, it is easy to identify the network address because it is fixed, as shown in the examples below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{128.208.0.0/16} \\
+			& \therefore \texttt{16 bits are used for the network prefix} \\
+			& \therefore \texttt{subnet mask} = \text{255.255.0.0} \\
+			\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of subnet mask from a class \texttt{B} IP address using original default subnet masks.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+		\begin{equation*}
+			\begin{aligned}
+				& \text{198.208.80.0/24} \\
+				& \therefore \texttt{24 bits are used for the network prefix} \\
+				& \therefore \texttt{subnet mask} = \text{255.255.255.0} \\
+			\end{aligned}
+		\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of subnet mask from a class \texttt{C} IP address using original default subnet masks.}
+	\end{minipage}}
+\end{figure}
+
+However, when using the extended network prefix in classless addressing, groups in the binary (8-bit) representations of the subnet masks may have mixed zero's (\texttt{}'s) and one's (\texttt{1}'s), as shown in the examples below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+		\begin{equation*}
+		\begin{aligned}
+		& \text{given that the IP address 131.46.56.0 is class B} \\
+		& \therefore \texttt{subnet mask} = \text{255.255.0.0} \\
+		& \text{131.46.56.0} = \text{10000011 00101110 00111000 00000000}
+		\\
+		& \therefore \texttt{CIDR} = \text{131.45.56.0/16} \\
+		& \\
+		& \\
+		& \text{given now that the subnet mask is 255.255.128.0, determine the CIDR} \\
+		& \text{255.255.128.0} = \text{11111111 11111111 10000000 00000000} 
+		\end{aligned}
+		\end{equation*}
+		\begin{longtabu} to \textwidth {X[1,l] X[0.1,l] X[0.1,l] X[6,l]}
+			Network ID & = & & 10000011 00101110 00111000 00000000
+			\\
+			&   & \& & 11111111 11111111 10000000 00000000
+			\\
+			& & & -------------------------------------------------------
+			\\
+			&   & = & 10000011 00101110 00000000 00000000
+		\end{longtabu}
+		\begin{equation*}
+		\begin{aligned}
+		& \text{network ID} = \text{10000011 00101110 00000000 00000000} \\
+		& \text{network ID} = \text{131.46} \\
+		\end{aligned}
+		\end{equation*}
+		\begin{longtabu} to \textwidth {X[0.8,l] X[0.1,l] X[0.1,l] X[6,l]}
+			Host ID & = & & 10000011 00101110 00111000 00000000
+			\\
+			&   & \& & 00000000 00000000 01111111 11111111
+			\\
+			& & & -------------------------------------------------------
+			\\
+			&   & = & 00000000 00000000 00111000 00000000
+		\end{longtabu}
+		\begin{equation*}
+		\begin{aligned}
+		& \text{host ID} = \text{00000000 00000000 00111000 00000000} \\
+		& \text{host ID} = \text{56.0} \\
+		& \\
+		& \text{the subnet mask 11111111 11111111 10000000 00000000 shows that 17 bits are used} \\ & \text{for the extended network prefix} \\
+		& \therefore \text{CIDR} = \text{131.46.56.0/17} \\
+		& \therefore \text{subnets available} = 2^{17-16} \\
+		& \therefore \text{subnets available} = 2^{1} \\
+		& \therefore \text{subnets available} = 2 \\
+		\end{aligned}
+		\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of subnet mask from a class \texttt{B} IP address using the extended network prefix.}
+	\end{minipage}}
+\end{figure}
 
 \end{document}
