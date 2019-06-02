@@ -12198,12 +12198,14 @@ IP addresses are hierarchical and the IPv4 address space consists of two parts, 
 
 As shown in the figure above, IPv4 has five classes. These are described below.
 
+\newpage
+
 IPv4 addresses with class \texttt{A}:
 \begin{itemize}
 	\item have 120 \textbf{maximum networks};
 	\item have 16 million \textbf{maximum hosts};
 	\item are \textbf{prefixed} by \texttt{0} in their binary (8-bit) notation;
-	\item contain the \textbf{network ID} in bits \texttt{1-8} in their binary (8-bit) notation; and
+	\item contain the \textbf{network ID} in bits \texttt{0-8} in their binary (8-bit) notation; and
 	\item contain the \textbf{host ID} in bits \texttt{9-32} in their binary (8-bit) notation.
 \end{itemize}
 
@@ -12212,7 +12214,7 @@ IPv4 addresses with class \texttt{B}:
 	\item have 16384 \textbf{maximum networks};
 	\item have 65536 \textbf{maximum hosts}; and
 	\item are \textbf{prefixed} by \texttt{10} in their binary (8-bit) notation;
-	\item contain the \textbf{network ID} in bits \texttt{2-16} in their binary (8-bit) notation; and
+	\item contain the \textbf{network ID} in bits \texttt{0-16} in their binary (8-bit) notation; and
 	\item contain the \textbf{host ID} in bits \texttt{17-32} in their binary (8-bit) notation.
 \end{itemize}
 
@@ -12221,7 +12223,7 @@ IPv4 addresses with class \texttt{C}:
 	\item have 2 million \textbf{maximum networks};
 	\item have 256 \textbf{maximum hosts}; and
 	\item are \textbf{prefixed} by \texttt{110} in their binary (8-bit) notation;
-	\item contain the \textbf{network ID} in bits \texttt{3-24} in their binary (8-bit) notation; and
+	\item contain the \textbf{network ID} in bits \texttt{0-24} in their binary (8-bit) notation; and
 	\item contain the \textbf{host ID} in bits \texttt{25-32} in their binary (8-bit) notation.
 \end{itemize}
 
@@ -12254,9 +12256,9 @@ This process is shown in the examples below.
 					& \text{00000001 00001011 00001011 11101111} \\
 					& \text{starts with a 0} \\
 					& \therefore \text{00000001 00001011 00001011 11101111 has class A} \\
-					& Network ID contained in bits 1-8 \\
+					& \text{Network ID contained in the first byte} \\
 					& \therefore \text{Network ID} = 00000001 = 1 \\
-					& Host ID contained in bits 9-32 \\
+					& \text{Host ID contained in the last three bytes} \\
 					& \therefore \text{Host ID} = 00001011 00001011 11101111 = 11.11.239 \\
 				\end{aligned}
 			\end{equation*}
@@ -12275,10 +12277,10 @@ This process is shown in the examples below.
 					& \text{11000001 10000011 00011011 11111111} \\
 					& \text{starts with 110} \\
 					& \therefore \text{11000001 10000011 00011011 11111111 has class C} \\
-					& Network ID contained in bits 3-24 \\
-					& \therefore \text{Network ID} = 00001100 00011000 110111 = 12.24.220 \\
-					& Host ID contained in bits 25-32 \\
-					& \therefore \text{Host ID} = 01111111 = 127 \\
+					& \text{Network ID contained in the first three bytes} \\
+					& \therefore \text{Network ID} = 11000001 10000011 00011011 = 193.131.27 \\
+					& \text{Host ID contained in the fourth byte} \\
+					& \therefore \text{Host ID} = 11111111 = 255 \\
 				\end{aligned}
 			\end{equation*}
 	\end{minipage}}
@@ -12301,9 +12303,9 @@ This process is shown in the examples below.
 					& \therefore \text{14.23.120.8} = \text{00001110 00010111 01111000 00001000} \\
 					& \text{starts with 0} \\
 					& \therefore \text{14.23.120.8 has class A} \\
-					& Network ID contained in bits 1-8 \\
+					& \text{Network ID contained the first byte} \\
 					& \therefore \text{Network ID} = 00001110 = 14 \\
-					& Host ID contained in bits 9-32 \\
+					& \text{Host ID contained in the last three bytes} \\
 					& \therefore \text{Host ID} = 00010111 01111000 00001000 = 23.120.8 \\
 				\end{aligned}
 			\end{equation*}
@@ -12335,13 +12337,6 @@ This process is shown in the examples below.
 			\caption{Example determination of a class from an IPv4 address.}
 	\end{minipage}}
 \end{figure}
-
-As shown in the examples above, when determining the network and host IDs, it is important to:
-\begin{itemize}
-	\item re-split the result in to groups of 8 bits;
-	\item backfill where necessary to ensure that each group is 8 bits; and
-	\item maintain the correct place values when backfilling.
-\end{itemize}
 
 
 \subsection*{Special addresses}
@@ -12657,5 +12652,295 @@ In this scenario the two locations in Paris and London both sending and receivin
 \end{itemize}
 
 The routers themselves are responsible for this encapsulation.
+
+
+\chapter{Addressing}
+
+\section{Addressing with classes}
+
+\section*{Recap}
+
+As seen before, IP addresses are hierarchical and the IPv4 address space consists of two parts, as shown in the table below.
+
+\begin{longtabu} to \textwidth {| X[1,l] | X[1,l] | X[2,l] |}
+	\hline
+	\textbf{Part} & \textbf{Contents} & \textbf{Location}
+	\\ \hline
+	Prefix & Network ID. & Most Significant Bits (MSBs).
+	\\ \hline
+	Suffix & Host ID. & Least Significant Bits (LSBs).
+	\\ \hline
+\end{longtabu}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-19/ipv4-classes.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{IPv4 classes.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, IPv4 has five classes. These are described below.
+
+IPv4 addresses with class \texttt{A}:
+\begin{itemize}
+	\item have 120 \textbf{maximum networks};
+	\item have 16 million \textbf{maximum hosts};
+	\item are \textbf{prefixed} by \texttt{0} in their binary (8-bit) notation;
+	\item contain the \textbf{network ID} in bits \texttt{1-8} in their binary (8-bit) notation; and
+	\item contain the \textbf{host ID} in bits \texttt{9-32} in their binary (8-bit) notation.
+\end{itemize}
+
+IPv4 addresses with class \texttt{B}:
+\begin{itemize}
+	\item have 16384 \textbf{maximum networks};
+	\item have 65536 \textbf{maximum hosts}; and
+	\item are \textbf{prefixed} by \texttt{10} in their binary (8-bit) notation;
+	\item contain the \textbf{network ID} in bits \texttt{2-16} in their binary (8-bit) notation; and
+	\item contain the \textbf{host ID} in bits \texttt{17-32} in their binary (8-bit) notation.
+\end{itemize}
+
+IPv4 addresses with class \texttt{C}:
+\begin{itemize}
+	\item have 2 million \textbf{maximum networks};
+	\item have 256 \textbf{maximum hosts}; and
+	\item are \textbf{prefixed} by \texttt{110} in their binary (8-bit) notation;
+	\item contain the \textbf{network ID} in bits \texttt{3-24} in their binary (8-bit) notation; and
+	\item contain the \textbf{host ID} in bits \texttt{25-32} in their binary (8-bit) notation.
+\end{itemize}
+
+Class \texttt{D}:
+\begin{itemize}
+	\item is \textbf{not defined} as it is reserved for multicasting (a multicast is group communication where data transmission is addressed to a group of destination computers simultaneously);
+	\item would have IPv4 addresses that are \textbf{prefixed} by \texttt{1110} in their binary (8-bit) notation.
+\end{itemize}
+
+Class \texttt{E}:
+\begin{itemize}
+	\item is \textbf{not defined} as it is reserved for future use, should the IPv4 protocol be extended, and experimental purposes;
+	\item would have IPv4 addresses that are \textbf{prefixed} by \texttt{1111} in their binary (8-bit) notation.
+\end{itemize}
+
+
+\newpage
+
+\section*{Subnet mask}
+
+\subsection*{Definition}
+
+A \textbf{subnet mark} identifies the length of an IP address.
+
+
+\subsection*{How it works}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-19/subnet-mask.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Subnet mark.}
+	\end{minipage}}
+\end{figure}
+
+The subnet mask can be used to extract information for an IP address:
+\begin{itemize}
+	\item the IP address is bitwise \texttt{AND}ed with the subnet mask to extract the network ID; and
+	\item the IP address is bitwise \texttt{AND}ed with an inverted version of the subnet mask to extract the host ID (inverting the subnet mask involves flipping all of the bits).
+\end{itemize}
+
+The subnet mark for a class \texttt{A} IP address is \texttt{255.0.0.0} as:
+\begin{itemize}
+	\item the first byte contains the network ID; and
+	\item the last three bytes contain the host ID.
+\end{itemize}
+
+The subnet mark for a class \texttt{B} IP address is \texttt{255.255.0.0} as:
+\begin{itemize}
+	\item the first two bytes contain the network ID; and
+	\item the last two bytes contain the host ID.
+\end{itemize}
+
+The subnet mark for a class \texttt{C} IP address is \texttt{255.255.255.0} as:
+\begin{itemize}
+	\item the first three bytes contain the network ID; and
+	\item the last byte contains the host ID.
+\end{itemize}
+
+This is shown in the examples below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+			\begin{aligned}
+				& \text{00000001 00001011 00001011 11101111} \\
+				& \text{starts with a 0} \\
+				& \therefore \text{00000001 00001011 00001011 11101111 has class A} \\
+				& \therefore \text{subnet mask} = \text{255.0.0.0} \\
+				& \text{subnet mask} = \text{11111111 00000000 00000000 00000000} \\
+			\end{aligned}
+			\end{equation*}
+			\begin{longtabu} to \textwidth {X[1,l] X[0.1,l] X[0.1,l] X[6,l]}
+				Network ID & = & & 00000001 00001011 00001011 11101111
+				\\
+				           &   & \& & 11111111 00000000 00000000 00000000
+				           \\
+				           & & & -------------------------------------------------------
+				           \\
+				           &   & = & 00000001 00000000 00000000 00000000
+			\end{longtabu}
+			\begin{equation*}
+				\begin{aligned}
+					& \text{network ID} = \text{00000001 00000000 00000000 00000000} \\
+					& \text{network ID} = \text{1} \\
+				\end{aligned}
+			\end{equation*}
+			\begin{longtabu} to \textwidth {X[0.8,l] X[0.1,l] X[0.1,l] X[6,l]}
+				Host ID & = & & 00000001 00001011 00001011 11101111
+				\\
+				&   & \& & 00000000 11111111 11111111 11111111
+				\\
+				& & & -------------------------------------------------------
+				\\
+				&   & = & 00000000 00001011 00001011 11101111
+			\end{longtabu}
+			\begin{equation*}
+				\begin{aligned}
+					& \text{host ID} = \text{00000000 00001011 00001011 11101111} \\
+					& \text{host ID} = \text{11.11.239} \\
+				\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of network ID and host ID from a class \texttt{A} IP address using subnet masks.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{10001001 10000010 00001011 11001111} \\
+			& \text{starts with 10} \\
+			& \therefore \text{10001001 10000010 00001011 11001111 has class B} \\
+			& \therefore \text{subnet mask} = \text{255.255.0.0} \\
+			& \text{subnet mask} = \text{11111111 11111111 00000000 00000000} \\
+			\end{aligned}
+			\end{equation*}
+			\begin{longtabu} to \textwidth {X[1,l] X[0.1,l] X[0.1,l] X[6,l]}
+				Network ID & = & & 10001001 10000010 00001011 11001111
+				\\
+				&   & \& & 11111111 11111111 00000000 00000000
+				\\
+				& & & -------------------------------------------------------
+				\\
+				&   & = & 10001001 10000010 00000000 00000000
+			\end{longtabu}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{network ID} = \text{10001001 10000010 00000000 00000000} \\
+			& \text{network ID} = \text{137.130} \\
+			\end{aligned}
+			\end{equation*}
+			\begin{longtabu} to \textwidth {X[0.8,l] X[0.1,l] X[0.1,l] X[6,l]}
+				Host ID & = & & 10001001 10000010 00001011 11001111
+				\\
+				&   & \& & 00000000 00000000 11111111 11111111
+				\\
+				& & & -------------------------------------------------------
+				\\
+				&   & = & 00000000 00000000 00001011 11001111
+			\end{longtabu}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{host ID} = \text{00000000 00001011 00001011 11101111} \\
+			& \text{host ID} = \text{11.11} \\
+			\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of network ID and host ID from a class \texttt{B} IP address using subnet masks.}
+	\end{minipage}}
+\end{figure}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{11000001 10000011 00011011 11111111} \\
+			& \text{starts with 110} \\
+			& \therefore \text{11000001 10000011 00011011 11111111 has class C} \\
+			& \therefore \text{subnet mask} = \text{255.255.255.0} \\
+			& \text{subnet mask} = \text{11111111 11111111 11111111 00000000} \\
+			\end{aligned}
+			\end{equation*}
+			\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
+				Network ID & = & & 11000001 10000011 00011011 11111111
+				\\
+				&   & \& & 11111111 11111111 11111111 00000000
+				\\
+				& & & -------------------------------------------------------
+				\\
+				&   & = & 11000001 10000011 00011011 00000000
+			\end{longtabu}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{network ID} = \text{11000001 10000011 00011011 00000000} \\
+			& \text{network ID} = \text{193.131.27} \\
+			\end{aligned}
+			\end{equation*}
+			\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
+				Host ID & = & & 11000001 10000011 00011011 11111111
+				\\
+				&   & \& & 00000000 00000000 00000000 11111111
+				\\
+				& & & -------------------------------------------------------
+				\\
+				&   & = & 00000000 00000000 00000000 11111111
+			\end{longtabu}
+			\begin{equation*}
+			\begin{aligned}
+			& \text{host ID} = \text{00000000 00000000 00000000 11111111} \\
+			& \text{host ID} = \text{255} \\
+			\end{aligned}
+			\end{equation*}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of network ID and host ID from a class \texttt{C} IP address using subnet masks.}
+	\end{minipage}}
+\end{figure}
+
+
+\section*{Issues}
+
+To explore the issues associated with addressing with classes, a generic university can be considered where:
+\begin{itemize}
+	\item a class \texttt{B} IP address was used by the Computer Science department;
+	\item later, the Engineering Department requested access to the Internet; and
+	\item later , the Art Department also requested access to the Internet.
+\end{itemize}
+
+When addressing with classes, two new class \texttt{B} IP addresses would have to be purchased for the Engineering Department and Art Department respectively.
+
+This shows that addressing with classes is:
+\begin{itemize}
+	\item very expensive; and
+	\item not flexible.
+\end{itemize}
+
+Alternatively, classless addressing can be used.
+
 
 \end{document}
