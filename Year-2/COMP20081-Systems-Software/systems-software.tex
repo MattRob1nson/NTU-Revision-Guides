@@ -13724,4 +13724,187 @@ This project was called "802" and includes:
 	\item "802.11" for Wi-Fi.
 \end{itemize}
 
+
+\newpage
+
+\section{Ethernet history and evolution}
+
+\section*{Definition}
+
+\textbf{Ethernet} is the most commonly used protocol in local area networks (LANs) and defines standards at:
+\begin{itemize}
+	\item the software level (data link layer protocols); and
+	\item the hardware level (physical layer protocols).
+\end{itemize}
+
+
+\section*{History}
+
+\subsection*{Classic Ethernet}
+
+Bob Metcalfe created the Ethernet in 1976 at Xerox.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/classic-ethernet.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Classic Ethernet.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, \textbf{Classic Ethernet} consisted of a single long cable to which all computers were attached.
+
+In 1983, Ethernet became the IEEE 802.3 standard.
+
+
+\subsection*{Thin Ethernet}
+
+The first variety of Ethernet to be used in practice was \textbf{thick Ethernet (10 Base-5)}. This was succeeded by \textbf{thin Ethernet (10 Base-2)}.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/10-base-2-ethernet.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Thin Ethernet (10 Base-2).}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, thin Ethernet (10 Base-2) consists of a bus network topology connected via a half-duplex coaxial cable.
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	A \textbf{bus network topology} involves a single cable connecting all networked devices, with a terminator at the end of the bus. The terminator is a piece of hardware which prevents signals in the cable from echoing, where they bounce back and forth. \\ \\
+	
+	This topology is \textbf{half-duplex}, meaning that data and information cannot travel in opposite directions at the same time. \\
+	\hline
+\end{longtabu}
+
+This yielded transmission between of 3-10Mbps.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/shared-bus.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Shared bus in bus network topology.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, the bus network topology used in Ethernet consists of a shared bus.
+
+As the machines share the same medium, collision may occur as attempts at transmission may be made simultaneously.
+
+Therefore, it is necessary to implement \textbf{Carrier Sense Multiple Access/Collision Detection (CSMA/CD)}.
+
+In CSMA/CD:
+\begin{itemize}
+	\item if a machine wishes to transmit along the medium, it "listens" (electronically testing the medium) to the medium and waits for it to become free;
+	\item if the channel is busy, the machine waits until it becomes idle; and
+	\item when the channel becomes idle, data transmission begins immediately but continues to "listen" to the medium.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/shared-bus-collision.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Collision on a shared bus.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, a collision occurs if two machines sense that the channel is idle and begin transmitting simultaneously. If a collision is detected, a machine stops transmission and waits a random amount of time before re-transmitting, known as the back-off time. The back-off time can be random as there is a very low probability that two machines would calculate the same random number.
+
+Due to these issues, Ethernet evolved away from this single long cable architecture.
+
+
+\section*{Evolution}
+
+\subsection*{Switched Ethernet}
+
+The evolution of Ethernet, and its departure from the single long cable architecture, involved the introduction of switched Ethernet.
+
+A \textbf{switch} is a piece of hardware which connects multiple devices together in a network using a physical connection. When a packet is received, the destination address in the packet’s header is examined and the packet is only re-broadcast to the device to which it was intended to be sent.
+
+In \textbf{switched Ethernet}, each machine has a dedicated cable running from its \textbf{Network Interface Card (NIC)} to a physical port on a central device called the \textbf{switch}, as shown in the figure below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/switched-ethernet.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Switched Ethernet.}
+	\end{minipage}}
+\end{figure}
+
+In this method:
+\begin{itemize}
+	\item packets (or frames) are passed to a physical port on the switch;
+	\item the destination address in the packet’s header is examined;
+	\item the packet is re-broadcast to the correct host connected to the switch.
+\end{itemize}
+
+As such:
+\begin{itemize}
+	\item switches only output frames to the ports for which those packets (or frames) are destined; and
+	\item hosts on the network need not be concerned with the switch as it is not an important factor to their method of sending and receiving data on the network, instead host on the network need only be concerned with using their network interface card (NIC) to send and receive on the network.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/star-network-topology.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Star network topology in switched ethernet.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, this method uses a star network topology on a twisted pair cable (other implementations also support fibre-optic cables).
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	A \textbf{star network topology}  involves a central node, such as a switch or computer acting as a router, which keeps a record of the unique MAC addresses on the network and can route data to the correct computer system. \\ \\
+	
+	This topology is \textbf{full-duplex}, meaning that data and information can travel in opposite directions at the same time. \\
+	\hline
+\end{longtabu}
+
+The full duplex nature of the star network topology removes the need for CSMA/CD as used in thin Ethernet.
+
+
+\subsection*{Timeline}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/ethernet-evolution-timeline.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Ethernet evolution timeline.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, the bandwidth permitted by Ethernet increased as the protocol evolved.
+
 \end{document}
