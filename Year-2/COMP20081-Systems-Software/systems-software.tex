@@ -13907,4 +13907,67 @@ The full duplex nature of the star network topology removes the need for CSMA/CD
 
 As shown in the figure above, the bandwidth permitted by Ethernet increased as the protocol evolved.
 
+
+\section{MAC address}
+
+\section*{Definition}
+
+A \textbf{Medium Access Control (MAC) address} is a hardware identification number that uniquely identifies each device on a network.
+
+
+\section*{How it works}
+
+Each device on an Ethernet network has its own Network Interface Card (NIC).
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{7cm}]{images/chapter-20/mac-address-sticker.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{MAC address sticker.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above, each NIC has a 6-byte physical address, known as the MAC address.
+
+MAC addresses are:
+\begin{itemize}
+	\item expressed in hexadecimal notation; and
+	\item managed by IEEE.
+\end{itemize}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/mac-address-contents.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{MAC address contents.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above:
+\begin{itemize}
+	\item the first three bytes identify the \textbf{Organisation Unique Identifier (OUI)}, this is assigned by the IEEE and identifies the vendor;
+	\item the last three bytes identify the NIC specific identifier, assigned by the vendor to each NIC and identifies the device.
+\end{itemize}
+
+The MAC address is stored in ROM to allow each device to be aware of its own ID.
+
+The \textbf{Address Resolution Protocol (ARP)} is used to map the IP address (logical) to the MAC address (physical).
+
+
+\section*{Example}
+
+In the MAC address \texttt{00:60:2F:00:2A:4F}:
+\begin{itemize}
+	\item the OUI is \texttt{00:60:2F}; and
+	\item the NIC specific identifier is \texttt{00:2A:4F}.
+\end{itemize}
+
 \end{document}
