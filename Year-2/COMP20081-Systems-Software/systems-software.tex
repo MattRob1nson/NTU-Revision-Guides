@@ -12340,6 +12340,7 @@ This process is shown in the examples below.
 
 
 \subsection*{Special addresses}
+\label{special_addresses}
 
 \begin{figure}[H]
 	\lineskip=-\fboxrule
@@ -12353,13 +12354,13 @@ This process is shown in the examples below.
 	\end{minipage}}
 \end{figure}
 
-As shown in the figure above, an IPv4 addresses:
+As shown in the figure above, an IPv4 address:
 \begin{itemize}
-	\item containing all zeros (\texttt{0}s) identifies the host of origin;
-	\item containing all ones (\texttt{1}s) allows broadcasting on the local network (i.e. "send to all neighbours");
+	\item containing all zeros (\texttt{0}s) is reserved and identifies the host of origin;
+	\item containing all ones (\texttt{1}s) is reserved and allows broadcasting on the local network (i.e. "send to all neighbours");
 	\item beginning with \texttt{127} are reserved for loopback (i.e. send from node to itself), often used for network testing;
-	\item with a network ID containing all zeros (\texttt{0}s) identifies a host; and
-	\item with a host ID containing all ones (\texttt{1}s) allows broadcasts on a distant network.
+	\item with a network ID containing all zeros (\texttt{0}s) is reserved and identifies a host; and
+	\item with a host ID containing all ones (\texttt{1}s) is reserved and allows broadcasts on a distant network.
 \end{itemize}
 
 
@@ -12904,7 +12905,7 @@ To explore the issues associated with addressing with classes, a generic univers
 \begin{itemize}
 	\item a class \texttt{B} IP address was used by the Computer Science department;
 	\item later, the Engineering Department requested access to the Internet; and
-	\item later , the Art Department also requested access to the Internet.
+	\item later, the Art Department also requested access to the Internet.
 \end{itemize}
 
 When addressing with classes, two new class \texttt{B} IP addresses would have to be purchased for the Engineering Department and Art Department respectively.
@@ -13164,5 +13165,258 @@ The examples in the figures above show how classless addressing is more flexible
 	\item when using the original default subnet masks in addressing with classes, only one subnet mask is available; and
 	\item when using subnetting in classless addressing, a high number of subnets (power of 2) is available based on the number of bits in extended network prefix and the number of bits in network prefix in default subnet mask.
 \end{itemize}
+
+
+\section*{Designing subnets}
+
+\subsection*{Fixed Length Subnet Masks (FLSM)}
+
+The issues with the addressing with classes approach were explored by considering a generic university where:
+\begin{itemize}
+	\item a class \texttt{B} IP address was used by the Computer Science department;
+	\item later, the Engineering Department requested access to the Internet; and
+	\item later, the Art Department also requested access to the Internet.
+\end{itemize}
+
+When addressing with classes, two new class \texttt{B} IP addresses would have to be purchased for the Engineering Department and Art Department respectively.
+
+This showed that addressing with classes is:
+\begin{itemize}
+	\item very expensive; and
+	\item not flexible.
+\end{itemize}
+
+Addressing with classes was said to be not flexible because, depending on the class used, there may be:
+\begin{itemize}
+	\item too many network IDs and not enough host IDs; or
+	\item too many host IDs and not enough network IDs. 
+\end{itemize}
+
+However, in the classless addressing solution, the extended network prefixes and subsequent subnet masks are used to identify the subnet and forward packets accordingly.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-19/subnetting-example.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example of subnetting.}
+	\end{minipage}}
+\end{figure}
+
+The example above shows the three university departments: Computer Science; Engineering; and Art. Three subnets are designed from the class \texttt{B} IP address.
+
+In order to determine the length of the extended network prefix, it is necessary to observe the determined rule that the number of subnets must always be a power of \texttt{2}:
+\begin{itemize}
+	\item $2^{0}$ = 1 -- 1 is not a power of 2;
+	\item $2^{1}$ = 2 -- 2 is not a power of 2; and
+	\item $2^{2}$ = 4 -- 4 is a power of 2.
+\end{itemize}
+
+It has now been determined that $2^{2}$ gives a power of 2 and therefore two additional binary bits are required in the extended network prefix:
+CIDR = <IP address>/18
+\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+	$\therefore$ & subnets mask = 11111111 11111111 11000000 00000000 \\
+	& subnets available = 255.255.192.0 \\
+\end{longtabu}
+
+The subnets can then be defined by exhausting all possible combinations of the additional bits in the extended network prefix until the required amount of subnets is reached (in this case, three subnets):
+\begin{longtabu} to \textwidth {X[0.5,l] X[2,l] X[1,l]}
+	\textbf{Subnet \#0}: & 10000000 11010000 \textbf{\underline{00}}000000 00000000 & = 128.208.0.0/18 \\
+	\textbf{Subnet \#1}: & 10000000 11010000 \textbf{\underline{01}}000000 00000000 & = 128.208.64.0/18 \\
+	\textbf{Subnet \#2}: & 10000000 11010000 \textbf{\underline{00}}000000 00000000 & = 128.208.128.0/18 \\
+\end{longtabu}
+
+The range of hosts that can be assigned for each subnet can then be determined:
+\begin{itemize}
+	\item \textbf{Subnet \#0}: 128.208.0.1 -- 128.208.63.254;
+	\item \textbf{Subnet \#1}: 128.208.64.1 -- 128.208.127.254; and
+	\item \textbf{Subnet \#2}: 128.208.128.1 -- 128.208.191.254.
+\end{itemize}
+
+Similar to IPv4's special addresses, as seen in \hyperref[sec:special_addresses]{Special addresses (Chapter 18)}, a host ID in any given subnet:
+\begin{itemize}
+	\item containing all zeros (\texttt{0}s) is reserved and identifies the network address of the subnet, such as 128.208.0.0 for Subnet \#0;
+	\item containing all ones (\texttt{1}s) is reserved and allows broadcasting on the subnet (i.e. "send to all neighbours"), such as 128.208.63.255 for Subnet \# 0;
+\end{itemize}
+
+When a packet arrives in to the main router, the subnet mask is used to check where the packet should be routed, as seen in the example below.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+		A packet arrives with the destination address 128.208.2.130.
+		
+		\begin{center}
+			$\downarrow$
+		\end{center}
+		
+		It is determined that the subnet mask is 255.255.196.0 for all subnets.
+		
+		\begin{center}
+			$\downarrow$
+		\end{center}
+	
+		The destination address is bitwise \texttt{AND}ed with the subnet mask to determine the subnet:
+		
+		128.208.2.130 = 10000000 11010000 00000010 10000010
+		
+		255.255.196.0 = 11111111 11111111 11000100 00000000
+		
+		\begin{longtabu} to \textwidth {X[0.7,l] X[0.1,l] X[0.1,l] X[6,l]}
+			subnet & = & & 10000000 11010000 00000010 10000010
+			\\
+			&   & \& & 11111111 11111111 11000100 00000000
+			\\
+			& & & -------------------------------------------------------
+			\\
+			&   & = & 10000000 11010000 00000000 00000000
+		\end{longtabu}
+	
+		subnet = 128.208
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example process for routing a packet to a subnet using CLSM.}
+	\end{minipage}}
+\end{figure}
+
+In this example:
+\begin{itemize}
+	\item the total number of allocated addresses is 65536;
+	\item the number of allocated addresses to each department is as follows \dots{}
+	\begin{itemize}
+		\item[--] Computer Science department (CS) -- 16384 (with extended prefix /18);
+		\item[--] Engineering department (EE) -- 16384 (with extended prefix /18); and
+		\item[--] Art department (Art) -- 16384 (with extended prefix /18).
+	\end{itemize}
+	\item the total number of unallocated (available) addresses is 16384.
+\end{itemize}
+
+The number of allocated addresses determines the number of devices that can be connected to that subnet. However it is possible that a specific department requires more addresses than another, as seen in the next section.
+
+
+\subsection*{Variable Length Subnet Masks (VLSM)}
+
+Suppose that:
+\begin{itemize}
+	\item the Computer Science department (CS) requires double the current number of allocated addresses (32768);
+	\item the Art department (Art) requires half the current number of allocated addresses (8192); and
+	\item the Engineering department (EE) is satisfied with the current number of allocated addresses (16384).
+\end{itemize}
+
+A similar process is observed as in CLSM however, the destination address is bitwise \texttt{AND}ed with all subnet masks individually.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			A packet arrives with the destination address 128.208.2.130.
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			It is determined that:
+			\begin{itemize}
+				\item the subnet mask is 255.255.128.0 for the Computer Science department (CS);
+				\item the subnet mask is 255.255.196.0 for the Engineering department (EE); and
+				\item the subnet mask is 255.255.244.0 for the Art department (Art).
+			\end{itemize}
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			The destination address is bitwise \texttt{AND}ed with the each subnet mask individually to determine the subnet.
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			For the Computer Science department (CS):
+			
+			128.208.2.130 = 10000000 11010000 00000010 10000010
+			
+			255.255.128.0 = 11111111 11111111 10000000 00000000
+			
+			\begin{longtabu} to \textwidth {X[0.7,l] X[0.1,l] X[0.1,l] X[6,l]}
+				subnet & = & & 10000000 11010000 00000010 10000010
+				\\
+				&   & \& & 11111111 11111111 10000000 00000000
+				\\
+				& & & -------------------------------------------------------
+				\\
+				&   & = & 10000000 11010000 00000000 00000000
+			\end{longtabu}
+		
+			subnet = 128.208
+		
+			\begin{center}
+				$\downarrow$
+			\end{center}
+			
+			For the Engineering department (EE):
+			
+			128.208.2.130 = 10000000 11010000 00000010 10000010
+			
+			255.255.196.0 = 11111111 11111111 11000100 00000000
+			
+			\begin{longtabu} to \textwidth {X[0.7,l] X[0.1,l] X[0.1,l] X[6,l]}
+				subnet & = & & 10000000 11010000 00000010 10000010
+				\\
+				&   & \& & 11111111 11111111 11000100 00000000
+				\\
+				& & & -------------------------------------------------------
+				\\
+				&   & = & 10000000 11010000 00000000 00000000
+			\end{longtabu}
+			
+			subnet = 128.208
+			
+			\begin{center}
+				$\downarrow$
+			\end{center}
+		
+			For the Art department (Art):
+			
+			128.208.2.130 = 10000000 11010000 00000010 10000010
+			
+			255.255.244.0 = 11111111 11111111 11110100 00000000
+			
+			\begin{longtabu} to \textwidth {X[0.7,l] X[0.1,l] X[0.1,l] X[6,l]}
+				subnet & = & & 10000000 11010000 00000010 10000010
+				\\
+				&   & \& & 11111111 11111111 11110100 00000000
+				\\
+				& & & -------------------------------------------------------
+				\\
+				&   & = & 10000000 11010000 00000000 00000000
+			\end{longtabu}
+			
+			subnet = 128.208
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example process for routing a packet to a subnet using VLSM.}
+	\end{minipage}}
+\end{figure}
+
+
+\newpage
+
+\section*{Advantages of classless addressing}
+
+Classless addressing benefits from the advantages of subnetting, including:
+\begin{itemize}
+	\item \textbf{improves the efficiency} of IP addresses by not consuming an entire address space for each physical network;
+	\item \textbf{allows better organisation} of resources internally;
+	\item \textbf{reduces the complexity of external routers} because they only have to store subnet masks, rather than all of the hosts;
+	\item \textbf{better performance} because a destination address will be checked against the hosts of the subnet, rather than all hosts;
+	\item \textbf{less expensive} as new IP addresses do not need to be purchases should more devices require addressing; and
+	\item \textbf{more flexible} as addresses can be allocated as required using Variable Length Subnet Masks (VLSM).
+\end{itemize}
+
 
 \end{document}
