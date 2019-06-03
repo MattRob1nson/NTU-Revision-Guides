@@ -12975,6 +12975,14 @@ As a result, the number of subnets available can be calculated by:
 	where & X & = & the number of bits in extended network prefix, \\
 	      & Y & = & the number of bits in network prefix in default subnet mask.
 \end{longtabu}
+As such, the number of hosts available can be calculated by:
+\begin{equation*}
+\text{hosts available} = 2^{\text{subnets available} - (\text{X} - \text{Y}}
+\end{equation*}
+\begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
+	where & X & = & the number of bits in extended network prefix, \\
+	& Y & = & the number of bits in network prefix in default subnet mask.
+\end{longtabu}
 
 This is implemented using CIDR, discussed in the next section.
 
@@ -13222,11 +13230,11 @@ CIDR = <IP address>/18
 	& subnets available = 255.255.192.0 \\
 \end{longtabu}
 
-The subnets can then be defined by exhausting all possible combinations of the additional bits in the extended network prefix until the required amount of subnets is reached (in this case, three subnets):
+The subnets can then be defined by exhausting all possible combinations of the additional bits in the extended network prefix in numerically ascending order until the required amount of subnets is reached (in this case, three subnets):
 \begin{longtabu} to \textwidth {X[0.5,l] X[2,l] X[1,l]}
-	\textbf{Subnet \#0}: & 10000000 11010000 \textbf{\underline{00}}000000 00000000 & = 128.208.0.0/18 \\
-	\textbf{Subnet \#1}: & 10000000 11010000 \textbf{\underline{01}}000000 00000000 & = 128.208.64.0/18 \\
-	\textbf{Subnet \#2}: & 10000000 11010000 \textbf{\underline{00}}000000 00000000 & = 128.208.128.0/18 \\
+	\textbf{Subnet \#0}: & 10000000 11010000 \textbf{\underline{00}000000} 00000000 & = 128.208.0.0/18 \\
+	\textbf{Subnet \#1}: & 10000000 11010000 \textbf{\underline{01}000000} 00000000 & = 128.208.64.0/18 \\
+	\textbf{Subnet \#2}: & 10000000 11010000 \textbf{\underline{00}000000} 00000000 & = 128.208.128.0/18 \\
 \end{longtabu}
 
 The range of hosts that can be assigned for each subnet can then be determined:
@@ -13418,5 +13426,161 @@ Classless addressing benefits from the advantages of subnetting, including:
 	\item \textbf{more flexible} as addresses can be allocated as required using Variable Length Subnet Masks (VLSM).
 \end{itemize}
 
+
+\section*{Subnetting exercises}
+
+\textbf{An ISP owns a network with the IP address 201.70.64.0. The ISP wants to create six subnets and advertise them to customers.}
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	\textbf{What class is the IP address the ISP owns?} \\
+	\vspace{2.5mm}
+	201.70.64.0 = 11001001 01000110 01000000 00000000 \\
+	starts with 110 \\
+	$\therefore$ IP address has class \texttt{C} \\
+	\hline
+\end{longtabu}
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	\textbf{What is the default subnet address of the IP address?} \\
+	\vspace{2.5mm}
+	IP address has class \texttt{C} \\
+	$\therefore$ subnet mask = 255.255.255.0 \\
+	\hline
+\end{longtabu}
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	\textbf{What is the CIDR notation of the IP address?} \\
+	\vspace{2.5mm}
+	IP address has default subnet address 255.255.255.0 \\
+	255.255.255.0 = 11111111 11111111 11111111 00000000 \\
+	$\therefore$ 24 bits are used for the extended network prefix \\
+	$\therefore$ CIDR = 201.70.64.0/24 \\
+	\hline
+\end{longtabu}
+
+\newpage
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	\textbf{How many additional binary digits are needed to design six subnets? How many hosts does this allow?} \\
+	\vspace{2.5mm}
+	subnets available = $2^{X - Y}$ \\
+	where X = the number of bits in extended network prefix, \\
+	Y = the number of bits in network prefix in default subnet mask \\
+	\vspace{2.5mm}
+	when using one additional binary digit, \\
+	\hspace{5mm} number of bits in extended network prefix = 24 + 1\\
+	\hspace{5mm} number of bits in extended network prefix = 25\\
+	\hspace{5mm} number of bits in network prefix in default subnet mask = 24 \\
+	\hspace{5mm} subnets available = $2^{25 - 24}$ \\
+	\hspace{5mm} subnets available = $2^{1}$ \\
+	\hspace{5mm} subnets available = 1 \\
+	$\therefore$ one additional binary digit is insufficient \\
+	\vspace{2.5mm}
+	when using two additional binary digits, \\
+	\hspace{5mm} number of bits in extended network prefix = 24 + 2\\
+	\hspace{5mm} number of bits in extended network prefix = 26\\
+	\hspace{5mm} number of bits in network prefix in default subnet mask = 24 \\
+	\hspace{5mm} subnets available = $2^{26 - 24}$ \\
+	\hspace{5mm} subnets available = $2^{2}$ \\
+	\hspace{5mm} subnets available = 4 \\
+	$\therefore$ two additional binary digits are insufficient \\
+	\vspace{2.5mm}
+	when using three additional binary digits, \\
+	\hspace{5mm} number of bits in extended network prefix = 24 + 3\\
+	\hspace{5mm} number of bits in extended network prefix = 27\\
+	\hspace{5mm} number of bits in network prefix in default subnet mask = 24 \\
+	\hspace{5mm} subnets available = $2^{27 - 24}$ \\
+	\hspace{5mm} subnets available = $2^{3}$ \\
+	\hspace{5mm} subnets available = 8 \\
+	$\therefore$ three additional binary digits are sufficient \\
+	\vspace{2.5mm}
+	three additional binary digits gives 8 subnets
+	\vspace{2.5mm}
+	hosts available = $2^{\text{subnets available} - (\text{X} - \text{Y}}$ \\
+	where X = the number of bits in extended network prefix, \\
+	Y = the number of bits in network prefix in default subnet mask \\
+	\vspace{2.5mm}
+	hosts available = $2^{8 - (27 - 24)}$ \\
+	hosts available = $2^{8 - 3}$ \\
+	hosts available = $2^{5}$ \\
+	hosts available = 32 \\
+	\hline
+\end{longtabu}
+
+\newpage
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	\textbf{What is the extended network prefix and the subnet mask?} \\
+	\vspace{2.5mm}
+	the number of bits in extended network prefix is 27 \\
+	$\therefore$ extended network prefix = /27 \\
+	\vspace{2.5mm}
+	the number of bits in extended network prefix is 27 \\
+	$\therefore$ subnet mask = 11111111 11111111 11111111 11100000 \\
+	subnet mask = 255.255.255.224 \\
+	\hline
+\end{longtabu}
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	\textbf{Express the subnets to advertise in binary notation and dotted-decimal notation.} \\
+	\vspace{2.5mm}
+	the subnets can be defined by exhausting all possible combinations of the additional bits in the extended network prefix in numerically ascending order until the required amount of subnets is reached (in this case, six subnets):
+	\begin{itemize}
+		\item Subnet \#0 -- 10000000 11010000 \textbf{\underline{000}00000} 00000000 = 201.70.64.00/27;
+		\item Subnet \#1 -- 10000000 11010000 \textbf{\underline{001}00000} 00000000 = 201.70.64.32/27;
+		\item Subnet \#2 -- 10000000 11010000 \textbf{\underline{010}00000} 00000000 = 201.70.64.64/27;
+		\item Subnet \#3 -- 10000000 11010000 \textbf{\underline{011}00000} 00000000 = 201.70.64.96/27;
+		\item Subnet \#4 -- 10000000 11010000 \textbf{\underline{100}00000} 00000000 = 201.70.64.128/27; and
+		\item Subnet \#5 -- 10000000 11010000 \textbf{\underline{101}00000} 00000000 = 201.70.64.164/27.
+	\end{itemize} \\
+	\hline
+\end{longtabu}
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	\textbf{What are the ranges of host addresses for each subnet?} \\
+	\vspace{2.5mm}
+	Subnet \#0 -- 201.70.64.00/27 \\
+	$\therefore$ range of host addresses for subnet \#0: 201.70.64.00 - 201.70.64.31 \\
+	\vspace{1.5mm}
+	Subnet \#1 -- 201.70.64.32/27 \\
+	$\therefore$ range of host addresses for subnet \#1: 201.70.64.32 - 201.70.64.63 \\
+	\vspace{1.5mm}
+	Subnet \#2 -- 201.70.64.64/27 \\
+	$\therefore$ range of host addresses for subnet \#2: 201.70.64.64 - 201.70.64.95 \\
+	\vspace{1.5mm}
+	Subnet \#3 -- 201.70.64.96/27 \\
+	$\therefore$ range of host addresses for subnet \#3: 201.70.64.96 - 201.70.64.127 \\
+	\vspace{1.5mm}
+	Subnet \#4 -- 201.70.64.128/27 \\
+	$\therefore$ range of host addresses for subnet \#4: 201.70.64.128 - 201.70.64.163 \\
+	\vspace{1.5mm}
+	Subnet \#5 -- 201.70.64.164/27 \\
+	$\therefore$ range of host addresses for subnet \#5: 201.70.64.164 - 201.70.64.255 \\
+	\vspace{1.5mm}
+	subnet \#0 range starts at subnet 201.70.64.00 and subnet \#5 range ends at 201.70.64.255 \\
+	$\therefore$ total number of allocated addresses (granted hosts) = 256 \\
+	\hline
+\end{longtabu}
+
+\newpage
+
+\begin{longtabu} to \textwidth {| X[1,l] |}
+	\hline
+	\textbf{How many hosts are still available for future use by the ISP?} \\
+	\vspace{2.5mm}
+	total number of allocated addresses (granted hosts) = 256 \\
+	the number of allocated addresses (assigned hosts) = $6\times32$ \\
+	the number of allocated addresses (assigned hosts) = 192 \\
+	$\therefore$ the total number of unallocated (available) addresses = 256 - 192 \\
+	the total number of unallocated (available) addresses = 64 (spanning across the two unused subnets) \\
+	\hline
+\end{longtabu}
 
 \end{document}
