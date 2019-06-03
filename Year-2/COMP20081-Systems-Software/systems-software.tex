@@ -91,7 +91,7 @@ A description of the computations to be performed could be expressed in a physic
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Perforated card}
+    \caption{Perforated card.}
   \end{minipage}}
 \end{figure}
 
@@ -100,24 +100,29 @@ There are multiple lines on the card, each with varying holes. Each line describ
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
     The user would describe their computations to someone who is capable of producing the correct perforated card needed for their computations.
     
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The perforated card would be passed to the computer operator. A computer operator is a manager of computational resources that provides common services.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The computer operator would have a job queue from all of the users. These would be processed in a “first in, first out” (FIFO) fashion.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	Jobs that are ready to be processed go in to batch processing. Each perforated card is passed through a computer system and the printed results are sent back to the user.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Process for performing computations in the 1950s}
+    \caption{Process for performing computations in the 1950s.}
   \end{minipage}}
 \end{figure}
 
@@ -138,7 +143,7 @@ Automation was brought about by the “Operating System Paradigm” in which use
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Process for performing computations after 1960}
+    \caption{Process for performing computations after 1960.}
   \end{minipage}}
 \end{figure}
 
@@ -203,7 +208,7 @@ A computer system generally has many internal hardware components and hardware p
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{External view of computer system}
+    \caption{External view of computer system.}
   \end{minipage}}
 \end{figure}
 
@@ -223,7 +228,7 @@ Inside of a computer system, there are many components connected to the processo
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Typical computer motherboard}
+    \caption{Typical computer motherboard.}
   \end{minipage}}
 \end{figure}
 
@@ -272,7 +277,7 @@ These attributes are achieved by layering the computer system such that the user
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Computer system layers}
+    \caption{Computer system layers.}
   \end{minipage}}
 \end{figure}
 
@@ -289,7 +294,7 @@ The structure of an operating system (OS) can be said to resemble an onion.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Structure of an operating system (OS)}
+    \caption{Structure of an operating system (OS).}
   \end{minipage}}
 \end{figure}
 
@@ -366,7 +371,7 @@ It presents a virtual machine (or extended machine) to users that is much easier
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Machine extending}
+    \caption{Machine extending.}
   \end{minipage}}
 \end{figure}
 
@@ -421,7 +426,7 @@ The benefit of this abstraction can be demonstrated when comparing how computati
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Adding two numbers}
+    \caption{Adding two numbers.}
   \end{minipage}}
 \end{figure}
 
@@ -481,7 +486,7 @@ Due to fast rate of hardware evolution, operating systems (OSs) are more wide-sp
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Popular operating systems (OSs)}
+    \caption{Popular operating systems (OSs).}
   \end{minipage}}
 \end{figure}
 
@@ -510,7 +515,7 @@ These computer systems share computing power and peripherals.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Distributed and network systems}
+    \caption{Distributed and network systems.}
   \end{minipage}}
 \end{figure}
 
@@ -577,11 +582,10 @@ However, there is a distinguishable difference between distributed and network s
 In an operating system (OS), the top layer is the user interface. This is the only layer explicitly visible to the user.
 
 The user interface may be a:
-\begin{longtabu} to \textwidth {X[6,l] X[1,c] X[10,l]}
-	\textbullet terminal & -- & text-based command prompt; and/or
-	\\
-	\textbullet graphical user interface (GUI) & -- & a visual way of interacting with a computer using items such as windows, icons and menus.
-\end{longtabu}
+\begin{itemize}
+	\item terminal -- text-based command prompt; and/or
+	\item graphical user interface (GUI) -- a visual way of interacting with a computer using items such as windows, icons and menus.
+\end{itemize}
 
 
 \subsection*{History of the graphical user interface (GUI)}
@@ -598,6 +602,8 @@ This development was a large influence on the design of personal computers durin
 	\item the first Sun Workstations.
 \end{itemize}
 
+
+\newpage
 
 \section{Kernel mode}
 
@@ -636,7 +642,7 @@ This development was a large influence on the design of personal computers durin
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Kernel mode and user mode}
+    \caption{Kernel mode and user mode.}
   \end{minipage}}
 \end{figure}
 
@@ -682,7 +688,7 @@ Kernel mode errors are catastrophic.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Kernel mode errors}
+    \caption{Kernel mode errors.}
   \end{minipage}}
 \end{figure}
 
@@ -734,7 +740,7 @@ Invoking a system call is similar to calling a general function. However, the di
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Unix system calls}
+    \caption{Unix system calls.}
   \end{minipage}}
 \end{figure}
 
@@ -768,7 +774,7 @@ A program is only code however, once it is run, a process is started, and it bec
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Programs and processes}
+    \caption{Programs and processes.}
   \end{minipage}}
 \end{figure}
 
@@ -778,12 +784,12 @@ A program is only code however, once it is run, a process is started, and it bec
 \section*{Process creation}
 
 A process can be created by:
+\begin{itemize}
+	\item a user -- a program may be executed by a user, such as via a double-click using a graphical user interface (GUI) or by typing in a command, and “trigger” the processor to load the program’s executable file containing the program code; or
+	\item another process -- an existing process may create another process by spawning/forking – the process that creates a new process is called the parent process while the new process is called the child process.
+\end{itemize}
 
-\begin{longtabu} to \textwidth {X[3,l] X[1,c] X[10,l]}
-	\textbullet a user & -- & a program may be executed by a user, such as via a double-click using a graphical user interface (GUI) or by typing in a command, and “trigger” the processor to load the program’s executable file containing the program code; or
-	\\
-	\textbullet another process & -- & an existing process may create another process by spawning/forking – the process that creates a new process is called the parent process while the new process is called the child process. The child process may also spawn a new process forming a tree of processes, as demonstrated in the diagram below.
-\end{longtabu}
+A child process may also spawn a new process forming a tree of processes, as demonstrated in the diagram below.
 
 \begin{figure}[H]
   \lineskip=-\fboxrule
@@ -793,7 +799,7 @@ A process can be created by:
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Process creation}
+    \caption{Process creation.}
   \end{minipage}}
 \end{figure}
 
@@ -814,7 +820,7 @@ A \textbf{process table} stores the process identification numbers (PIDs) for a 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Process table with respective process control blocks}
+    \caption{Process table with respective process control blocks.}
   \end{minipage}}
 \end{figure}
 
@@ -823,7 +829,7 @@ The process descriptor fields in the process control block (PCB) may differ betw
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \begin{longtabu} to \textwidth {X[2,l] X[2,l] X[2,l]}
+    \begin{longtabu} to \textwidth {| X[2,l] | X[2,l] | X[2,l] |}
 	    \hline
 	    \textbf{Process Management} & \textbf{Memory Management} & \textbf{File Management}
 	    \\ \hline
@@ -857,7 +863,7 @@ The process descriptor fields in the process control block (PCB) may differ betw
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Process descriptor fields in Minix}
+    \caption{Process descriptor fields in Minix.}
   \end{minipage}}
 \end{figure}
 
@@ -869,17 +875,15 @@ Although Minix is a fully-featured operating system (OS), it is a small operatin
 The \textbf{three-state model} shows how a process, once initiated, can be in one of three states. The current state of a process is stored in its respective process control block (PCB).
 
 A process, once initiated, can be in one of three main states:
-\begin{longtabu} to \textwidth {X[2,l] X[1,c] X[10,l]}
-	\textbullet running & -- & actually using the CPU to perform a task;
-	\\
-	\textbullet ready & -- & ready to run but waiting for the CPU as it has not yet had time on the CPU has been temporarily stopped to let another process run; or
-	\\
-	\textbullet ready & -- & unable to run until some external event occurs, such as:
+\begin{itemize}
+	\item running -- actually using the CPU to perform a task;
+	\item ready -- ready to run but waiting for the CPU as it has not yet had time on the CPU has been temporarily stopped to let another process run; or
+	\item blocked --  unable to run until some external event occurs, such as:
 		\begin{itemize}
-			\item waiting for an interrupt, this is a message from the hardware saying that a resource is now available to read from – such as waiting for an input/output (I/O) operation to complete; and
-			\item waiting for another process to finish accessing a shared resources – for example: a file; memory; or an external peripheral, such as a printer.
+			\item[--] waiting for an interrupt, this is a message from the hardware saying that a resource is now available to read from – such as waiting for an input/output (I/O) operation to complete; and
+			\item[--] waiting for another process to finish accessing a shared resources – for example: a file; memory; or an external peripheral, such as a printer.
 		\end{itemize}
-\end{longtabu}
+\end{itemize}
 
 \begin{figure}[H]
   \lineskip=-\fboxrule
@@ -889,7 +893,7 @@ A process, once initiated, can be in one of three main states:
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Process states}
+    \caption{Process states.}
   \end{minipage}}
 \end{figure}
 
@@ -928,7 +932,7 @@ In reference to the diagram above, transitions can occur between process states.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Transitions between processor states}
+    \caption{Transitions between processor states.}
   \end{minipage}}
 \end{figure}
 
@@ -952,7 +956,7 @@ At any time, at most one process is in the running state. This is because a sing
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Running processes}
+    \caption{Running processes.}
   \end{minipage}}
 \end{figure}
 
@@ -969,7 +973,7 @@ There may be a queue of processes in the ready state.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Ready processes}
+    \caption{Ready processes.}
   \end{minipage}}
 \end{figure}
 
@@ -986,7 +990,7 @@ There may be several queues of processes in the blocked state, where each queue 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Currently running processes}
+    \caption{Currently running processes.}
   \end{minipage}}
 \end{figure}
 
@@ -1001,15 +1005,10 @@ There may be several queues of processes in the blocked state, where each queue 
 \textbf{Voluntary termination} of a process represents the end of life for a process where its termination was intended by the user or the programmer.
 
 This can be a:
-\begin{longtabu} to \textwidth { X[1.5,l] X[0.2,l] X[7,l]}
-	\textbf{\textbullet normal exit}
-	& -- &
-	the process has done its work; or
-	\\
-	\textbf{\textbullet error exit}
-	& -- &
-	the process itself handles and “catches” an error – for example, some try-catch code is implemented to check if a condition is met, such as if the definition of a variable is present.
-\end{longtabu}
+\begin{itemize}
+	\item normal exit -- the process has done its work; or
+	\item error exit -- the process itself handles and “catches” an error – for example, some try-catch code is implemented to check if a condition is met, such as if the definition of a variable is present.
+\end{itemize}
 
 \begin{figure}[H]
   \lineskip=-\fboxrule
@@ -1019,7 +1018,7 @@ This can be a:
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Voluntary termination due to an error exit}
+    \caption{Voluntary termination due to an error exit.}
   \end{minipage}}
 \end{figure}
 
@@ -1029,15 +1028,10 @@ This can be a:
 \textbf{Involuntary termination} of a process represents the end of life for a process where its termination as not intended by the user or the programmer.
 
 This can be due to:
-\begin{longtabu} to \textwidth { X[1.5,l] X[0.2,l] X[7,l]}
-	\textbf{\textbullet a fatal error}
-	& -- &
-	an error is detected by the operating system’s (OS’s) protected mode – for example, an exception has been thrown due to reference to a non-existent memory location or division by zero; or
-	\\
-	\textbf{\textbullet being killed by another process}
-	& -- &
-	a process may execute a system call that causes the operating system (OS) to kill another process – this process may have control over the killed process and this may be due to that process being the parent process of the killed process.
-\end{longtabu}
+\begin{itemize}
+	\item a fatal error -- an error is detected by the operating system’s (OS’s) protected mode – for example, an exception has been thrown due to reference to a non-existent memory location or division by zero; or
+	\item being killed by another process -- a process may execute a system call that causes the operating system (OS) to kill another process – this process may have control over the killed process and this may be due to that process being the parent process of the killed process.
+\end{itemize}
 
 \begin{figure}[H]
   \lineskip=-\fboxrule
@@ -1047,7 +1041,7 @@ This can be due to:
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Voluntary termination due to an error exit}
+    \caption{Voluntary termination due to an error exit.}
   \end{minipage}}
 \end{figure}
 
@@ -1072,7 +1066,7 @@ The \textbf{fetch-execute cycle} is an operational process in which a computer s
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Simple fetch-execute cycle}
+    \caption{Simple fetch-execute cycle.}
   \end{minipage}}
 \end{figure}
 
@@ -1090,21 +1084,11 @@ An \textbf{interrupt} is a signal sent to the processor indicating that an event
 
 \subsection*{Types of interrupts}
 
-\begin{longtabu} to \textwidth { X[1.5,l] X[0.2,l] X[7,l]}
-	\textbf{\textbullet Input/output (I/O) interrupt}
-	& -- &
-	Caused by an input/output (I/O) device to signal completion or an error.
-	\\
-	\\
-	\textbf{\textbullet Timer interrupt}
-	& -- &
-	Caused by a processor timer and is used to alert the operating system (OS) at specific instants.
-	\\
-	\\
-	\textbf{\textbullet Program interrupt}
-	& -- &
-	Caused by error conditions within user programs or fatal errors.
-\end{longtabu}
+\begin{itemize}
+	\item Input/output (I/O) interrupt -- Caused by an input/output (I/O) device to signal completion or an error.
+	\item Timer interrupt -- Caused by a processor timer and is used to alert the operating system (OS) at specific instants.
+	\item Program interrupt -- Caused by error conditions within user programs or fatal errors.
+\end{itemize}
 
 
 \subsection*{When do interrupts occur?}
@@ -1116,36 +1100,45 @@ An \textbf{interrupt} is a signal sent to the processor indicating that an event
     \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-2/interrupt-graph.png}
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
 	A process requiring immediate attention is waiting for the processor (CPU).
 	
 	For example, an input/output (I/O) event occurs.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The currently running process’ execution is suspended.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	Processor switches execution to another process.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	When input/output (I/O) completes, an interrupt will occur.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The execution is diverted to the interrupt handling routine.
 	
 	An interrupt handling routine (ISR) contains the operations that are performed to deal with an interrupt. Different types of interrupts can have different routines.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The suspended program may restart, if conditions are met.
 	\end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Interrupt occurring due to input/output (I/O) event}
+    \caption{Interrupt occurring due to input/output (I/O) event.}
   \end{minipage}}
 \end{figure}
 
@@ -1166,7 +1159,7 @@ Given the introduction of interrupts, it is now necessary to update the fetch-ex
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Updated fetch-execute cycle}
+    \caption{Updated fetch-execute cycle.}
   \end{minipage}}
 \end{figure}
 
@@ -1200,7 +1193,7 @@ Concurrency is able to achieve multitasking, that does not require parallel exec
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Interleaving}
+    \caption{Interleaving.}
   \end{minipage}}
 \end{figure}
 
@@ -1226,7 +1219,7 @@ After an input/output (I/O) system call or interrupt handling, control is passed
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{The scheduler}
+    \caption{The scheduler.}
   \end{minipage}}
 \end{figure}
 
@@ -1253,21 +1246,11 @@ Context switching must be minimised to reduce overheads created by copying the s
 
 Different scheduling criteria may be selected depending on the use case for a given computer system.
 
-\begin{longtabu} to \textwidth { X[1.5,l] X[0.2,l] X[7,l]}
-	\textbf{\textbullet CPU utilisation}
-	& -- &
-	Aims to keep the CPU as busy as possible.
-	\\
-	\\
-	\textbf{\textbullet Efficiency}
-	& -- &
-	Aims to maximise system throughput.
-	\\
-	\\
-	\textbf{\textbullet Fairness}
-	& -- &
-	Aims to be fair to all running processes or to all users on a multi-user operating system (OS).
-\end{longtabu}
+\begin{itemize}
+	\item CPU utilisation -- Aims to keep the CPU as busy as possible.
+	\item Efficiency -- Aims to maximise system throughput.
+	\item Fairness -- Aims to be fair to all running processes or to all users on a multi-user operating system (OS).
+\end{itemize}
 
 This means that different policies and algorithms for scheduling will exist to match these criteria.
 
@@ -1315,7 +1298,7 @@ In order for a scheduling algorithm to be deemed as fair to all processes, the r
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Case study}
+    \caption{Case study.}
   \end{minipage}}
 \end{figure}
 
@@ -1354,7 +1337,7 @@ In this algorithm, the first process to arrive is assigned to the processor (CPU
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Temporal diagram for FCFS / FIFO}
+    \caption{Temporal diagram for FCFS / FIFO.}
   \end{minipage}}
 \end{figure}
 
@@ -1404,7 +1387,7 @@ In this algorithm, the process with the shortest estimated run time is assigned 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Temporal diagram for SJF}
+    \caption{Temporal diagram for SJF.}
   \end{minipage}}
 \end{figure}
 
@@ -1459,7 +1442,7 @@ In this algorithm, the process with the shortest estimated remaining time is ass
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Temporal diagram for SRT}
+    \caption{Temporal diagram for SRT.}
   \end{minipage}}
 \end{figure}
 
@@ -1489,7 +1472,7 @@ In this algorithm, the process with the shortest estimated remaining time is ass
 In this algorithm, the process with the highest priority is assigned to the processor (CPU). If a process becomes ready that has a higher priority, it will be pre-empted to allow the new process to start and the scheduler is switched to that new process.
 
 The priority of a process may be based on memory, time and/or any other resource requirement such as:
-\[\frac{waiting time + run time}{run time}\]
+\[\frac{\text{waiting time} + \text{run time}}{\text{run time}}\]
 
 \begin{figure}[H]
   \lineskip=-\fboxrule
@@ -1518,9 +1501,11 @@ The priority of a process may be based on memory, time and/or any other resource
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Temporal diagram for HRRN}
+    \caption{Temporal diagram for HRRN.}
   \end{minipage}}
 \end{figure}
+
+\newpage
 
 \begin{longtabu} to \textwidth {|X[1,l]|X[1,l]|}
     \hline
@@ -1559,7 +1544,7 @@ A system designer may wish to choose a time quantum that is most appropriate for
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{RR}
+    \caption{RR.}
   \end{minipage}}
 \end{figure}
 
@@ -1589,7 +1574,7 @@ A system designer may wish to choose a time quantum that is most appropriate for
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Temporal diagram for RR with a fixed time quantum of 1 (q = 1)}
+    \caption{Temporal diagram for RR with a fixed time quantum of 1 (q = 1).}
   \end{minipage}}
 \end{figure}
 
@@ -1619,7 +1604,7 @@ A system designer may wish to choose a time quantum that is most appropriate for
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Temporal diagram for RR with a fixed time quantum of 4 (q = 4)}
+    \caption{Temporal diagram for RR with a fixed time quantum of 4 (q = 4).}
   \end{minipage}}
 \end{figure}
 
@@ -1660,7 +1645,7 @@ Multi-level queueing makes use of other existing scheduling algorithms.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Multi-level queueing}
+    \caption{Multi-level queueing.}
   \end{minipage}}
 \end{figure}
 
@@ -1714,7 +1699,7 @@ Multi-threading provides a way of improving application performance and therefor
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Single-threaded vs multi-threaded}
+    \caption{Single-threaded vs multi-threaded.}
   \end{minipage}}
 \end{figure}
 
@@ -1739,7 +1724,7 @@ Multi-threading provides a way of improving application performance and therefor
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Example of multi-threading in Microsoft Word}
+    \caption{Example of multi-threading in Microsoft Word.}
   \end{minipage}}
 \end{figure}
 
@@ -1758,7 +1743,7 @@ Threads and processes share some similarities however, there are also some disti
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Single-threaded process}
+    \caption{Single-threaded process.}
   \end{minipage}}
 \end{figure}
 
@@ -1770,7 +1755,7 @@ Threads and processes share some similarities however, there are also some disti
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Multi-threaded process}
+    \caption{Multi-threaded process.}
   \end{minipage}}
 \end{figure}
 
@@ -1782,7 +1767,7 @@ Threads and processes share some similarities however, there are also some disti
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Process table and process control blocks}
+    \caption{Process table and process control blocks.}
   \end{minipage}}
 \end{figure}
 
@@ -1844,7 +1829,7 @@ Threads and processes share some similarities however, there are also some disti
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Threads vs processes}
+    \caption{Threads vs processes.}
   \end{minipage}}
 \end{figure}
 
@@ -1877,7 +1862,7 @@ Threads and processes share some similarities however, there are also some disti
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Threads vs processes}
+    \caption{Threads vs processes.}
   \end{minipage}}
 \end{figure}
 
@@ -1908,7 +1893,7 @@ Programs written using sequential programming are assumed to execute on a single
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Sequential program}
+    \caption{Sequential program.}
   \end{minipage}}
 \end{figure}
 
@@ -1945,15 +1930,10 @@ Programs written using sequential programming are assumed to execute on a single
 Multiple threads of control allow a given process to perform multiple computations in parallel and to control simultaneous external activities.
 
 The program may be run on both:
-\begin{longtabu} to \textwidth { X[1.5,l] X[0.2,l] X[7,l]}
-	\textbullet a single-CPU system
-	& -- &
-	where the computer program will take advantage of multitasking; and
-	\\
-	\textbullet a multi-CPU system
-	& -- &
-	where the computer program will take advantage of true parallelism.
-\end{longtabu}
+\begin{itemize}
+	\item a single-CPU system -- where the computer program will take advantage of multitasking; and
+	\item a multi-CPU system -- where the computer program will take advantage of true parallelism.
+\end{itemize}
 
 
 \subsection*{Evaluation}
@@ -2059,19 +2039,15 @@ implies that the execution at the system level is as follows
 
 	\indent \textbf{P1} $\rightarrow$ \textbf{Q1} $\rightarrow$ \textbf{Q2} $\rightarrow$ \textbf{Q3} $\rightarrow$ \textbf{R1} $\rightarrow$ \textbf{R2} $\rightarrow$ \textbf{R3},
 	
-given that \textbf{P} is compiled to a single machine instruction, whilst \textbf{Q} and \textbf{R} are compiled to three machine instructions – as seen on page 40.
+given that \textbf{P} is compiled to a single machine instruction, whilst \textbf{Q} and \textbf{R} are compiled to three machine instructions.
 
 Sequential execution has the following assumptions:
-\begin{longtabu} to \textwidth { X[1.7,l] X[0.2,l] X[7,l]}
-	\textbullet total ordering & -- &
-	there is single-threaded computation, and therefore no overlap in the execution of the statements;
-	\\
-	\textbullet deterministic & -- &
-	the same input will always result in the same output; and
-	\\
-	\textbullet sequence & -- &
-	users will specify a strict sequence of steps required in order to achieve a desired goal.
-\end{longtabu}
+\begin{itemize}
+	\item total ordering -- there is single-threaded computation, and therefore no overlap in the execution of the statements;
+	\item deterministic -- the same input will always result in the same output; and
+	\item sequence -- users will specify a strict sequence of steps required in order to achieve a desired goal.
+\end{itemize}
+
 However, this does not apply in many practical applications, for which a sequence of steps is not required.
 
 
@@ -2088,7 +2064,9 @@ In this hypothetical example, a person desires to have a list with the results o
 
 A group of 100000 people are spilt in to heavily uneven teams and assigned the same task to complete all of the calculations in order to achieve the desired result.
 
-It is given that each calculation takes n amount of time.
+It is given that each calculation takes \texttt{n} amount of time.
+
+\newpage
 
 \begin{longtabu} to \textwidth {| X[1,l] | X[2,l] | X[1,l] | X[2,l] |}
     \hline
@@ -2105,8 +2083,8 @@ It is given that each calculation takes n amount of time.
 
 	Each member should calculate the respective square for the number they are assigned.
 	\\ \hline
-    Time taken & 100000n
-    & Time taken & n
+    Time taken & 100000\texttt{n}
+    & Time taken & \texttt{n}
 	\\ \hline
 \end{longtabu}
 
@@ -2117,7 +2095,7 @@ This example forms that basic concept of concurrent execution.
 
 \section*{The nature of concurrent execution}
 
-Concurrent execution dismisses many of the assumptions required for sequential execution (page 41).
+Concurrent execution dismisses many of the assumptions required for sequential execution.
 
 Calculations may be carried out without total ordering. As a result, calculations may be carried out in parallel and overlapping is therefore allowed.
 
@@ -2175,18 +2153,15 @@ A high-level concurrent program may spawn new threads.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Concurrent program spawning threads $t_{1}$ and $t_{2}$}
+    \caption{Concurrent program spawning threads $t_{1}$ and $t_{2}$.}
   \end{minipage}}
 \end{figure}
 
 In this example, the concurrent program spawns the threads $t_{1}$ and $t_{2}$ where:
-\begin{longtabu} to \textwidth { X[1.5,l] X[0.2,l] X[3,l]}
-	\textbullet $t_{1}$ has three statements & -- &
-	A, B and C; and
-	\\
-	\textbullet $t_{2}$ has two statements & -- &
-	S and T.
-\end{longtabu}
+\begin{itemize}
+	\item $t_{1}$ has three statements -- \texttt{A}, \texttt{B} and \texttt{C}; and
+	\item $t_{2}$ has two statements -- \texttt{S} and \texttt{T}.
+\end{itemize}
 
 There are two threads and therefore it is possible to use the adjusted formula to calculate the number of interleavings in this concurrent program:
 
@@ -2212,7 +2187,7 @@ There are 10 possible interleavings, thus yielding 10 possible different executi
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Visual representation of the possible execution sequences}
+    \caption{Visual representation of the possible execution sequences.}
   \end{minipage}}
 \end{figure}
 
@@ -2228,14 +2203,12 @@ The number of interleavings grows extremely quickly given an increase in:
 \end{itemize}
 
 This can be demonstrated by increasing the number of operations in the previous example:
-\begin{longtabu} to \textwidth { X[2,l] X[0.2,l] X[3,l]}
-	\textbullet $t_{1}$ now has four statements  & -- &
-	A, B, C and D; and
-	\\
-	\textbullet $t_{2}$ now has five statements  & -- &
-	S, T, U, V and W.
-\end{longtabu}
-and therefore:
+\begin{itemize}
+	\item $t_{1}$ now has four statements -- \texttt{A}, \texttt{B}, \texttt{C} and \texttt{D}; and
+	\item $t_{2}$ now has five statements -- \texttt{S}, \texttt{T}, \texttt{U}, \texttt{V} and \texttt{W}.
+\end{itemize}
+
+Therefore:
 \begin{equation*}
 	\begin{aligned}
 		\text{number of interleavings} & = \frac{(n + m)!}{n!m!} \\
@@ -2265,7 +2238,7 @@ User threads are created and managed by a user level library, typically without 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{User threads}
+    \caption{User threads.}
   \end{minipage}}
 \end{figure}
 
@@ -2300,7 +2273,7 @@ Kernel threads are directly managed and supported by the operating system’s (O
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Kernel threads}
+    \caption{Kernel threads.}
   \end{minipage}}
 \end{figure}
 
@@ -2337,7 +2310,7 @@ The kernel is generally not aware of the user threads present in a process. Ther
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Multi-threading mapping}
+    \caption{Multi-threading mapping.}
   \end{minipage}}
 \end{figure}
 
@@ -2348,6 +2321,8 @@ The diagram shows that there must be some relationship between the user threads 
 	\item many-to-many.
 \end{itemize}
 
+
+\newpage
 
 \section*{Many-to-one mapping}
 
@@ -2363,7 +2338,7 @@ All user threads from each process map to one kernel thread.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Many-to-one mapping}
+    \caption{Many-to-one mapping.}
   \end{minipage}}
 \end{figure}
 
@@ -2384,6 +2359,8 @@ All user threads from each process map to one kernel thread.
 \end{longtabu}
 
 
+\newpage
+
 \section*{One-to-one mapping}
 
 \subsection*{How it works}
@@ -2398,7 +2375,7 @@ Each user thread maps to a single kernel thread.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{One-to-one mapping}
+    \caption{One-to-one mapping.}
   \end{minipage}}
 \end{figure}
 
@@ -2423,6 +2400,8 @@ Each user thread maps to a single kernel thread.
 \end{longtabu}
 
 
+\newpage
+
 \section*{Many-to-many mapping}
 
 \subsection*{How it works}
@@ -2437,7 +2416,7 @@ Many user threads multiplex to an equal or smaller number of kernel threads.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Many-to-many mapping}
+    \caption{Many-to-many mapping.}
   \end{minipage}}
 \end{figure}
 
@@ -2465,7 +2444,7 @@ Many user threads multiplex to an equal or smaller number of kernel threads.
     \begin{wrapfigure}{l}{4cm}
 		\includegraphics[width=4cm]{images/chapter-3/parallelism.png}
 	\end{wrapfigure} 
-    \textbf{Parallelism.} It improves the efficiency of program execution in computer systems with multiple CPUs by allows tasks/operations to be split up and executed independently on each CPU.
+    \textbf{Parallelism.} It improves the efficiency of program execution in computer systems with multiple CPUs by allowing tasks/operations to be split up and executed independently on each CPU.
     &
     \textbf{Debugging complexity} as concurrent programs are non-deterministic and therefore it can be difficult to trace a problem/bug in the code as the same input will generally not result in the same output.  
     \\ \hline
@@ -2531,7 +2510,7 @@ A race condition may occur when two threads attempt to access the same location 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Concurrent program spawning threads $t_{1}$ and $t_{2}$}
+    \caption{Concurrent program spawning threads $t_{1}$ and $t_{2}$.}
   \end{minipage}}
 \end{figure}
 
@@ -2582,7 +2561,7 @@ A race condition may also occur when two threads attempt to access the same peri
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Printer spooler directory}
+    \caption{Printer spooler directory.}
   \end{minipage}}
 \end{figure}
 
@@ -2634,7 +2613,7 @@ The \textbf{critical section/region} is code in a process that involves sensitiv
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Mutual exclusion on critical section/region}
+    \caption{Mutual exclusion on critical section/region.}
   \end{minipage}}
 \end{figure}
 
@@ -2675,7 +2654,7 @@ A \textbf{semaphore} is a system tool used for the design of correct synchronisa
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Semaphore interaction on critical section/region}
+    \caption{Semaphore interaction on critical section/region.}
   \end{minipage}}
 \end{figure}
 
@@ -2684,6 +2663,8 @@ The diagram shows that semaphores allow the CPU to context switch between thread
 It is convenient to write entry and exit protocols using a single atomic statement. This statement is atomic and therefore is indivisible, meaning that the statement cannot be interrupted.
 
 As mentioned before, a semaphore, denoted by $S$, is an integer that takes only non-negative values. Only two atomic (indivisible) statements are permitted, as shown below.
+
+\newpage
 
 \begin{longtabu*} to \textwidth {|X[0.5,l]|X[1,l]|X[1,l]|}
     \hline
@@ -2751,7 +2732,7 @@ This problem has the following requirements:
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{The producer-consumer problem}
+    \caption{The producer-consumer problem.}
   \end{minipage}}
 \end{figure}
 
@@ -2768,9 +2749,7 @@ This problem could be solved by keeping track of the number of items in the buff
 
 This could be achieved by implementing loops in the producer class and consumer class.
 
-\newpage
-
-\begin{lstlisting}[title={Producer class}]
+\begin{lstlisting}[title={Producer class.}]
 LOOP
 {
 	Produce item i         //produce item
@@ -2829,7 +2808,7 @@ Four conditions must be hold simultaneously in order for a deadlock to occur:
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Circular wait}
+    \caption{Circular wait.}
   \end{minipage}}
 \end{figure}
 
@@ -2838,36 +2817,47 @@ A deadlock may occur in the possible solution described previously.
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
     Consumer reads $itemCount = 0$ and it evaluates to $True$, and therefore $sleep(consumer)$ needs to be called.
     
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	Just before $sleep(consumer)$ is called, the consumer is interrupted by a timer interrupt and the producer is resumed.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The producer places an item in to the buffer, such that $itemCount = 1$.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The producer tries to perform $wakeup(consumer)$ however, the consumer is already in “wakeup” mode. As a result, the call to $wakeup(consumer)$ is missed.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	When the consumer resumes, it will call $sleep(consumer)$ and get trapped in “sleep” mode.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The producer will continue placing items in the buffer and call $sleep(producer)$ when the buffer is full.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	There is now a deadlock as both threads are waiting for a $wakeup$ call from each other.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Possible deadlock}
+    \caption{Possible deadlock.}
   \end{minipage}}
 \end{figure}
 
@@ -2876,13 +2866,13 @@ This possible deadlock shows that another solution is required to effectively so
 
 \section*{Solving the problem using semaphores}
 
-It is assumed that
-\begin{lstlisting}
-ItemsReady = 0
-SpacesLeft = N  //size of buffer
-\end{lstlisting}
+It is assumed that:
+\begin{itemize}
+	\item \texttt{ItemsReady = 0}; and
+	\item \texttt{SpacesLeft = N (size of buffer)}.
+\end{itemize}
 
-\begin{lstlisting}[title={Producer class}]
+\begin{lstlisting}[title={Producer class.}]
 LOOP
 {
 	Produce item i      // produce item
@@ -2892,6 +2882,8 @@ LOOP
 	Signal(ItemsReady)  // increment
 }
 \end{lstlisting}
+
+\newpage
 
 \begin{lstlisting}[title={Consumer class}]
 LOOP
@@ -2944,7 +2936,7 @@ As with the previous producer-consumer problem, this problem has the following r
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{The multiple producer-consumer problem}
+    \caption{The multiple producer-consumer problem.}
   \end{minipage}}
 \end{figure}
 
@@ -2978,13 +2970,13 @@ A \textbf{mutex} (or \textbf{binary semaphore}) is a semaphore with ownership th
 
 It is now possible to construct a solution, using a mutex (or binary semaphore), that will ensure mutual exclusion even when there are multiple producers and/or multiple consumers.
 
-It is assumed that
-\begin{lstlisting}
-ItemsReady = 0
-SpacesLeft = N  //size of buffer
-\end{lstlisting}
+It is assumed that:
+\begin{itemize}
+	\item \texttt{ItemsReady = 0}; and
+	\item \texttt{SpacesLeft = N (size of buffer)}.
+\end{itemize}
 
-\begin{lstlisting}[title={Producer class}]
+\begin{lstlisting}[title={Producer class.}]
 LOOP
 {
 	Produce item i      // produce item
@@ -3010,18 +3002,18 @@ LOOP
 }
 \end{lstlisting}
 
-The mutex $BusyBuffer$ has ownership and therefore can only be incremented/decremented by the same thread/process.
+The \texttt{BusyBuffer} mutex has ownership and therefore can only be incremented/decremented by the same thread/process. The \texttt{BusyBuffer} mutex is initially set to one (\texttt{1}).
 
 The order in which semaphores are incremented and decremented is essential. This can be demonstrated by inspecting the effect of switching around two statements in the Consumer class:
 \begin{lstlisting}
-Wait(ItemsReady)  //decrement semaphore
-Wait(BusyBuffer)  //mutex
+Wait(ItemsReady)  // decrement semaphore
+Wait(BusyBuffer)  // mutex
 ...
-Wait(BusyBuffer)  //mutex
-Wait(ItemsReady)  //decrement semaphore
+Wait(BusyBuffer)  // mutex
+Wait(ItemsReady)  // decrement semaphore
 \end{lstlisting}
 
-This switching would cause …
+Switching these statements may cause a deadlock as calling the \texttt{Wait} function on the \texttt{BusyBuffer} mutex would prevent any other threads/processes from calling the \texttt{Signal} function on the \texttt{ItemsReady} semaphore. This would result in a circular wait, as demonstrated in the dining philosophers problem below.
 
 
 \section{The dining philosophers problem}
@@ -3050,7 +3042,7 @@ This problem has the following requirements:
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Layout of table}
+    \caption{Layout of table.}
   \end{minipage}}
 \end{figure}
 
@@ -3078,7 +3070,7 @@ The problem now has the following updated requirements:
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Updated layout of table}
+    \caption{Updated layout of table.}
   \end{minipage}}
 \end{figure}
 
@@ -3111,7 +3103,7 @@ The identification of the chopsticks works as demonstrated by using Philosopher 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Philosopher 1}
+    \caption{Philosopher 1.}
   \end{minipage}}
 \end{figure}
 
@@ -3137,7 +3129,7 @@ Given that $i = 1$ for Philosopher 1 and that $N = 5$ as there are five philosop
 \end{equation*}
 This shows that the chopstick identification formulas work for Philosopher 1.
 
-\begin{lstlisting}[title={Producer class}]
+\begin{lstlisting}[title={Philosopher class.}]
 LOOP
 {
 	think();
@@ -3174,7 +3166,7 @@ This shows that, if the threads in the solution are interleaved, a race conditio
 
 As shown in the multiple producer-consumer problem, a mutex (or binary semaphore) can be introduced to prevent this deadlock.
 
-\begin{lstlisting}[title={Producer class}]
+\begin{lstlisting}[title={Philosopher class.}]
 LOOP
 {
 	think();
@@ -3196,7 +3188,7 @@ Although this solution is deadlock-free, it has a performance bug. The mutex mea
 
 This solution is deadlock-free and allows the maximum parallelism for an arbitrary number of philosophers.
 
-\begin{lstlisting}[title={Producer class}]
+\begin{lstlisting}[title={Philosopher class.}]
 #define N         5                // number of philosophers
 #define LEFT      (i + N - 1) % N  // ID of i's left neighbour
 #define RIGHT     (i + 1) % N      // ID of i's right neighbour
@@ -3292,7 +3284,7 @@ The \textbf{memory hierarchy} separates computer storage into a hierarchy based 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Memory hierarchy pyramid}
+    \caption{Memory hierarchy pyramid.}
   \end{minipage}}
 \end{figure}
 
@@ -3314,6 +3306,8 @@ The temporary storage areas can be described as volatile; the data does not pers
 
 The permanent storage areas can be described as non-volatile; the data persists after power-down.
 
+
+\newpage
 
 \section{Primary memory}
 
@@ -3348,7 +3342,7 @@ Registers are typically referred to by “name” (i.e. individual identifying c
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Registers}
+    \caption{Registers.}
   \end{minipage}}
 \end{figure}
 
@@ -3394,11 +3388,11 @@ In general, the more registers a CPU has available, the faster it can work.
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \centering
-    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/cache-memory.png}
+    \includegraphics[max size={\textwidth}{7cm}]{images/chapter-5/cache-memory.png}
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Cache memory}
+    \caption{Cache memory.}
   \end{minipage}}
 \end{figure}
 
@@ -3431,7 +3425,7 @@ Modern computers typically have a sub-hierarchy of cache memories (L1, L2, L3, L
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Main memory}
+    \caption{Main memory.}
   \end{minipage}}
 \end{figure}
 
@@ -3492,6 +3486,8 @@ A \textbf{magnetic tape} is a reel of tape which is coated with a magnetic mater
 
 The data is accessed using serial access; this is where a tape reader starts at the beginning of the tape and “fast forwards” to the portion of the tape containing the required data.
 
+\newpage
+
 \begin{longtabu} to \textwidth {| X[1,l] | X[6,l] |}
     \hline
     \textbf{Size} & xxx’GB and x’TB.
@@ -3504,8 +3500,6 @@ The data is accessed using serial access; this is where a tape reader starts at 
 	\\ \hline
 \end{longtabu}
 
-
-\newpage
 
 \subsection*{Evaluation}
 
@@ -3699,36 +3693,47 @@ A \textbf{peripheral} is a piece of hardware outside a computer system that is n
   	\includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/system-boot-process.png}
   \end{minipage}
   \begin{minipage}{0.6\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-  	\centering
   	The motherboard BIOS initialises registers and power management.
     
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The motherboard BIOS performs a self-diagnostic test, known as a Power-On Safe Test (POST).
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The motherboard BIOS boots the BIOS for all subsidiary boards and begins communications with basic peripherals.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The motherboard BIOS determines which non-volatile storage device contains the operating system (OS).
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The motherboard BIOS initiates the bootstrapping sequence where the secondary bootloader, such as GRUB, LILO or NTLDR etc., is copied to RAM.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The secondary bootloader waits for a few seconds to allow the user to make a choice on the operating system (OS) to be launched.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The secondary bootloader loads the chosen operating system (OS) to RAM and relinquishes control.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{System boot process}
+    \caption{System boot process.}
   \end{minipage}}
 \end{figure}
 
@@ -3751,7 +3756,7 @@ Processes share physical memory, as well as the CPU. Main memory (RAM) is one of
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Main memory and non-volatile memory}
+    \caption{Main memory and non-volatile memory.}
   \end{minipage}}
 \end{figure}
 
@@ -3791,7 +3796,7 @@ The memory model presented to the programmer was a set of addresses from zero (0
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Organising memory with an operating system and one user process}
+    \caption{Organising memory with an operating system and one user process.}
   \end{minipage}}
 \end{figure}
 
@@ -3834,14 +3839,16 @@ It is possible to reference memory by using the physical address locations.
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \centering
-    \includegraphics[max size={\textwidth}{\textheight}]{images/chapter-5/referencing-physical-memory.png}
+    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/referencing-physical-memory.png}
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Referencing physical memory}
+    \caption{Referencing physical memory.}
   \end{minipage}}
 \end{figure}
 
+
+\newpage
 
 \section*{Drawbacks}
 
@@ -3853,8 +3860,6 @@ However, this is not ideal as:
 
 For these reasons, users should not be able to reference physical memory directly.
 
-
-\newpage
 
 \section{Memory abstraction - logical address}
 
@@ -3881,7 +3886,7 @@ It is possible for the same logical address, as seen by two different processes,
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Logical address spaces}
+    \caption{Logical address spaces.}
   \end{minipage}}
 \end{figure}
 
@@ -3895,7 +3900,7 @@ When a process is loading, the \textbf{loader} is responsible for transferring t
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Loader}
+    \caption{Loader.}
   \end{minipage}}
 \end{figure}
 
@@ -3913,8 +3918,6 @@ The \textbf{Memory Management Unit (MMU)} is responsible for the logical-physica
 The ultimate aim for the MMU is to perform efficiently such that the CPU does not have to access memory past the cache level. This does not always happen but, in an ideal world, the CPU would only be accessing the faster memory, its registers and cache, as to prevent bottlenecks.
 
 
-\newpage
-
 \section*{Base and limit registers}
 
 The \textbf{base register} stores the start address of the partition.
@@ -3929,7 +3932,7 @@ The \textbf{limit register} stores the length of the partition.
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Base and limit registers between CPU and RAM}
+    \caption{Base and limit registers between CPU and RAM.}
   \end{minipage}}
 \end{figure}
 
@@ -3962,7 +3965,7 @@ For example, a machine instruction may have
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Base and limit registers between CPU and RAM}
+    \caption{Base and limit registers between CPU and RAM.}
   \end{minipage}}
 \end{figure}
 
@@ -3993,16 +3996,15 @@ Memory is divided in to several partitions of fixed sizes. The partitions may be
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \centering
-    \includegraphics[max size={\textwidth}{6cm}]{images/chapter-5/fixed-partitioned-memory.png}
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-5/fixed-partitioned-memory.png}
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Variable partitioned memory}
+    \caption{Variable partitioned memory.}
   \end{minipage}}
 \end{figure}
 
 As shown above, each process (\texttt{A}, \texttt{B} and \texttt{C}) has its own partition.
-
 
 \subsection*{Evaluation}
 
@@ -4023,7 +4025,6 @@ As shown above, each process (\texttt{A}, \texttt{B} and \texttt{C}) has its own
 \end{longtabu}
 
 
-
 \section*{Variable partitioned memory}
 
 \subsection*{How it works}
@@ -4034,11 +4035,11 @@ Each process is allocated an exact size of memory space. Processes are loaded in
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \centering
-    \includegraphics[max size={\textwidth}{6cm}]{images/chapter-5/variable-partitioned-memory.png}
+    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-5/variable-partitioned-memory.png}
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Variable partitioned memory}
+    \caption{Variable partitioned memory.}
   \end{minipage}}
 \end{figure}
 
@@ -4071,6 +4072,8 @@ This is a process whereby processes are physically moved to close the "holes" cr
 However, this process has a heavy overhead causing slowdowns and therefore, is not commonly performed.
 
 
+\newpage
+
 \subsection*{Dealing with processes of varying size}
 
 So far, it is been assumed that processes have a fixed size and that the operating system (OS) allocates that memory.
@@ -4081,11 +4084,11 @@ However, it is possible that some processes may try to grow their memory allocat
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \centering
-    \includegraphics[max size={\textwidth}{10cm}]{images/chapter-5/varying-process-sizes.png}
+    \includegraphics[max size={\textwidth}{7cm}]{images/chapter-5/varying-process-sizes.png}
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Varying process sizes}
+    \caption{Varying process sizes.}
   \end{minipage}}
 \end{figure}
 
@@ -4122,12 +4125,14 @@ Swapping shows a simple strategy of loading each process in to memory in its ent
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Swapping}
+    \caption{Swapping.}
   \end{minipage}}
 \end{figure}
 
 However, swapping adds a layer of complexity as the operating system must now manage free space.
 
+
+\newpage
 
 \section{Managing free space}
 
@@ -4148,7 +4153,7 @@ Memory is divided into allocation units as small as a few words and as large as 
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Using bitmaps to manage free space}
+    \caption{Using bitmaps to manage free space.}
   \end{minipage}}
 \end{figure}
 
@@ -4186,7 +4191,7 @@ A list of processes, denoted as \texttt{P}, and holes, denoted as \texttt {H}, a
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
-    \caption{Using free lists to manage free space}
+    \caption{Using free lists to manage free space.}
   \end{minipage}}
 \end{figure}
 
@@ -4457,6 +4462,8 @@ While swapping allows multiple processes to run whose total size is larger than 
 Virtual memory is implemented using paging and segmentation.
 
 
+\newpage
+
 \section{Paging}
 
 \section*{Definition}
@@ -4498,6 +4505,8 @@ Later, process \texttt{D} starts. This process has four pages and is therefore s
 
 This is a good solution to address external fragmentation.
 
+
+\newpage
 
 \section*{Page table}
 
@@ -4629,34 +4638,47 @@ This means that a specific part of an executing process is not in main memory at
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
     When a specific part of an executing process is not in main memory when required, a page fault occurs.
     
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The OS reads out hardware registers to determine which virtual address caused the fault.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The OS computes which page is needed and locates that page on disk.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The OS selects an existing available page frame.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The OS checks if that page frame is modified by inspecting the modified field.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	If the page frame has been modified, the OS writes the contents of the page frame back to the disk.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The OS fetches a new page from the disk and replaces the old page in the page frame. This is known as page replacement.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The OS updates the mappings and restarts the trapped instruction by:
 	\begin{itemize}
@@ -4969,6 +4991,8 @@ When a page fault occurs, the page with the lowest counter is chosen for replace
 	\\ \hline
 \end{longtabu}
 
+
+\newpage
 
 \section{Segmentation}
 
@@ -5895,14 +5919,17 @@ The terms "drives" and "disk" can be used interchangeably despite referring to d
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
     The MBR program locates the active partition.
     
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The MBR reads in the first block in the active partition, called the boot block.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The program in the boot block is executed and loads the OS contained in that partition.
   \end{minipage}}
@@ -6217,7 +6244,7 @@ The directory entry contains all the information needed to find the disk blocks 
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \centering
-    \includegraphics[max size={\textwidth}{5cm}]{images/chapter-8/file-descriptor-table-fixed-size-entries.png}
+    \includegraphics[max size={\textwidth}{4cm}]{images/chapter-8/file-descriptor-table-fixed-size-entries.png}
   \end{minipage}}
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
     \abovecaptionskip=0pt
@@ -6226,6 +6253,8 @@ The directory entry contains all the information needed to find the disk blocks 
 \end{figure}
 
 The figure above shows the state of the file descriptor table if contiguous allocation or linked list allocations were being used.
+
+\newpage
 
 \begin{figure}[H]
   \lineskip=-\fboxrule
@@ -6300,30 +6329,41 @@ These enable the file blocks to be located for a file, without restricting files
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
-    \includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/locating-a-file-using-i-nodes.png}
+    \begin{center}
+    	\includegraphics[max size={\textwidth}{8cm}]{images/chapter-8/locating-a-file-using-i-nodes.png}
+    \end{center}
     
     \hrule
     
     The file system locates the root directory by using the i-node located at a fixed place on the disk.
     
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The file system looks up the first component of the path, \texttt{usr}, in the root directory to find the i-node number of the \texttt{/usr} file.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	From this i-node, the file system locates the directory for \texttt{/usr} and looks up the next component of the path, \texttt{ast}, inside the i-node.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	When the entry for \texttt{ast} is found, it has the i-node number for the directory \texttt{/usr/ast} and can locate its respective i-node.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	From this i-node, the file system can locate the directory itself and lookup the \texttt{mbox} file.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The i-node for the \texttt{mbox} file is read in to main memory and is kept there until the file is closed. 
   \end{minipage}}
@@ -6695,6 +6735,8 @@ An \textbf{Input/Output (I/O) device} is a hardware device that has the ability 
 
 An I/O device can be responsible for input and output as shown in the cross section in the Venn diagram above.
 
+\newpage
+
 I/O devices typically consists of:
 \begin{itemize}
 	\item the \textbf{device proper} -- an electro-mechanical component generally located outside the computer, such as a peripheral; and
@@ -6726,8 +6768,6 @@ Each I/O controller has a few registers that are used for communicating with the
 
 
 \section*{Typical characteristics and specifications}
-
-\subsection*{Evaluation}
 
 \begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
     \hline
@@ -6927,6 +6967,8 @@ The I/O device may be:
 
 The figure above shows the complete I/O system.
 
+\newpage
+
 Each I/O device has a \textbf{device descriptor} containing information about the device. For example:
 \begin{itemize}
 	\item the device identification;
@@ -7004,10 +7046,11 @@ If no other interrupts are pending, the interrupt controller handles the interru
 \begin{figure}[H]
   \lineskip=-\fboxrule
   \fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-    \centering
     The CPU stops the current process.
     
-    $\downarrow$
+    \begin{center}
+    	$\downarrow$
+    \end{center}
     
     Information including:
     \begin{itemize}
@@ -7017,55 +7060,81 @@ If no other interrupts are pending, the interrupt controller handles the interru
     \end{itemize}
     is saved by pushing to the stack, in order to preserve the state of the current process.
     
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The I/O controller informs the CPU on which interrupt service procedure to use based on the device identification information obtained from the device descriptor.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
     
     The number on the address lines is used as an index in to a table called the interrupt vector to fetch a new program counter.
     
-    $\downarrow$
+    \begin{center}
+    	$\downarrow$
+    \end{center}
     
     This program counter points to the start of the corresponding interrupt service procedure.
     
-    $\downarrow$
+    \begin{center}
+    	$\downarrow$
+    \end{center}
 	
 	The CPU sets up context for the interrupt service procedure.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The CPU sets up stack for the interrupt service procedure.
     
-    $\downarrow$
+    \begin{center}
+    	$\downarrow$
+    \end{center}
     
     The CPU uses the program counter's value to begin the interrupt service procedure.
     
-    $\downarrow$
+    \begin{center}
+    	$\downarrow$
+    \end{center}
     
     Shortly after it starts running, the interrupt service procedure acknowledges the interrupt by writing a certain value to one of the interrupt controller’s I/O ports. This acknowledgement tells the controller that it is free to issue another interrupt.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The CPU copies the registers from where they were saved to the process table.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The interrupt service procedure extracts information from the device control registers.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The CPU chooses which process to run next.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The CPU sets up the Memory Management Unit (MMU) context for the next process to run.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The CPU loads the new process' registers.
 	
-	$\downarrow$
+	\begin{center}
+		$\downarrow$
+	\end{center}
 	
 	The CPU starts running the new process.
   \end{minipage}}
@@ -7247,6 +7316,8 @@ When using double buffering:
   \end{minipage}}
 \end{figure}
 
+\newpage
+
 \begin{longtabu} to \textwidth {| X[1,l] | X[1,l] |}
     \hline
     \textbf{Advantages} & \textbf{Disadvantages}
@@ -7350,6 +7421,8 @@ Java is a high-level programming language, developed by James Gosling in the ear
   \end{minipage}}
 \end{figure}
 
+
+\newpage
 
 \section*{Assembly language}
 
@@ -11027,32 +11100,43 @@ TELNET implements an NVT. This means that when keystrokes are sent by the user, 
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\centering
-			The user sends keystrokes to the terminal where the local operating system accepts the characters but does not interpret them.
-			
+		The user sends keystrokes to the terminal where the local operating system accepts the characters but does not interpret them.
+		
+		\begin{center}
 			$\downarrow$
-			
-			The characters are sent to the TELNET client.
-			
+		\end{center}
+		
+		The characters are sent to the TELNET client.
+		
+		\begin{center}
 			$\downarrow$
-			
-			The TELNET client transforms the characters to a universal character set called \textbf{NVT characters}.
-			
+		\end{center}
+		
+		The TELNET client transforms the characters to a universal character set called \textbf{NVT characters}.
+		
+		\begin{center}
 			$\downarrow$
-			
-			A TCP connection is established on port \texttt{23} between the TELNET client and TELNET server.
-			
+		\end{center}
+		
+		A TCP connection is established on port \texttt{23} between the TELNET client and TELNET server.
+		
+		\begin{center}
 			$\downarrow$
-			
-			The stream of characters is sent from the TELNET client to the TELNET server.
-			
+		\end{center}
+		
+		The stream of characters is sent from the TELNET client to the TELNET server.
+		
+		\begin{center}
 			$\downarrow$
-			
-			The remote host's OS receives the characters and sends them to the TELNET server.
-			
+		\end{center}
+		
+		The remote host's OS receives the characters and sends them to the TELNET server.
+		
+		\begin{center}
 			$\downarrow$
-			
-			NVT formats the characters to the correct characters that can be understood by the OS.
+		\end{center}
+		
+		NVT formats the characters to the correct characters that can be understood by the OS.
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -11155,16 +11239,19 @@ As shown in the figure above, an SMTP client connects to a SMTP server to send a
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\centering
-			The SMTP client establishes a TCP connection to the SMTP server on port \texttt{25}.
-			
+		The SMTP client establishes a TCP connection to the SMTP server on port \texttt{25}.
+		
+		\begin{center}
 			$\downarrow$
-			
-			The SMTP server receives the message and stores it in a local mailbox or relays the message to another mail server.
-			
+		\end{center}
+		
+		The SMTP server receives the message and stores it in a local mailbox or relays the message to another mail server.
+		
+		\begin{center}
 			$\downarrow$
-			
-			Users use email clients to retrieve messages stored on the server.
+		\end{center}
+		
+		Users use email clients to retrieve messages stored on the server.
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -11219,16 +11306,19 @@ As shown in the figure above, there is no centralised location where email messa
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\centering
-			The POP server listens on TCP port \texttt{110} for client requests.
-			
+		The POP server listens on TCP port \texttt{110} for client requests.
+		
+		\begin{center}
 			$\downarrow$
-			
-			Email clients direct their POP requests to mail servers on TCP port \texttt{110}.
-			
+		\end{center}
+		
+		Email clients direct their POP requests to mail servers on TCP port \texttt{110}.
+		
+		\begin{center}
 			$\downarrow$
-			
-			The POP client and server exchange commands and responses until the TCP connection is closed or aborted.
+		\end{center}
+		
+		The POP client and server exchange commands and responses until the TCP connection is closed or aborted.
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
