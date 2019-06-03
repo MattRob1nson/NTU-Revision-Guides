@@ -13603,12 +13603,125 @@ The \textbf{physical layer} is the first layer in the TCP/IP stack and uses prot
 	\item specifying the mechanical and electrical interfaces to the network; and
 	\item encoding the binary digits in the frames from the data link layer in to signals.
 \end{itemize}
-These signals are transmitted/received across a medium that may be:
+
+
+\newpage
+
+\section{The physical layer}
+
+\section*{Physical transmission media}
+
+\subsection*{Guided and unguided transmission media}
+
+The signals in the physical layer are transmitted/received across a transmission media.
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/physical-transmission-media.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Types of physical transmission media.}
+	\end{minipage}}
+\end{figure}
+
+The figure above shows that the transmission may be
 \begin{itemize}
-	\item guided, such as copper wire and fibre optics; or
+	\item guided, such as twisted-pair cables, coaxial cables and fibre-optic cables; or
 	\item unguided, such as radio wave through the air.
 \end{itemize}
 
+The figure also shows the difference in bandwidth and cost for guided transmission media.
+
 Signals that represent particular bit patterns are used to indicate the start and the end of a frame.
+
+
+\subsection*{Twisted-pair cable}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/twisted-pair-cables.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Twisted-pair cables.}
+	\end{minipage}}
+\end{figure}
+
+Twisted-pair cables run for several kilometres but for longer distances, the signal becomes weak.
+
+They support bandwidth for several speeds (Mbps):
+\begin{itemize}
+	\item for lower speeds, two out of the four pairs are used where each pair corresponds to each direction; and
+	\item for higher speeds, all four pairs are used in both directions (duplex) simultaneously.
+\end{itemize}
+
+Twisted-pair cables are:
+\begin{itemize}
+	\item low cost; and
+	\item widely used as all wired telephones use these cables.
+\end{itemize}
+
+
+\subsection*{Coaxial cable}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/coaxial-cables.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Coaxial cables.}
+	\end{minipage}}
+\end{figure}
+
+Coaxial cables use copper and can run for longer distances at higher speeds than twisted-pair cables.
+
+Coaxial cables are:
+\begin{itemize}
+	\item more costly than twisted-pair cables;
+	\item more protected than twisted-pair cables; and
+	\item widely used for cable television.
+\end{itemize}
+
+
+\subsection*{Fibre-optic cable}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/fibre-optic-cables.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Fibre-optic cables.}
+	\end{minipage}}
+\end{figure}
+
+Fibre-optic cables are similar to coaxial cables as they can run for long distances. However, use glass to propagate light allowing very high speeds.
+
+Fibre-optic cables are:
+\begin{itemize}
+	\item more costly than coaxial cables; and
+	\item widely used for transmission in network backbones or high-speed networks.
+\end{itemize}
+
+
+\section*{IEEE standards}
+
+The Institute or Electrical and Electronic Engineers (IEEE) started a protect to set a standard to enable intercommunication among equipment from a variety of manufacturers.
+
+This project was called "802" and includes:
+\begin{itemize}
+	\item "802.3" for Ethernet; and
+	\item "802.11" for Wi-Fi.
+\end{itemize}
 
 \end{document}
