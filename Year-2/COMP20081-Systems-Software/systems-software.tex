@@ -11858,7 +11858,7 @@ A later improvement on the Internet Congestion Algorithm introduced fast recover
 
 The \textbf{Internet Protocol} resides in the \textbf{Internet} layer of the TCP/IP stack.
 
-The \textbf{Internet layer} is the third layer in the TCP/IP stack and uses protocol to transmit packets from source hosts to destination hosts irrespectively of whether the hosts machines are on the same network.
+The \textbf{Internet layer} is the third layer in the TCP/IP stack and uses protocols to transmit packets from source hosts to destination hosts irrespectively of whether the hosts machines are on the same network.
 
 These services are UDP (connectionless best-effort). The TCP services in the transport layer (seen in \hyperref[chap:17]{Chapter 17: Transport Layer Protocols}) remain responsible for ensuring that TCP connections remain connection-oriented despite the data being transferred using UDP at the Internet layer.
 
@@ -13582,5 +13582,33 @@ Classless addressing benefits from the advantages of subnetting, including:
 	the total number of unallocated (available) addresses = 64 (spanning across the two unused subnets) \\
 	\hline
 \end{longtabu}
+
+
+\chapter{The Ethernet Protocol}
+
+\section{Introduction}
+
+The \textbf{Ethernet protocol} resides in the \textbf{data link layer} and \textbf{physical layer} of the TCP/IP stack.
+
+The \textbf{data link layer} is the second layer in the TCP/IP stack and uses protocols to achieve reliable and efficient communication between two adjacent machines. It offers functions such as:
+\begin{itemize}
+	\item framing;
+	\item error detection;
+	\item channel access control; and
+	\item addressing.
+\end{itemize}
+
+The \textbf{physical layer} is the first layer in the TCP/IP stack and uses protocols to transmit raw bits reliably between machines by:
+\begin{itemize}
+	\item specifying the mechanical and electrical interfaces to the network; and
+	\item encoding the binary digits in the frames from the data link layer in to signals.
+\end{itemize}
+These signals are transmitted/received across a medium that may be:
+\begin{itemize}
+	\item guided, such as copper wire and fibre optics; or
+	\item unguided, such as radio wave through the air.
+\end{itemize}
+
+Signals that represent particular bit patterns are used to indicate the start and the end of a frame.
 
 \end{document}
