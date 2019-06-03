@@ -13970,4 +13970,75 @@ In the MAC address \texttt{00:60:2F:00:2A:4F}:
 	\item the NIC specific identifier is \texttt{00:2A:4F}.
 \end{itemize}
 
+
+\newpage
+
+\section{Ethernet frame}
+
+\section*{Overview}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/ethernet-frame.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Ethernet frame.}
+	\end{minipage}}
+\end{figure}
+
+The figure above shows that:
+\begin{itemize}
+	\item the physical layer is \texttt{8 bytes}; and
+	\item data link layer has a minimum size of \texttt{64 bytes} and a maximum size of \texttt{1518 bytes}.
+\end{itemize}
+
+
+\section*{Ethernet frame at the physical layer}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/ethernet-frame-physical-layer.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Ethernet frame - physical layer.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above above, the Ethernet frame at the physical layer contains:
+\begin{itemize}
+	\item \textbf{preamble} -- contains \texttt{7 bytes} of alternating 0s and 1s to enable synchronization  ; and
+	\item \textbf{Start of Frame (SOF)} -- contains \texttt{1 byte} (10101011) which signals the beginning of the frame.
+\end{itemize}
+
+
+\section*{Ethernet frame at the data link layer}
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\centering
+			\includegraphics[max size={\textwidth}{15cm}]{images/chapter-20/ethernet-frame-data-link-layer.png}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Ethernet frame - data link layer.}
+	\end{minipage}}
+\end{figure}
+
+As shown in the figure above above, the Ethernet frame at the data link contains:
+\begin{itemize}
+	\item \textbf{destination address} -- indicates the physical address (MAC address) of the destination;
+	\item \textbf{source address} -- indicates the physical address (MAC address) of the sender;
+	\item \textbf{length} (or \textbf{type}) -- describes internet protocol used (or used to define the number of bytes in the data field);
+	\item \textbf{data} -- carries the data from upper layers in the TCP/IP stack;
+	\item \textbf{pad} -- padding used to fill our the frame to the minimum size of the \textbf{data} is less than \texttt{64 bytes}
+	\item \textbf{checksum} -- allows error-checking to be performed.
+\end{itemize}
+
 \end{document}
