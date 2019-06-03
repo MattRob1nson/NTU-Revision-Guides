@@ -704,7 +704,7 @@ Invoking a system call is similar to calling a general function. However, the di
 	    \hline
 	    \textbf{Call} & \textbf{Description}
 	    \\ \hline
-	    \multicolumn{2}{|c|}{\textbf{Process Mangament}}
+	    \multicolumn{2}{|c|}{\textbf{Process Management}}
 	    \\ \hline
 	    pid = fork()
 	    &
@@ -12783,45 +12783,35 @@ This is shown in the examples below.
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\begin{equation*}
-			\begin{aligned}
-				& \text{00000001 00001011 00001011 11101111} \\
-				& \text{starts with a 0} \\
-				& \therefore \text{00000001 00001011 00001011 11101111 has class A} \\
-				& \therefore \text{subnet mask} = \text{255.0.0.0} \\
-				& \text{subnet mask} = \text{11111111 00000000 00000000 00000000} \\
-			\end{aligned}
-			\end{equation*}
-			\begin{longtabu} to \textwidth {X[1,l] X[0.1,l] X[0.1,l] X[6,l]}
-				Network ID & = & & 00000001 00001011 00001011 11101111
-				\\
-				           &   & \& & 11111111 00000000 00000000 00000000
-				           \\
-				           & & & -------------------------------------------------------
-				           \\
-				           &   & = & 00000001 00000000 00000000 00000000
-			\end{longtabu}
-			\begin{equation*}
-				\begin{aligned}
-					& \text{network ID} = \text{00000001 00000000 00000000 00000000} \\
-					& \text{network ID} = \text{1} \\
-				\end{aligned}
-			\end{equation*}
-			\begin{longtabu} to \textwidth {X[0.8,l] X[0.1,l] X[0.1,l] X[6,l]}
-				Host ID & = & & 00000001 00001011 00001011 11101111
-				\\
-				&   & \& & 00000000 11111111 11111111 11111111
-				\\
-				& & & -------------------------------------------------------
-				\\
-				&   & = & 00000000 00001011 00001011 11101111
-			\end{longtabu}
-			\begin{equation*}
-				\begin{aligned}
-					& \text{host ID} = \text{00000000 00001011 00001011 11101111} \\
-					& \text{host ID} = \text{11.11.239} \\
-				\end{aligned}
-			\end{equation*}
+		00000001 00001011 00001011 11101111 \\
+		starts with a 0 \\
+		$\therefore$ 00000001 00001011 00001011 11101111 has class \texttt{A} \\
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnet mask = 255.0.0.0 \\
+			& subnet mask = 11111111 00000000 00000000 00000000 \\
+		\end{longtabu}
+		\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
+			Network ID & = & & 00000001 00001011 00001011 11101111
+			\\
+           &   & \& & 11111111 00000000 00000000 00000000
+           \\
+           & & & -------------------------------------------------------
+           \\
+           &   & = & 00000001 00000000 00000000 00000000
+		\end{longtabu}
+		network ID = 00000001 00000000 00000000 00000000 \\
+		network ID = 1
+		\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
+			Host ID & = & & 00000001 00001011 00001011 11101111
+			\\
+			&   & \& & 00000000 11111111 11111111 11111111
+			\\
+			& & & -------------------------------------------------------
+			\\
+			&   & = & 00000000 00001011 00001011 11101111
+		\end{longtabu}
+		host ID = 00000000 00001011 00001011 11101111 \\
+		host ID = 11.11.239 \\
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -12832,45 +12822,35 @@ This is shown in the examples below.
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\begin{equation*}
-			\begin{aligned}
-			& \text{10001001 10000010 00001011 11001111} \\
-			& \text{starts with 10} \\
-			& \therefore \text{10001001 10000010 00001011 11001111 has class B} \\
-			& \therefore \text{subnet mask} = \text{255.255.0.0} \\
-			& \text{subnet mask} = \text{11111111 11111111 00000000 00000000} \\
-			\end{aligned}
-			\end{equation*}
-			\begin{longtabu} to \textwidth {X[1,l] X[0.1,l] X[0.1,l] X[6,l]}
-				Network ID & = & & 10001001 10000010 00001011 11001111
-				\\
-				&   & \& & 11111111 11111111 00000000 00000000
-				\\
-				& & & -------------------------------------------------------
-				\\
-				&   & = & 10001001 10000010 00000000 00000000
-			\end{longtabu}
-			\begin{equation*}
-			\begin{aligned}
-			& \text{network ID} = \text{10001001 10000010 00000000 00000000} \\
-			& \text{network ID} = \text{137.130} \\
-			\end{aligned}
-			\end{equation*}
-			\begin{longtabu} to \textwidth {X[0.8,l] X[0.1,l] X[0.1,l] X[6,l]}
-				Host ID & = & & 10001001 10000010 00001011 11001111
-				\\
-				&   & \& & 00000000 00000000 11111111 11111111
-				\\
-				& & & -------------------------------------------------------
-				\\
-				&   & = & 00000000 00000000 00001011 11001111
-			\end{longtabu}
-			\begin{equation*}
-			\begin{aligned}
-			& \text{host ID} = \text{00000000 00001011 00001011 11101111} \\
-			& \text{host ID} = \text{11.11} \\
-			\end{aligned}
-			\end{equation*}
+		10001001 10000010 00001011 11001111 \\
+		starts with 10 \\
+		$\therefore$ 10001001 10000010 00001011 11001111 has class \texttt{B} \\
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnet mask = 255.255.0.0 \\
+			& subnet mask = 11111111 11111111 00000000 00000000 \\
+		\end{longtabu}
+		\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
+			Network ID & = & & 10001001 10000010 00001011 11001111
+			\\
+			&   & \& & 11111111 11111111 00000000 00000000
+			\\
+			& & & -------------------------------------------------------
+			\\
+			&   & = & 10001001 10000010 00000000 00000000
+		\end{longtabu}
+		network ID = 10001001 10000010 00000000 00000000 \\
+		network ID = 137.130
+		\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
+			Host ID & = & & 10001001 10000010 00001011 11001111
+			\\
+			&   & \& & 00000000 00000000 11111111 11111111
+			\\
+			& & & -------------------------------------------------------
+			\\
+			&   & = & 00000000 00000000 00001011 11001111
+		\end{longtabu}
+		host ID = 00000000 00001011 00001011 11101111 \\
+		host ID = 11.11 \\
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -12881,45 +12861,35 @@ This is shown in the examples below.
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\begin{equation*}
-			\begin{aligned}
-			& \text{11000001 10000011 00011011 11111111} \\
-			& \text{starts with 110} \\
-			& \therefore \text{11000001 10000011 00011011 11111111 has class C} \\
-			& \therefore \text{subnet mask} = \text{255.255.255.0} \\
-			& \text{subnet mask} = \text{11111111 11111111 11111111 00000000} \\
-			\end{aligned}
-			\end{equation*}
-			\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
-				Network ID & = & & 11000001 10000011 00011011 11111111
-				\\
-				&   & \& & 11111111 11111111 11111111 00000000
-				\\
-				& & & -------------------------------------------------------
-				\\
-				&   & = & 11000001 10000011 00011011 00000000
-			\end{longtabu}
-			\begin{equation*}
-			\begin{aligned}
-			& \text{network ID} = \text{11000001 10000011 00011011 00000000} \\
-			& \text{network ID} = \text{193.131.27} \\
-			\end{aligned}
-			\end{equation*}
-			\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
-				Host ID & = & & 11000001 10000011 00011011 11111111
-				\\
-				&   & \& & 00000000 00000000 00000000 11111111
-				\\
-				& & & -------------------------------------------------------
-				\\
-				&   & = & 00000000 00000000 00000000 11111111
-			\end{longtabu}
-			\begin{equation*}
-			\begin{aligned}
-			& \text{host ID} = \text{00000000 00000000 00000000 11111111} \\
-			& \text{host ID} = \text{255} \\
-			\end{aligned}
-			\end{equation*}
+		11000001 10000011 00011011 11111111 \\
+		starts with 110 \\
+		$\therefore$ 11000001 10000011 00011011 11111111 has class \texttt{C} \\
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnet mask = 255.255.255.0 \\
+			& subnet mask = 11111111 11111111 11111111 00000000 \\
+		\end{longtabu}
+		\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
+			Network ID & = & & 11000001 10000011 00011011 11111111
+			\\
+			&   & \& & 11111111 11111111 11111111 00000000
+			\\
+			& & & -------------------------------------------------------
+			\\
+			&   & = & 11000001 10000011 00011011 00000000
+		\end{longtabu}
+		network ID = 11000001 10000011 00011011 00000000 \\
+		network ID = 193.131.27
+		\begin{longtabu} to \textwidth {X[1.2,l] X[0.1,l] X[0.1,l] X[6,l]}
+			Host ID & = & & 11000001 10000011 00011011 11111111
+			\\
+			&   & \& & 00000000 00000000 00000000 11111111
+			\\
+			& & & -------------------------------------------------------
+			\\
+			&   & = & 00000000 00000000 00000000 11111111
+		\end{longtabu}
+		host ID = 00000000 00000000 00000000 11111111 \\
+		host ID = 255 \\
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -12989,17 +12959,21 @@ As shown in the figure above, for a class \texttt{B} IP address, the default sub
 	\item these five bits now become part of an extended network prefix and therefore can be used to represent the subnet mark within the internal network.
 \end{itemize}
 
+\newpage
+
 It is important to note that:
 \begin{itemize}
 	\item the number of subnets must always be a power of \texttt{2}; and
 	\item the number of hosts will always be a power of \texttt{2}.
 \end{itemize}
-
-The number of subnets available can be calculated by:
+As a result, the number of subnets available can be calculated by:
 \begin{equation*}
-\text{subnets available} = 
-\text{number of bits in extended network prefix} - \text{number of bits in network prefix in default subnet mask}
+\text{subnets available} = 2^{\text{X} - \text{Y}}
 \end{equation*}
+\begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
+	where & X & = & the number of bits in extended network prefix, \\
+	      & Y & = & the number of bits in network prefix in default subnet mask.
+\end{longtabu}
 
 This is implemented using CIDR, discussed in the next section.
 
@@ -13020,13 +12994,12 @@ When using the original default subnet masks in addressing with classes, it is e
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-			\begin{equation*}
-			\begin{aligned}
-			& \text{128.208.0.0/16} \\
-			& \therefore \texttt{16 bits are used for the network prefix} \\
-			& \therefore \texttt{subnet mask} = \text{255.255.0.0} \\
-			\end{aligned}
-			\end{equation*}
+		128.208.0.0/16 \\
+		$\therefore$ 16 bits are used for the network prefix \\
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnet mask = 11111111 11111111 00000000 00000000 \\
+			& subnet mask = 255.255.0.0 \\
+		\end{longtabu}
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -13037,13 +13010,12 @@ When using the original default subnet masks in addressing with classes, it is e
 \begin{figure}[H]
 	\lineskip=-\fboxrule
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-		\begin{equation*}
-			\begin{aligned}
-				& \text{198.208.80.0/24} \\
-				& \therefore \texttt{24 bits are used for the network prefix} \\
-				& \therefore \texttt{subnet mask} = \text{255.255.255.0} \\
-			\end{aligned}
-		\end{equation*}
+		198.208.80.0/24 \\
+		$\therefore$ 24 bits are used for the network prefix \\
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnet mask = 11111111 11111111 11111111 0000000 \\
+			& subnet mask = 255.255.255.0 \\
+		\end{longtabu}
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
@@ -13055,61 +13027,142 @@ However, when using the extended network prefix in classless addressing, groups 
 
 \begin{figure}[H]
 	\lineskip=-\fboxrule
-	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
-		\begin{equation*}
-		\begin{aligned}
-		& \text{given that the IP address 131.46.56.0 is class B} \\
-		& \therefore \texttt{subnet mask} = \text{255.255.0.0} \\
-		& \text{131.46.56.0} = \text{10000011 00101110 00111000 00000000}
-		\\
-		& \therefore \texttt{CIDR} = \text{131.45.56.0/16} \\
-		& \\
-		& \\
-		& \text{given now that the subnet mask is 255.255.128.0, determine the CIDR} \\
-		& \text{255.255.128.0} = \text{11111111 11111111 10000000 00000000} 
-		\end{aligned}
-		\end{equation*}
-		\begin{longtabu} to \textwidth {X[1,l] X[0.1,l] X[0.1,l] X[6,l]}
-			Network ID & = & & 10000011 00101110 00111000 00000000
-			\\
-			&   & \& & 11111111 11111111 10000000 00000000
-			\\
-			& & & -------------------------------------------------------
-			\\
-			&   & = & 10000011 00101110 00000000 00000000
+	\fbox{\begin{minipage}{\textwidth-2\fboxsep-2\fboxrule}
+		\textbf{given that the IP address 131.46.56.0 is class B} \\
+		$\therefore$ subnet mask = 255.255.0.0 \\
+		$\therefore$ 16 bits are used for the network prefix \\
+		$\therefore$ CIDR = 131.45.56.0/16 \\
+		\vspace{5mm}
+		\hrule
+		\vspace{1mm}
+		\textbf{given now that the subnet mask is 255.255.128.0, determine the CIDR} \\
+		255.255.128.0 = 11111111 11111111 10000000 00000000 \\
+		$\therefore$ 17 bits are used for the extended network prefix \\
+		$\therefore$ CIDR = 131.46.56.0/17 \\
+		\begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
+			\multicolumn{4}{l}{subnets available = $2^{X - Y}$} \\
+			where & X & = & the number of bits in extended network prefix, \\
+			& Y & = & the number of bits in network prefix in default subnet mask.
 		\end{longtabu}
-		\begin{equation*}
-		\begin{aligned}
-		& \text{network ID} = \text{10000011 00101110 00000000 00000000} \\
-		& \text{network ID} = \text{131.46} \\
-		\end{aligned}
-		\end{equation*}
-		\begin{longtabu} to \textwidth {X[0.8,l] X[0.1,l] X[0.1,l] X[6,l]}
-			Host ID & = & & 10000011 00101110 00111000 00000000
-			\\
-			&   & \& & 00000000 00000000 01111111 11111111
-			\\
-			& & & -------------------------------------------------------
-			\\
-			&   & = & 00000000 00000000 00111000 00000000
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnets available = $2^{17-16}$ \\
+			& subnets available = $2^{1}$ \\
+			& subnets available = 2 \\
 		\end{longtabu}
-		\begin{equation*}
-		\begin{aligned}
-		& \text{host ID} = \text{00000000 00000000 00111000 00000000} \\
-		& \text{host ID} = \text{56.0} \\
-		& \\
-		& \text{the subnet mask 11111111 11111111 10000000 00000000 shows that 17 bits are used} \\ & \text{for the extended network prefix} \\
-		& \therefore \text{CIDR} = \text{131.46.56.0/17} \\
-		& \therefore \text{subnets available} = 2^{17-16} \\
-		& \therefore \text{subnets available} = 2^{1} \\
-		& \therefore \text{subnets available} = 2 \\
-		\end{aligned}
-		\end{equation*}
+		\vspace{5mm}
+		\hrule
+		\vspace{1mm}
+		\textbf{given now that the subnet mask is 255.255.248.0, determine the CIDR} \\
+		255.255.248.0 = 11111111 11111111 11111000 00000000 \\
+		$\therefore$ 21 bits are used for the extended network prefix \\
+		$\therefore$ CIDR = 131.46.56.0/21 \\
+		\begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
+			\multicolumn{4}{l}{subnets available = $2^{X - Y}$} \\
+			where & X & = & the number of bits in extended network prefix, \\
+			& Y & = & the number of bits in network prefix in default subnet mask.
+		\end{longtabu}
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnets available = $2^{21-16}$ \\
+			& subnets available = $2^{5}$ \\
+			& subnets available = 32 \\
+		\end{longtabu}
+		\vspace{5mm}
+		\hrule
+		\vspace{1mm}
+		\textbf{given now that the subnet mask is 255.255.192.0, determine the CIDR} \\
+		255.255.192.0 = 11111111 11111111 11000000 00000000 \\
+		$\therefore$ 18 bits are used for the extended network prefix \\
+		$\therefore$ CIDR = 131.46.56.0/18 \\
+		\begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
+			\multicolumn{4}{l}{subnets available = $2^{X - Y}$} \\
+			where & X & = & the number of bits in extended network prefix, \\
+			& Y & = & the number of bits in network prefix in default subnet mask.
+		\end{longtabu}
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnets available = $2^{18-16}$ \\
+			& subnets available = $2^{2}$ \\
+			& subnets available = 4 \\
+		\end{longtabu}
 	\end{minipage}}
 	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
 			\abovecaptionskip=0pt
 			\caption{Example determination of subnet mask from a class \texttt{B} IP address using the extended network prefix.}
 	\end{minipage}}
 \end{figure}
+
+\newpage
+
+\begin{figure}[H]
+	\lineskip=-\fboxrule
+	\fbox{\begin{minipage}{\textwidth-2\fboxsep-2\fboxrule}
+		\textbf{given that the IP address 192.168.128.0 is class C} \\
+		$\therefore$ subnet mask = 255.255.255.0 \\
+		$\therefore$ 24 bits are used for the network prefix \\
+		$\therefore$ CIDR = 192.168.128.0/24 \\
+		\vspace{5mm}
+		\hrule
+		\vspace{1mm}
+		\textbf{given now that the subnet mask is 255.255.255.192, determine the CIDR} \\
+		255.255.255.192 = 11111111 11111111 11111111 11000000 \\
+		$\therefore$ 26 bits are used for the extended network prefix \\
+		$\therefore$ CIDR = 192.168.128.0/26 \\
+		\begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
+			\multicolumn{4}{l}{subnets available = $2^{X - Y}$} \\
+			where & X & = & the number of bits in extended network prefix, \\
+			& Y & = & the number of bits in network prefix in default subnet mask.
+		\end{longtabu}
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnets available = $2^{26-24}$ \\
+			& subnets available = $2^{2}$ \\
+			& subnets available = 4 \\
+		\end{longtabu}
+		\vspace{5mm}
+		\hrule
+		\vspace{1mm}
+		\textbf{given now that the subnet mask is 255.255.255.224, determine the CIDR} \\
+		255.255.255.224 = 11111111 11111111 11111111 11100000 \\
+		$\therefore$ 27 bits are used for the extended network prefix \\
+		$\therefore$ CIDR = 192.168.128.0/27 \\
+		\begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
+			\multicolumn{4}{l}{subnets available = $2^{X - Y}$} \\
+			where & X & = & the number of bits in extended network prefix, \\
+			& Y & = & the number of bits in network prefix in default subnet mask.
+		\end{longtabu}
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnets available = $2^{27-24}$ \\
+			& subnets available = $2^{3}$ \\
+			& subnets available = 8 \\
+		\end{longtabu}
+		\vspace{5mm}
+		\hrule
+		\vspace{1mm}
+		\textbf{given now that the subnet mask is 255.255.255.254, determine the CIDR} \\
+		255.255.255.254 = 11111111 11111111 11111111 11111110 \\
+		$\therefore$ 31 bits are used for the extended network prefix \\
+		$\therefore$ CIDR = 192.168.128.0/31 \\
+		\begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
+			\multicolumn{4}{l}{subnets available = $2^{X - Y}$} \\
+			where & X & = & the number of bits in extended network prefix, \\
+			& Y & = & the number of bits in network prefix in default subnet mask.
+		\end{longtabu}
+		\begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
+			$\therefore$ & subnets available = $2^{31-24}$ \\
+			& subnets available = $2^{7}$ \\
+			& subnets available = 128 \\
+		\end{longtabu}
+	\end{minipage}}
+	\fbox{\begin{minipage}{\dimexpr \textwidth-2\fboxsep-2\fboxrule}
+			\abovecaptionskip=0pt
+			\caption{Example determination of subnet mask from a class \texttt{C} IP address using the extended network prefix.}
+	\end{minipage}}
+\end{figure}
+
+\newpage
+
+The examples in the figures above show how classless addressing is more flexible than addressing with classes as:
+\begin{itemize}
+	\item when using the original default subnet masks in addressing with classes, only one subnet mask is available; and
+	\item when using subnetting in classless addressing, a high number of subnets (power of 2) is available based on the number of bits in extended network prefix and the number of bits in network prefix in default subnet mask.
+\end{itemize}
 
 \end{document}
