@@ -13066,7 +13066,7 @@ As a result, the number of subnets available can be calculated by:
 \end{longtabu}
 As such, the number of hosts available can be calculated by:
 \begin{equation*}
-\text{hosts available} = 2^{\text{subnets available} - (\text{X} - \text{Y}}
+\text{hosts available} = 2^{\text{subnets available} - (\text{X} - \text{Y})}
 \end{equation*}
 \begin{longtabu} to \textwidth {X[0.3,l] X[0.1,l] X[0.1,l] X[3,l]}
 	where & X & = & the number of bits in extended network prefix, \\
@@ -13316,7 +13316,7 @@ It has now been determined that $2^{2}$ gives a power of 2 and therefore two add
 CIDR = <IP address>/18
 \begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
 	$\therefore$ & subnets mask = 11111111 11111111 11000000 00000000 \\
-	& subnets available = 255.255.192.0 \\
+	& subnets mask = 255.255.192.0 \\
 \end{longtabu}
 
 The subnets can then be defined by exhausting all possible combinations of the additional bits in the extended network prefix in numerically ascending order until the required amount of subnets is reached (in this case, three subnets):
@@ -13589,7 +13589,7 @@ Classless addressing benefits from the advantages of subnetting, including:
 	\vspace{2.5mm}
 	three additional binary digits gives 8 subnets
 	\vspace{2.5mm}
-	hosts available = $2^{\text{subnets available} - (\text{X} - \text{Y}}$ \\
+	hosts available = $2^{\text{subnets available} - (\text{X} - \text{Y})}$ \\
 	where X = the number of bits in extended network prefix, \\
 	Y = the number of bits in network prefix in default subnet mask \\
 	\vspace{2.5mm}
