@@ -1407,7 +1407,7 @@ In this algorithm, the process with the shortest estimated run time is assigned 
     &
     \textbf{Prevents other processes from starting} while another is in progress and therefore, if processes are of varying sizes, there may be inefficiencies since a single process may take a long time to complete therefore leaving the user waiting before they can perform any other actions.
 	\\ \hline
-	\multicolumn{2}{|p{\textwidth}|}{\textbf{Favours long processes} as the processes with the shortest estimated time are given the opportunity to run until completion and therefore, some longer processes may not be able to start processing until there are no more shorter processes currently running or ready to be processed.}
+	\multicolumn{2}{|p{\textwidth}|}{\textbf{Favours short processes} as the processes with the shortest estimated time are given the opportunity to run until completion and therefore, some longer processes may not be able to start processing until there are no more shorter processes currently running or ready to be processed.}
 	\\ \hline
 \end{longtabu}
 
@@ -1462,7 +1462,7 @@ In this algorithm, the process with the shortest estimated remaining time is ass
     &
     \textbf{Can be inefficient} if a large process is in progress and shorter processes are being added to the queue because they will take precedence.
 	\\ \hline
-	\multicolumn{2}{|p{\textwidth}|}{\textbf{Favours long processes} as the processes with the shortest estimated time are given the opportunity to run until a process with a shorter estimated time is ready and therefore, some longer processes may not be able to start processing until there are no more shorter processes currently running or ready to be processed.}
+	\multicolumn{2}{|p{\textwidth}|}{\textbf{Favours short processes} as the processes with the shortest estimated time are given the opportunity to run until a process with a shorter estimated time is ready and therefore, some longer processes may not be able to start processing until there are no more shorter processes currently running or ready to be processed.}
 	\\ \hline
 \end{longtabu}
 
@@ -1519,7 +1519,6 @@ The priority of a process may be based on memory, time and/or any other resource
     &
     \textbf{Relies on an estimation} of how long a process will take which could be incorrect.
     \\ \hline
-  	
     &
     \textbf{Can be inefficient} if a large process is in progress and shorter processes are being added to the queue because they will take precedence.
 	\\ \hline
@@ -13622,12 +13621,12 @@ Classless addressing benefits from the advantages of subnetting, including:
 	\vspace{2.5mm}
 	the subnets can be defined by exhausting all possible combinations of the additional bits in the extended network prefix in numerically ascending order until the required amount of subnets is reached (in this case, six subnets):
 	\begin{itemize}
-		\item Subnet \#0 -- 10000000 11010000 \textbf{\underline{000}00000} 00000000 = 201.70.64.00/27;
-		\item Subnet \#1 -- 10000000 11010000 \textbf{\underline{001}00000} 00000000 = 201.70.64.32/27;
-		\item Subnet \#2 -- 10000000 11010000 \textbf{\underline{010}00000} 00000000 = 201.70.64.64/27;
-		\item Subnet \#3 -- 10000000 11010000 \textbf{\underline{011}00000} 00000000 = 201.70.64.96/27;
-		\item Subnet \#4 -- 10000000 11010000 \textbf{\underline{100}00000} 00000000 = 201.70.64.128/27; and
-		\item Subnet \#5 -- 10000000 11010000 \textbf{\underline{101}00000} 00000000 = 201.70.64.164/27.
+		\item Subnet \#0 -- 10000000 11010000 01000000 \textbf{\underline{000}00000} = 201.70.64.00/27;
+		\item Subnet \#1 -- 10000000 11010000 01000000 \textbf{\underline{001}00000} = 201.70.64.32/27;
+		\item Subnet \#2 -- 10000000 11010000 01000000 \textbf{\underline{010}00000} = 201.70.64.64/27;
+		\item Subnet \#3 -- 10000000 11010000 01000000 \textbf{\underline{011}00000} = 201.70.64.96/27;
+		\item Subnet \#4 -- 10000000 11010000 01000000 \textbf{\underline{100}00000} = 201.70.64.128/27; and
+		\item Subnet \#5 -- 10000000 11010000 01000000 \textbf{\underline{101}00000} = 201.70.64.164/27.
 	\end{itemize} \\
 	\hline
 \end{longtabu}
