@@ -13317,8 +13317,8 @@ In order to determine the length of the extended network prefix, it is necessary
 It has now been determined that $2^{2}$ gives a power of 2 and therefore two additional binary bits are required in the extended network prefix:
 CIDR = <IP address>/18
 \begin{longtabu} to \textwidth {X[0.1,l] X[6,l]}
-	$\therefore$ & subnets mask = 11111111 11111111 11000000 00000000 \\
-	& subnets mask = 255.255.192.0 \\
+	$\therefore$ & subnet mask = 11111111 11111111 11000000 00000000 \\
+	& subnet mask = 255.255.192.0 \\
 \end{longtabu}
 
 The subnets can then be defined by exhausting all possible combinations of the additional bits in the extended network prefix in numerically ascending order until the required amount of subnets is reached (in this case, three subnets):
