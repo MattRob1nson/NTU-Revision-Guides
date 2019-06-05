@@ -1513,16 +1513,9 @@ The priority of a process may be based on memory, time and/or any other resource
     \hline
     \textbf{Advantages} & \textbf{Disadvantages}
     \\ \hline
-    \textbf{High throughput} because the number of processes completed is high due to the shortest processes taking precedence.
+    \textbf{High priority processes are processed quickly} because they take precedence.
     &
-    \textbf{Does not consider the priority of a process} and therefore the important processes may not be completed quickly.
-    \\ \hline
-  	\textbf{Shorter processes are processed quickly} because they take precedence.
-    &
-    \textbf{Relies on an estimation} of how long a process will take which could be incorrect.
-    \\ \hline
-    &
-    \textbf{Can be inefficient} if a large process is in progress and shorter processes are being added to the queue because they will take precedence.
+    \textbf{Relies on an estimation} of the priority of a process which could be incorrect.
 	\\ \hline
 \end{longtabu}
 
