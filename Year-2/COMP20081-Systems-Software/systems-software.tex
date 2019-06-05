@@ -3090,7 +3090,7 @@ This problem can be solved using semaphores, using the following assumptions:
 As chopsticks are identified by using the unique ID of a philosopher, it could be that:
 \begin{itemize}
 	\item the chopstick to the left of a given philosopher is $chopstick[i]$; and
-	\item the chopstick to the right of a given philosopher is $chopstick[(i-1) + N) \% N].$
+	\item the chopstick to the right of a given philosopher is $chopstick[((i-1) + N) \% N].$
 \end{itemize}
 where $i$ is the ID of the philosopher and $N$ is the number of philosophers.
 
@@ -3121,8 +3121,8 @@ Given that $i = 1$ for Philosopher 1 and that $N = 5$ as there are five philosop
 	\begin{aligned}
 		\text{left} & = \text{chopstick[i]} \\
 		\text{left} & = \text{chopstick[1]} \\
-		\text{right} & = \text{chopstick[(i-1) + N) \% N]} \\
-		\text{right} & = \text{chopstick[(1-1) + 5) \% 5]} \\
+		\text{right} & = \text{chopstick[((i-1) + N) \% N]} \\
+		\text{right} & = \text{chopstick[((1-1) + 5) \% 5]} \\
 		\text{right} & = \text{chopstick[(0 + 5) \% 5]} \\
 		\text{right} & = \text{chopstick[5 \% 5]} \\
 		\text{right} & = \text{chopstick[0]} \\
