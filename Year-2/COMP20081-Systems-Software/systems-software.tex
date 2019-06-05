@@ -2252,7 +2252,7 @@ User threads are:
 	\item portable to any operating system (OS).
 \end{itemize}
 
-If one user thread is blocked, all other threads in the same process are also blocked. For example, in a word processor application, a thread that handles a printing event would block all other threads and therefore prevent the user from interacting with other aspects of the application.
+If one user thread is blocked, all other user threads in the same process are also blocked. For example, in a word processor application, a thread that handles a printing event would block all other threads and therefore prevent the user from interacting with other aspects of the application.
 
 Multi-threaded applications cannot take advantage of parallel execution on computer systems with a multi-core CPU or computer systems with multiple CPUs.
 
@@ -2277,7 +2277,7 @@ Kernel threads are directly managed and supported by the operating system’s (O
 
 The diagram shows that:
 \begin{itemize}
-	\item all of the threads for a given process is present within the user space; and
+	\item all of the threads for a given process are present within the user space; and
 	\item the thread table is present within the kernel space, rather than the process itself or the user space.
 \end{itemize}
 
@@ -2287,7 +2287,7 @@ Kernel threads are:
 	\item specific to the operating system (OS).
 \end{itemize}
 
-If one user thread is blocked, all other threads in the same process are scheduled and not blocked. For example, in a word processor application, a thread that handles a printing event would no longer block all other threads and therefore would allow the user to interacting with other aspects of the application whilst the printing event occurs.
+If one kernel thread is blocked, all other kernel threads are scheduled.
 
 Can take advantage of parallel execution on computer systems with a multi-core CPU or computer systems with multiple CPUs.
 
