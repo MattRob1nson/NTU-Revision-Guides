@@ -2994,12 +2994,12 @@ LOOP
 LOOP
 {
 	Wait(ItemsReady)    // decrement semaphore
-    Wait(BusyBuffer)    // mutex
+	Wait(BusyBuffer)    // mutex
 
-    Get item j;         // remove item from buffer
-    Signal(SpacesLeft)  // increment semaphore
-    Signal(BusyBuffer)  // release mutex
-    Consume item i;     // consume item
+	Get item j;         // remove item from buffer
+	Signal(SpacesLeft)  // increment semaphore
+	Signal(BusyBuffer)  // release mutex
+	Consume item i;     // consume item
 }
 \end{lstlisting}
 
