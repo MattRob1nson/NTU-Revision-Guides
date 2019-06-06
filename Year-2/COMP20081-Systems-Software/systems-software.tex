@@ -9178,7 +9178,7 @@ The \texttt{DatagramPacket} class provides the following methods:
 UDP packets do not have input/output stream support as seen with TCP packets. This means that data must be converted to and from byte arrays.
 
 \begin{lstlisting}[title={Client: sending a DatagramPacket.}]
-String message = "Some message;
+String message = "Some message";
 byte[] data = message.getBytes();
 DatagramPacket sendPacket = new DatagramPacket(data, data.length);
 /* send DatagramPacket via DatagramSocket */
