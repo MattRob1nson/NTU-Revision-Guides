@@ -9471,11 +9471,8 @@ Both methods allow threads to be created and have the same resulting behaviour.
 	& \textbf{Less overhead when setting up threads} as the class that extends \texttt{Thread} can be instantiated as an object that acts as a thread straight away.
 	& \textbf{May be less convenient} as Java (JDK $<$ v1.8) does not permit multiple inheritance and therefore the class extending \texttt{Thread} cannot extend any other class.
 	\\ \hline
-	\multirow{2}{*}{\shortstack[l]{Implementing \\ \texttt{Runnable}}}
-	& \textbf{More overhead when setting up threads} as the class that implements \texttt{Runnable} must be instantiated as an object and then passes as a parameter to the \texttt{Thread} constructor. &
-	\\
-	\cline{2-3}
-	& \textbf{May be more convenient} as it allows the restriction where Java (JDK $<$ v1.8) does not permit multiple inheritance to be mitigated as the class that implements \texttt{Runnable} can extend another class. &
+	\multirow{1}{*}{\shortstack[l]{Implementing \\ \texttt{Runnable}}}
+	& \textbf{May be more convenient} as it allows the restriction where Java (JDK $<$ v1.8) does not permit multiple inheritance to be mitigated as the class that implements \texttt{Runnable} can extend another class. & \textbf{More overhead when setting up threads} as the class that implements \texttt{Runnable} must be instantiated as an object and then passes as a parameter to the \texttt{Thread} constructor.
 	\\ \hline
 \end{longtabu}
 
